@@ -7,14 +7,15 @@
 
 En el apartado~\ref{sec:Introducción} se introducen las curvas elípticas. Se explican las operaciones de grupo adicción y duplicacíon para los puntos de una curva elíptica, junto con su estructura fundamental y otras propiedades.
 
-Las principales referencias usadas en este capítulo han sido \citet{Washington:2008} y \citet{Hankerson:2003}.
+Las principales referencias usadas en este capítulo han sido \cite{Washington:2008} y \cite{Hankerson:2003}.
 
 % TODO: seguir con la introducción de contenidos
 
 \section{Introducción a las curvas elípticas}
 \label{sec:Introducción}
 
-\begin{definicion}[Ver en {\cite{Hankerson:2003} y~\cite{Washington:2008}}]
+% TODO: preguntarle a Pascual por la forma de citar (poner en el encabezado las principales referencias y despues para cosas puntuales usar \cite), pero no en cada definición o resultado no trivial.
+\begin{definicion}
 \label{def:curva elíptica}
 	Una \emph{curva elíptica} $E$ se define por una una ecuación de la forma
 	\begin{equation}
@@ -62,10 +63,19 @@ Las principales referencias usadas en este capítulo han sido \citet{Washington:
 
 	% TODO:hacer la gráfica bien (añadir label, etc, etc)
 	\begin{figure}[h]
-		\centering
-		\includegraphics[scale=1]{gfx/example_1}
+		\myfloatalign
+		\subfloat[1]
+		{\includegraphics[width=.45\linewidth]{gfx/grafo curva eliptica reales 1.pdf}} \quad
+		\subfloat[2]
+		{\includegraphics[width=.45\linewidth]{gfx/grafo curva eliptica reales 2.pdf}}
 		\caption{Curvas elípticas sobre $\mathbb{R}$}\label{fig:curvas elípticas reales}
 	\end{figure}
+
+	% \begin{figure}[h]
+	% 	\centering
+	% 	\includegraphics[scale=1]{gfx/example_1}
+	% 	\caption{Curvas elípticas sobre $\mathbb{R}$}\label{fig:curvas elípticas reales}
+	% \end{figure}
 \end{ejemplo}
 
 \subsection{Ecuaciones de Weierstrass simplificadas}
@@ -83,7 +93,7 @@ Las principales referencias usadas en este capítulo han sido \citet{Washington:
 	\end{equation}
 	transforma la ecuación $E_1$ en la ecuación $E_2$. La transformación~\eqref{eq:cambio de variables admisible} se llama un cambio de variables admisible.
 
-	El cambio de variables~\eqref{eq:cambio de variables admisible} es el único que deja <<fijo>> el punto del infinito y preserva la forma de la ecuación de Weierstrass. No vamos a entrar en más detalle, pero puede consultar \citet[proposición III.3.1b]{Silverman:2009} para más informácion.
+	El cambio de variables~\eqref{eq:cambio de variables admisible} es el único que deja <<fijo>> el punto del infinito y preserva la forma de la ecuación de Weierstrass. No vamos a entrar en más detalle, pero puede consultar \cite[prop. III.3.1b]{Silverman:2009} para más informácion.
 \end{definicion}
 
 % TODO: explicar porqué este cambio de variable referenciando a silverman
@@ -146,7 +156,7 @@ puede simplificarse considerablemente aplicando cambios de variables admisibles.
 	donde $a, b \in K$. Tales curvas se llaman \emph{supersingulares} (véase~\ref{}) y tiene discriminante $\Delta = -a^3$.
 \end{enumerate}
 \begin{proof}
-La demostración completa puede encontrarse en~\cite[sección III.1]{Silverman:2009}. Se trata simplemente de completar cuadrados y realizar sustituciones, por ello aquí solo mostraremos la demostración de la primera simplifación.
+La demostración completa puede encontrarse en~\cite[sec. III.1]{Silverman:2009}. Se trata simplemente de completar cuadrados y realizar sustituciones, por ello aquí solo mostraremos la demostración de la primera simplifación.
 
 En primer lugar, sumando en la ecuación de Weierstrass~\eqref{eq:Weierstrass general} en ambos lados por $(a_1 a_3 x)/2 + a_3^2/4 + (a_1^2 x^2)/4$, completamos el cuadrado:
 $$
@@ -166,6 +176,19 @@ para algunas constante $a, b \in K$. Para obtener el discriminante $\Delta$ bast
 \subsection{Ley de grupo}
 \label{sub:Ley de grupo}
 
+Sea $E$ una curva elíptica definida sobre un cuerpo $K$. Hay un \emph{método de la cuerda y la tangente} para sumar dos puntos en $E(K)$ y obtener un tercer punto en $E(K)$. Junto con esta operación aditiva, el conjunto de puntos $E(K)$ forma un gurpo abeliano con $\infty$ como elemento neutro.
 
+La regla aditiva se explica fácilmente geométricamente. Sea $P$ y $Q$ dos puntos distintos de una curva elíptica $E$. Entonces la \emph{suma} $R$, de $P$ y $Q$ esta definido como sigue. Se dibuja una recta $L$ de $P$ a $Q$. Esta recta intersecta la curva elíptica en un tercer punto. Entonces $R$ es la reflexión de este punto sobre el eje-$x$. Esto se puede apreciar en la Figura~\ref{fig:Adicción y duplicación geométrica de puntos de una curva elíptica}.
 
-% Let E be an elliptic curve given by a Weierstrass equation. Thus E ⊂ P2 consists of the points P = (x, y) satisfying the Weierstrass equation, together with the point O = [0, 1, 0] at infinity. Let L ⊂ P2 be a line. Then, since the equation has degree three, the line L intersects E at exactly three points, say P, Q, R. Of course, if L is tangent to E, then P, Q, R need not be distinct. The fact that L ∩ E, taken with multiplicities, consists of exactly three points is a special case of Bézout’s theorem [111, I.7.8]. However, since we give explicit formulas later in this section, there is no need to use a general theorem.
+El \emph{doble} $R$, de $P$, se define como sigue. Se dibuja la línea tangente $L$ a la curva elíptica en $P$. Esta línea intersecta la curva elíptica en un segundo punto. Entonces $R$ es la reflexión de esto punto sobre el eje-$x$. Esto se puede apreciar en la Figura~\ref{fig:Adicción y duplicación geométrica de puntos de una curva elíptica}.
+
+\begin{figure}[h]
+  \myfloatalign
+  \subfloat[1]
+  {\includegraphics[width=.45\linewidth]{gfx/ejemplo adiccion.pdf}} \quad
+  \subfloat[2]
+  {\includegraphics[width=.45\linewidth]{gfx/ejemplo duplicacion.pdf}}
+  \caption{Adicción y duplicación geométrica de puntos de una curva elíptica}\label{fig:Adicción y duplicación geométrica de puntos de una curva elíptica}
+\end{figure}
+
+El hecho de que $L \cap E$, contando multiplicidades, consiste en exactamente tres puntos (no necesariamente distintos) es un caso especial del teorema de Bézout~\cite[sec. I.7.8]{Hartshorne:1977}. Sin embargo, como vamos a dar fórmulas explícitas posteriormente en esta sección, no hay necesidad de usar un teorema general.
