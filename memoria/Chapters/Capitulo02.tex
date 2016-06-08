@@ -7,7 +7,7 @@
 
 En el apartado~\ref{sec:Introducción} se introducen las curvas elípticas. Se explican las operaciones de grupo adicción y duplicacíon para los puntos de una curva elíptica, junto con su estructura fundamental y otras propiedades.
 
-Las principales referencias usadas en este capítulo han sido \cite{Washington:2008} y \cite{Hankerson:2003}.
+Las principales referencias usadas en este capítulo han sido~\cite{Washington:2008} y~\cite{Hankerson:2003}.
 
 % TODO: seguir con la introducción de contenidos
 
@@ -64,10 +64,10 @@ Las principales referencias usadas en este capítulo han sido \cite{Washington:2
 	% TODO:hacer la gráfica bien (añadir label, etc, etc)
 	\begin{figure}[h]
 		\myfloatalign
-		\subfloat[1]
-		{\includegraphics[width=.45\linewidth]{gfx/grafo curva eliptica reales 1.pdf}} \quad
-		\subfloat[2]
-		{\includegraphics[width=.45\linewidth]{gfx/grafo curva eliptica reales 2.pdf}}
+		\subfloat[$E_1: y^2 = x^3 - x$]
+		{\includegraphics[width=.45\linewidth]{gfx/grafo_curva_eliptica_reales_1.pdf}} \quad
+		\subfloat[$E_2: y^2 = x^3 + x$]
+		{\includegraphics[width=.45\linewidth]{gfx/grafo_curva_eliptica_reales_2.pdf}}
 		\caption{Curvas elípticas sobre $\mathbb{R}$}\label{fig:curvas elípticas reales}
 	\end{figure}
 
@@ -178,15 +178,15 @@ para algunas constante $a, b \in K$. Para obtener el discriminante $\Delta$ bast
 
 Sea $E$ una curva elíptica definida sobre un cuerpo $K$. Hay un \emph{método de la cuerda y la tangente} para sumar dos puntos en $E(K)$ y obtener un tercer punto en $E(K)$. Junto con esta operación aditiva, el conjunto de puntos $E(K)$ forma un gurpo abeliano con $\infty$ como elemento neutro.
 
-La regla aditiva se explica fácilmente geométricamente. Sea $P$ y $Q$ dos puntos distintos de una curva elíptica $E$. Entonces la \emph{suma} $R$, de $P$ y $Q$ esta definido como sigue. Se dibuja una recta $L$ de $P$ a $Q$. Esta recta intersecta la curva elíptica en un tercer punto. Entonces $R$ es la reflexión de este punto sobre el eje-$x$. Esto se puede apreciar en la Figura~\ref{fig:Adicción y duplicación geométrica de puntos de una curva elíptica}.
+La regla aditiva se explica fácilmente geométricamente. Sea $P$ y $Q$ dos puntos distintos de una curva elíptica $E$. Entonces la \emph{suma} $R$, de $P$ y $Q$ esta definido como sigue. Se dibuja una recta $L$ de $P$ a $Q$. Esta recta intersecta la curva elíptica en un tercer punto. Entonces $R$ es la reflexión de este punto sobre el eje-$x$. Esto se puede apreciar en la Figura~\ref{fig:ejemplo adicción}.
 
-El \emph{doble} $R$, de $P$, se define como sigue. Se dibuja la línea tangente $L$ a la curva elíptica en $P$. Esta línea intersecta la curva elíptica en un segundo punto. Entonces $R$ es la reflexión de esto punto sobre el eje-$x$. Esto se puede apreciar en la Figura~\ref{fig:Adicción y duplicación geométrica de puntos de una curva elíptica}.
+El \emph{doble} $R$, de $P$, se define como sigue. Se dibuja la línea tangente $L$ a la curva elíptica en $P$. Esta línea intersecta la curva elíptica en un segundo punto. Entonces $R$ es la reflexión de esto punto sobre el eje-$x$. Esto se puede apreciar en la Figura~\ref{fig:ejemplo duplicación}.
 
 \begin{figure}[h]
   \myfloatalign
-  \subfloat[][a]{\includegraphics[width=.45\linewidth]{gfx/"ejemplo adiccion".pdf}}
+  \subfloat[Adicción: $P + Q = R$]{\includegraphics[width=.45\linewidth]{gfx/ejemplo_adiccion.pdf}\label{fig:ejemplo adicción}}
   \quad
-  \subfloat[][b]{\includegraphics[width=.45\linewidth]{gfx/ejemplo duplicacion.pdf}}
+  \subfloat[Duplicación: $P + P = P$]{\includegraphics[width=.45\linewidth]{gfx/ejemplo_duplicacion.pdf}\label{fig:ejemplo duplicación}}
   \caption{Adicción y duplicación geométrica de puntos de una curva elíptica}\label{fig:Adicción y duplicación geométrica de puntos de una curva elíptica}
 \end{figure}
 
