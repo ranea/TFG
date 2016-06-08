@@ -1,0 +1,171 @@
+%**************************
+\chapter{Aritmética de las curvas elíptica}
+\label{ch:Aritmética de las curvas elíptica}
+%**************************
+
+% conceptos han aparecido: extensión de cuerpo, característica
+
+En el apartado~\ref{sec:Introducción} se introducen las curvas elípticas. Se explican las operaciones de grupo adicción y duplicacíon para los puntos de una curva elíptica, junto con su estructura fundamental y otras propiedades.
+
+Las principales referencias usadas en este capítulo han sido \citet{Washington:2008} y \citet{Hankerson:2003}.
+
+% TODO: seguir con la introducción de contenidos
+
+\section{Introducción a las curvas elípticas}
+\label{sec:Introducción}
+
+\begin{definicion}[Ver en {\cite{Hankerson:2003} y~\cite{Washington:2008}}]
+\label{def:curva elíptica}
+	Una \emph{curva elíptica} $E$ se define por una una ecuación de la forma
+	\begin{equation}
+	\label{eq:Weierstrass general}
+		E : y^2 + a_1 x y + a_3 y = x^3 + a_2 x^2 + a_4 x + a_6
+	\end{equation}
+
+	donde $a_1, a_2, a_3, a_4, a_6 \in K$ y $\Delta \neq 0$, donde $\Delta$ es el \emph{discriminante} de $E$ y se define como:
+
+	\begin{align}
+		\label{eq:discriminante}
+		\begin{rcases}
+		\Delta & = -d_2^2 d_8 - 8 d_4^3 - 27 d_6^2 + 9 d_2 d_4 d_6         \\
+		d_2    & = a_1^2 + 4 a_ 2                                          \\
+		d_4    & = 2 a_4 + 4 a_2                                           \\
+		d_6    & = a_3^2 + 4 a_6                                           \\
+		d_8    & = a_1^2 a_6 + 4 a_2 a_6 - a_1 a_3 a_4 + a_2 a_3^2 - a_4^2 \\
+		\end{rcases}
+	\end{align}
+
+	Si $L$ es una extensión del cuerpo $K$, entonces el conjunto de puntos \emph{L-racionales} de $E$ es:
+	$$
+	E(L) = \{\infty\} \cup \{(x, y) \in L \times L: y^2 + a_1 x y + a_3 y = x^3 + a_2 x^2 + a_4 x + a_6 = 0\}
+	$$
+\end{definicion}
+
+\begin{nota}[comentarios de la definición~\ref{def:curva elíptica}]\leavevmode
+	\begin{itemize}
+		\item La ecuación~\eqref{eq:Weierstrass general} se conoce como la \emph{ecuación de Weierstrass}.
+		\item Diremos que $E$ \emph{está definida sobre} $K$ y lo notaremos $E/K$. A $K$ lo llamaremos \emph{cuerpo base}.
+		\item La condición $\Delta \neq 0$ asegura que la curva elíptica es <<suave>>, esto es, no hay puntos en los que la curva tenga dos o mas rectas tangentes.
+		% TODO: rellenar referencia a la forma proyectiva
+		% TODO: cambiar si no se hace referencia al proyectivo (página 25 de washington)
+		\item El punto $\infty$ es el único punto en la línea del infinito que satisface la forma proyectiva de la ecuación de Weierstrass (véase~\ref{}).
+	\end{itemize}
+\end{nota}
+
+\begin{ejemplo}[curvas elípticas sobre $\mathbb{R}$]
+	Consideramos las curvas elípticas:
+	\begin{align*}
+		E_1: y^2 & = x^3 - x \\
+		E_2: y^2 & = x^3 + x
+	\end{align*}
+	definidas sobre el cuerpo $\mathbb{R}$ de los números reales. Los puntos $E_1(\mathbb{R})$ y $E_2(\mathbb{R})$ se han representado en la Figura~\ref{fig:curvas elípticas reales}.
+
+	% TODO:hacer la gráfica bien (añadir label, etc, etc)
+	\begin{figure}[h]
+		\centering
+		\includegraphics[scale=1]{gfx/example_1}
+		\caption{Curvas elípticas sobre $\mathbb{R}$}\label{fig:curvas elípticas reales}
+	\end{figure}
+\end{ejemplo}
+
+\subsection{Ecuaciones de Weierstrass simplificadas}
+\label{sub:Ecuaciones de Weierstrass simplificadas}
+
+\begin{definicion}
+	Dos curvas elípticas $E_1$ y $E_2$ definidas sobre $K$ y dadas por las ecuaciones de Weierstrass:
+	\begin{align*}
+		E_1 &: y^2 + a_1 x y + a_3 y = x^3 + a_2 x^2 + a_4 x + a_6 \\
+		E_2 &: y^2 + a_1' x y + a_3' y = x^3 + a_2' x^2 + a_4' x + a_6'
+	\end{align*}
+	se dicen que son \emph{isomorfas sobre K} si existen $u, r, s, t \in K,\ u \neq 0$, tal que el cambio de variables lineal
+	\begin{equation}\label{eq:cambio de variables admisible}
+	(x, y) \mapsto (u^2 x + r, u^3 y + u^2 s x + y)
+	\end{equation}
+	transforma la ecuación $E_1$ en la ecuación $E_2$. La transformación~\eqref{eq:cambio de variables admisible} se llama un cambio de variables admisible.
+
+	El cambio de variables~\eqref{eq:cambio de variables admisible} es el único que deja <<fijo>> el punto del infinito y preserva la forma de la ecuación de Weierstrass. No vamos a entrar en más detalle, pero puede consultar \citet[proposición III.3.1b]{Silverman:2009} para más informácion.
+\end{definicion}
+
+% TODO: explicar porqué este cambio de variable referenciando a silverman
+
+Una ecuación de Weierstrass
+$$
+E:  y^2 + a_1 x y + a_3 y = x^3 + a_2 x^2 + a_4 x + a_6
+$$
+puede simplificarse considerablemente aplicando cambios de variables admisibles. Usaremos las ecuaciones simplificadas en vez de la general en el resto del trabajo. Vamos a considerar por separado los casos en los que el cuerpo base tenga característica distinta de 2 y 3 o tenga característica 2 o 3.
+
+\begin{enumerate}
+	\item Si la característica de $K$ es distinta de $2$ y $3$, entonces el cambio de variables admisible
+	$$
+	(x, y) \mapsto \left(\frac{x - 3 a_1^2 - 12 a_2}{36}, \frac{y - 3 a_1 x}{216} - \frac{a_1^3 + 4 a_1 a_2 - 12 a_3}{240}\right)
+	$$
+	transforma $E$ en la curva
+	\begin{equation*}\label{eq:ecuación Weierstrass}
+		y^2 = x^3 + a x + b
+	\end{equation*}
+	donde $a, b \in K$. El discriminante de esta curva es $\Delta = -16(4a^3 + 27b^2)$.
+
+	\item Si la característica de K es 2, hay dos casos que considerar. Si $a_1 \neq 0$, entonces el cambio de variables admisible
+	$$
+	(x, y) \mapsto \left(a_1^2 x + \frac{a_3}{a_1}, a_1^3 y + \frac{a_1^2 a_4 + a_3^2}{a_1^3} \right)
+	$$
+	transforma $E$ en la curva
+	\begin{equation*}
+		y^2 + xy = x^3 + a x^2 + b
+	\end{equation*}
+	% TODO: rellenar referencia
+	donde $a, b \in K$. Tales curvas se llaman \emph{no supersingulares} (véase~\ref{}) y tiene discriminante $\Delta = b$. Si $a_1 = 0$, entonces el cambio de variables admisible
+	$$
+	(x, y) \mapsto (x + a_2, y)
+	$$
+	transforma $E$ en la curva
+	\begin{equation*}
+		y^2 + c y = x^3 + a x + b
+	\end{equation*}
+	% TODO: rellenar referencia
+	donde $a, b, c \in K$. Tales curvas se llaman \emph{supersingulares} (véase~\ref{}) y tiene discriminante $\Delta = c^4$.
+
+	\item Si la característica de $K$ es 4, entonces hay dos casos que considerar. Si $a_1^2 \neq -a_2$, entonces el cambio de variables admisible
+	$$
+	(x, y) \mapsto \left(x + \frac{d_4}{d_2}, y + a_1 x + a_1 \frac{d_4}{d_2} + a_3 \right)
+	$$
+	donde $d_2 = a_1^2 + a_2$ y $d_4 = a_4 - a_1 a_3$, transforma $E$ en la curva
+	\begin{equation*}
+		y^2 = x^3 + a x^2 + b
+	\end{equation*}
+	% TODO: rellenar referencia
+	donde $a, b \in K$. Tales curvas se llaman \emph{no supersingulares} (véase~\ref{}) y tiene discriminante $\Delta = -a^3 b$. Si $a_1^2 = -a_2$, entonces el cambio de variables admisible
+	$$
+	(x, y) \mapsto (x, y + a_1 x + a_3)
+	$$
+	transforma $E$ en la curva
+	\begin{equation*}
+		y^2 = x^3 + a x^2 + b
+	\end{equation*}
+	% TODO: rellenar referencia
+	donde $a, b \in K$. Tales curvas se llaman \emph{supersingulares} (véase~\ref{}) y tiene discriminante $\Delta = -a^3$.
+\end{enumerate}
+\begin{proof}
+La demostración completa puede encontrarse en~\cite[sección III.1]{Silverman:2009}. Se trata simplemente de completar cuadrados y realizar sustituciones, por ello aquí solo mostraremos la demostración de la primera simplifación.
+
+En primer lugar, sumando en la ecuación de Weierstrass~\eqref{eq:Weierstrass general} en ambos lados por $(a_1 a_3 x)/2 + a_3^2/4 + (a_1^2 x^2)/4$, completamos el cuadrado:
+$$
+\left(y + \frac{a_1 x}{2} + \frac{a_3}{2}\right)^2 = x^3 + \left(a_2 + \frac{a_1^2}{4}\right)x^2 + \left(a_4 + \frac{a_1 a_3}{2}\right)x + \left(a_6 + \frac{a_3^2}{4}\right)
+$$
+Haciendo $y_1 = y + \frac{a_1 x}{2} + \frac{a_3}{2}$, obtenemos
+$$
+y_1^2 = x^3 + a_2' x^2 + a_4' x + a_6'
+$$
+para algunas constantes $a_2', a_4', a_6' \in K$. Finalmente, sustituyendo $x_1 = x + \frac{a_2'}{3}$ resulta
+$$
+y_1^2 = x_1^3 + a x_1 + b
+$$
+para algunas constante $a, b \in K$. Para obtener el discriminante $\Delta$ basta sustiuir el valor de las constantes $a_4 = a,\ a_6 = b$ y $a_1 = a_3 = a_2 = 0$ en~\eqref{eq:discriminante}.
+\end{proof}
+
+\subsection{Ley de grupo}
+\label{sub:Ley de grupo}
+
+
+
+% Let E be an elliptic curve given by a Weierstrass equation. Thus E ⊂ P2 consists of the points P = (x, y) satisfying the Weierstrass equation, together with the point O = [0, 1, 0] at infinity. Let L ⊂ P2 be a line. Then, since the equation has degree three, the line L intersects E at exactly three points, say P, Q, R. Of course, if L is tangent to E, then P, Q, R need not be distinct. The fact that L ∩ E, taken with multiplicities, consists of exactly three points is a special case of Bézout’s theorem [111, I.7.8]. However, since we give explicit formulas later in this section, there is no need to use a general theorem.
