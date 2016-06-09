@@ -93,7 +93,7 @@ Las principales referencias usadas en este capítulo han sido~\cite{Washington:2
 	\end{equation}
 	transforma la ecuación $E_1$ en la ecuación $E_2$. La transformación~\eqref{eq:cambio de variables admisible} se llama un cambio de variables admisible.
 
-	El cambio de variables~\eqref{eq:cambio de variables admisible} es el único que deja <<fijo>> el punto del infinito y preserva la forma de la ecuación de Weierstrass. No vamos a entrar en más detalle, pero puede consultar \cite[prop. III.3.1b]{Silverman:2009} para más informácion.
+	El cambio de variables~\eqref{eq:cambio de variables admisible} es el único que deja <<fijo>> el punto del infinito y preserva la forma de la ecuación de Weierstrass. No vamos a entrar en más detalle, pero puede consultar~\cite[prop. III.3.1b]{Silverman:2009} para más informácion.
 \end{definicion}
 
 % TODO: explicar porqué este cambio de variable referenciando a silverman
@@ -191,3 +191,74 @@ El \emph{doble} $R$, de $P$, se define como sigue. Se dibuja la línea tangente 
 \end{figure}
 
 El hecho de que $L \cap E$, contando multiplicidades, consiste en exactamente tres puntos (no necesariamente distintos) es un caso especial del teorema de Bézout~\cite[sec. I.7.8]{Hartshorne:1977}. Sin embargo, como vamos a dar fórmulas explícitas posteriormente en esta sección, no hay necesidad de usar un teorema general.
+
+\begin{definicion}[ley de grupo]
+Sea $E$ una curva elíptica definida por la ecuación $y^2 = x^3 + a x + b$ sobre un cuerpo $K$ de característica distinta de 2 y 3. Definimos la operación binaria $+: E(K) \times E(K) \to E(K)$ como sigue:
+\begin{enumerate}[label=\alph*)]
+	\item $P + \infty = \infty + P = P,$ para todo $P \in E(K)$
+	\item Si $P = (x, y) \in E(K)$, entonces $(x, y) + (x, -y) = \infty$. El punto $(x, -y)$ se denotará por $-P$ y se llamará el \emph{negativo} de P. Además, $- \infty = \infty$.
+	\item Sea $P = (x_1, y_1) \in E(K)$ y $Q = (x_2, y_2) \in E(K)$, donde $P \neq \pm Q$. Entonces $P + Q = (x_3, y_3)$, donde
+	$$
+	x_3 = \left(\frac{y_2 - y_1}{x_2 - x_1}\right)^2 - x_1 - x_2, \quad
+	y_3 = \left(\frac{y_2 - y_1}{x_2 - x_1}\right) (x_1 - x_3) - y_1
+	$$
+	\item Sea $P = (x_1, y_1) \in E(K)$, donde $P \neq \pm P$. Entonces $2 P = (x_3, y_3)$ donde:
+	$$
+	x_3 = \left(\frac{3 x_1^2 + a}{2 y_1}\right)^2 - 2 x_1, \quad
+	y_3 = \left(\frac{3 x_1^2 + a}{2 y_1}\right) (x_1 - x_3) - y_1
+	$$
+\end{enumerate}
+\end{definicion}
+\begin{proof}
+Tenemos que comprobar que $+$ es una operación binaria válida, esto es, que a cada par de elementos de $E(K) \times E(K)$ le corresponde un único elemento de $E(K)$. Como la casuística anterior es total y exclusiva, basta ver que $+$ es una operación cerrada. Los casos $a)$ y $b)$ son triviales. Veamos los otros dos casos con detalle.
+
+\paragraph{Caso $c)$}
+Supongamos $P = (x_1, y_1),\ Q = (x_2, y_2),\ P, Q \in E(K)$ con $P \neq \pm Q$. Consideramos la recta siguiente
+$$
+	L: y = m(x - x_1) + y_1,\ \text{donde}\ m = \frac{y_2 - y_1}{x_2 - x_1}
+$$
+Nótese que $x_2 \neq x_1$ ya que $P \neq \pm Q$. Para hallar la intersección de L con E sustituimos $y$:
+$$
+	(m(x - x_1) + y_1)^2 = x^3 + a x + b
+$$
+Podemos reescribir esto de la forma
+\begin{equation}
+\label{eq:cúbica}
+	0 = x^3 - m^2 x^2 + b' x + c'
+\end{equation}
+para algunas constantes $b', c' \in K$. Así, las raíces de esta cúbica es justamente $L \cup E$.
+
+Sabemos que las raíces de un polinomio están relacionadas con sus coeficientes. De hecho, para un polinomio cúbico mónico $x^3 + c_2 x^2 + c_1 x + c_0$ con raíces $r, s, t$ se tiene:
+% -r s t  +  r s x  +  r t x  -  r x^2  +  s t x  -  s x^2  -  t x^2+x^3
+\begin{align*}
+	x^3 + &c_2 x^2 + c_1 x + c_0 = (x-r)(x-s)(x-t) \\
+	&= x^3 - (r + s + t)x^2 + (r s + r t + s t)x - r s t, \\
+\end{align*}
+
+En particular, $r + s + t = -c_2$. Como $P$ y $Q$ están en la intersección, $x_1$ y $x_2$ son dos raíces de~\eqref{eq:cúbica}, luego la tercera raíz $\alpha$ es $m^2 - x_1 - x_2$. Sustituyendo $\alpha$ en $L$ resulta $\beta = m(x_3 - x_1) + y_1$, luego $(\alpha, \beta) \in E(K)$. Entonces  $(\alpha, -\beta) = (x_3, y_3) \in E(K)$.
+
+\paragraph{Caso $d)$}
+Sea $P = (x_1, y_1)$, donde $P \neq -P$. Consideramos la recta siguiente
+$$
+	L: y = m(x - x_1) + y_1,\ \text{donde}\ m = \frac{3 x_1^2 + a}{2 y_1}
+$$
+Nótese que $y_1 \neq 0$ ya que si no estaríamos en el caso $b)$. Hallamos la intersección con E de forma análoga al caso $c)$ y obtenemos la cúbica:
+$$
+	0 = x^3 - m^2 x^2 + b' x + c'
+$$
+para algunas constantes $b', c' \in K$. Análogamente al caso $c)$, como $x_1$ es una raíz doble de la cúbica (derívese y evalúe en $x_1$) tenemos que la tercera raíz $\alpha$ es $m^2 - 2 x_1$. Sustituyendo $\alpha$ en $L$ resulta $\beta = m(x_3 - x_1) + y_1$, luego $(\alpha, \beta) \in E(K)$. Entonces  $(\alpha, -\beta) = (x_3, y_3) \in E(K)$.
+\end{proof}
+
+\begin{teorema}
+	La suma de puntos en una curva elíptica $E$ sobre un cuerpo $K$ de característica distinta de 2 y 3 satisface la siguientes propiedades:
+	\begin{itemize}
+		\item \emph{Conmutatividad.} $P_1 + P_2 = P_2 + P_1,\ \forall P_1, P_2 \in E(K)$.
+		\item \emph{Existencia de elemento neutro.} $P + \infty = P,\ \forall P \in E(K)$.
+		\item \emph{Existencia de elemento opuesto.} $P + -P = \infty,\ \forall P \in E(K)$.
+		\item \emph{Asociatividad.} $(P_1 + P_2) + P_3 = P_1 + (P_2 + P_3),\ \forall P_1, P_2, P_3 \in E(K)$.
+	\end{itemize}
+	En otras palabras, $(E(K), +, \infty)$ es un grupo abeliano.
+\end{teorema}
+\begin{proof}
+	...
+\end{proof}
