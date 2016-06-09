@@ -3,13 +3,14 @@
 \label{ch:Aritmética de las curvas elíptica}
 %**************************
 
-% conceptos han aparecido: extensión de cuerpo, característica
+% conceptos han aparecido: extensión de cuerpo, característica, grupo
 
 En el apartado~\ref{sec:Introducción} se introducen las curvas elípticas. Se explican las operaciones de grupo adicción y duplicacíon para los puntos de una curva elíptica, junto con su estructura fundamental y otras propiedades.
 
 Las principales referencias usadas en este capítulo han sido~\cite{Washington:2008} y~\cite{Hankerson:2003}.
 
 % TODO: seguir con la introducción de contenidos
+% TODO: tengo que saber los teoremas que he referenciado como el teorema de Bezout o el teorema de Rienman-Roch.
 
 \section{Introducción a las curvas elípticas}
 \label{sec:Introducción}
@@ -193,6 +194,7 @@ El \emph{doble} $R$, de $P$, se define como sigue. Se dibuja la línea tangente 
 El hecho de que $L \cap E$, contando multiplicidades, consiste en exactamente tres puntos (no necesariamente distintos) es un caso especial del teorema de Bézout~\cite[sec. I.7.8]{Hartshorne:1977}. Sin embargo, como vamos a dar fórmulas explícitas posteriormente en esta sección, no hay necesidad de usar un teorema general.
 
 \begin{definicion}[ley de grupo]
+\label{def:ley de grupo}
 Sea $E$ una curva elíptica definida por la ecuación $y^2 = x^3 + a x + b$ sobre un cuerpo $K$ de característica distinta de 2 y 3. Definimos la operación binaria $+: E(K) \times E(K) \to E(K)$ como sigue:
 \begin{enumerate}[label=\alph*)]
 	\item $P + \infty = \infty + P = P,$ para todo $P \in E(K)$
@@ -213,7 +215,7 @@ Sea $E$ una curva elíptica definida por la ecuación $y^2 = x^3 + a x + b$ sobr
 Tenemos que comprobar que $+$ es una operación binaria válida, esto es, que a cada par de elementos de $E(K) \times E(K)$ le corresponde un único elemento de $E(K)$. Como la casuística anterior es total y exclusiva, basta ver que $+$ es una operación cerrada. Los casos $a)$ y $b)$ son triviales. Veamos los otros dos casos con detalle.
 
 \paragraph{Caso $c)$}
-Supongamos $P = (x_1, y_1),\ Q = (x_2, y_2),\ P, Q \in E(K)$ con $P \neq \pm Q$. Consideramos la recta siguiente
+Supongamos $P = (x_1, y_1),\ Q = (x_2, y_2),\ P, Q \in E(K)$ con $P \neq \pm Q$. Consideramos la recta que los contiene:
 $$
 	L: y = m(x - x_1) + y_1,\ \text{donde}\ m = \frac{y_2 - y_1}{x_2 - x_1}
 $$
@@ -232,13 +234,13 @@ Sabemos que las raíces de un polinomio están relacionadas con sus coeficientes
 % -r s t  +  r s x  +  r t x  -  r x^2  +  s t x  -  s x^2  -  t x^2+x^3
 \begin{align*}
 	x^3 + &c_2 x^2 + c_1 x + c_0 = (x-r)(x-s)(x-t) \\
-	&= x^3 - (r + s + t)x^2 + (r s + r t + s t)x - r s t, \\
+	&= x^3 - (r + s + t)x^2 + (r s + r t + s t)x - r s t
 \end{align*}
 
 En particular, $r + s + t = -c_2$. Como $P$ y $Q$ están en la intersección, $x_1$ y $x_2$ son dos raíces de~\eqref{eq:cúbica}, luego la tercera raíz $\alpha$ es $m^2 - x_1 - x_2$. Sustituyendo $\alpha$ en $L$ resulta $\beta = m(x_3 - x_1) + y_1$, luego $(\alpha, \beta) \in E(K)$. Entonces  $(\alpha, -\beta) = (x_3, y_3) \in E(K)$.
 
 \paragraph{Caso $d)$}
-Sea $P = (x_1, y_1)$, donde $P \neq -P$. Consideramos la recta siguiente
+Sea $P = (x_1, y_1)$, donde $P \neq -P$. Consideramos la recta tangente a $E$ en $P$
 $$
 	L: y = m(x - x_1) + y_1,\ \text{donde}\ m = \frac{3 x_1^2 + a}{2 y_1}
 $$
@@ -250,15 +252,17 @@ para algunas constantes $b', c' \in K$. Análogamente al caso $c)$, como $x_1$ e
 \end{proof}
 
 \begin{teorema}
-	La suma de puntos en una curva elíptica $E$ sobre un cuerpo $K$ de característica distinta de 2 y 3 satisface la siguientes propiedades:
+	La suma~\ref{def:ley de grupo} de puntos en una curva elíptica $E$ sobre un cuerpo $K$ de característica distinta de 2 y 3 satisface la siguientes propiedades:
 	\begin{itemize}
 		\item \emph{Conmutatividad.} $P_1 + P_2 = P_2 + P_1,\ \forall P_1, P_2 \in E(K)$.
 		\item \emph{Existencia de elemento neutro.} $P + \infty = P,\ \forall P \in E(K)$.
-		\item \emph{Existencia de elemento opuesto.} $P + -P = \infty,\ \forall P \in E(K)$.
+		\item \emph{Existencia de elemento opuesto.} $P + (-P) = \infty,\ \forall P \in E(K)$.
 		\item \emph{Asociatividad.} $(P_1 + P_2) + P_3 = P_1 + (P_2 + P_3),\ \forall P_1, P_2, P_3 \in E(K)$.
 	\end{itemize}
 	En otras palabras, $(E(K), +, \infty)$ es un grupo abeliano.
 \end{teorema}
 \begin{proof}
-	...
+La conmutatividad es trivial en los casos $a)$, $b)$ y $d)$. Para el caso $c)$ también es fácil ya que la recta que une $P_1$ y $P_2$ es la misma que la recta que une $P_2$ y $P_1$. La existencia de elemento neutro e inverso también es directo de la definición~\ref{def:ley de grupo}.
+
+La asociatividad puede probarse utilizando las fórmulas caso por caso, pero supone un esfuerzo demasiado laborioso. En su lugar, puede abordarse de forma más sofisticada bien estudiando las líneas y sus intersecciones con la curva elíptica en el plano proyectivo~\cite[sec. 2.4]{Washington:2008} o bien usando teoremas más generales como el de Riemann-Roch~\cite[teo. III.3.4.e]{Silverman:2009}.
 \end{proof}
