@@ -1,6 +1,6 @@
 %**************************
-\chapter{Aritmética de las curvas elíptica}
-\label{ch:Aritmética de las curvas elíptica}
+\chapter{Aritmética de las curvas elípticas}
+\label{ch:Aritmética de las curvas elípticas}
 %**************************
 
 % conceptos han aparecido: extensión de cuerpo, característica, grupo
@@ -10,7 +10,8 @@ En el apartado~\ref{sec:Introducción} se introducen las curvas elípticas. Se e
 Las principales referencias usadas en este capítulo han sido~\cite{Washington:2008} y~\cite{Hankerson:2003}.
 
 % TODO: seguir con la introducción de contenidos
-% TODO: tengo que saber los teoremas que he referenciado como el teorema de Bezout o el teorema de Rienman-Roch.
+% TODO: tengo que saber los teoremas que he referenciado como el teorema de Bezout o el teorema de Rienman-Roch?
+% TODO: ver si el uso de section / subsection y subsubecction es correcto
 
 \section{Introducción a las curvas elípticas}
 \label{sec:Introducción}
@@ -52,7 +53,6 @@ Las principales referencias usadas en este capítulo han sido~\cite{Washington:2
 		% TODO: cambiar si no se hace referencia al proyectivo (página 25 de washington)
 		\item El punto $\infty$ lo llararemos \emph{punto del infinito}. Es el único punto en la linea del infinito que satisface la forma proyectiva de la ecuación de Weierstrass (véase~\ref{}).
 		%\item A $\infty$ lo llamaremos \emph{punto del infinito}. En el apartado~\ref{} le daremos rigor y significado matemático a este nombre.
-		%\item El punto $\infty$ es el único punto en la línea del infinito que satisface la forma proyectiva de la ecuación de Weierstrass (véase~\ref{}).
 	\end{itemize}
 \end{nota}
 
@@ -92,7 +92,7 @@ Las principales referencias usadas en este capítulo han sido~\cite{Washington:2
 	\end{align*}
 	se dicen que son \emph{isomorfas sobre K} si existen $u, r, s, t \in K,\ u \neq 0$, tal que el cambio de variables lineal
 	\begin{equation}\label{eq:cambio de variables admisible}
-	(x, y) \mapsto (u^2 x + r, u^3 y + u^2 s x + y)
+	(x, y) \mapsto (u^2 x + r, u^3 y + u^2 s x + t)
 	\end{equation}
 	transforma la ecuación $E_1$ en la ecuación $E_2$. La transformación~\eqref{eq:cambio de variables admisible} se llama un cambio de variables admisible.
 
@@ -105,7 +105,7 @@ Una ecuación de Weierstrass
 $$
 E:  y^2 + a_1 x y + a_3 y = x^3 + a_2 x^2 + a_4 x + a_6
 $$
-puede simplificarse considerablemente aplicando cambios de variables admisibles. Usaremos las ecuaciones simplificadas en vez de la general en el resto del trabajo. Vamos a considerar por separado los casos en los que el cuerpo base tenga característica distinta de 2 y 3 o tenga característica 2 o 3.
+puede simplificarse considerablemente aplicando cambios de variables admisibles. Usaremos las ecuaciones simplificadas en vez de la general en el resto del trabajo. Vamos a considerar por separado los casos en los que el cuerpo base tenga característica distinta de 2 y 3 o tenga característica 2.
 
 \begin{enumerate}
 	\item Si la característica de $K$ es distinta de $2$ y $3$, entonces el cambio de variables admisible
@@ -138,25 +138,25 @@ puede simplificarse considerablemente aplicando cambios de variables admisibles.
 	% TODO: rellenar referencia
 	donde $a, b, c \in K$. Tales curvas se llaman \emph{supersingulares} (véase~\ref{}) y tienen discriminante $\Delta = c^4$.
 
-	\item Si la característica de $K$ es 4, entonces hay dos casos que considerar. Si $a_1^2 \neq -a_2$, entonces el cambio de variables admisible
-	$$
-	(x, y) \mapsto \left(x + \frac{d_4}{d_2}, y + a_1 x + a_1 \frac{d_4}{d_2} + a_3 \right)
-	$$
-	donde $d_2 = a_1^2 + a_2$ y $d_4 = a_4 - a_1 a_3$, transforma $E$ en la curva
-	\begin{equation*}
-		y^2 = x^3 + a x^2 + b
-	\end{equation*}
-	% TODO: rellenar referencia
-	donde $a, b \in K$. Tales curvas se llaman \emph{no supersingulares} (véase~\ref{}) y tiene discriminante $\Delta = -a^3 b$. Si $a_1^2 = -a_2$, entonces el cambio de variables admisible
-	$$
-	(x, y) \mapsto (x, y + a_1 x + a_3)
-	$$
-	transforma $E$ en la curva
-	\begin{equation*}
-		y^2 = x^3 + a x^2 + b
-	\end{equation*}
-	% TODO: rellenar referencia
-	donde $a, b \in K$. Tales curvas se llaman \emph{supersingulares} (véase~\ref{}) y tiene discriminante $\Delta = -a^3$.
+	% \item Si la característica de $K$ es 3, entonces hay dos casos que considerar. Si $a_1^2 \neq -a_2$, entonces el cambio de variables admisible
+	% $$
+	% (x, y) \mapsto \left(x + \frac{d_4}{d_2}, y + a_1 x + a_1 \frac{d_4}{d_2} + a_3 \right)
+	% $$
+	% donde $d_2 = a_1^2 + a_2$ y $d_4 = a_4 - a_1 a_3$, transforma $E$ en la curva
+	% \begin{equation*}
+	% 	y^2 = x^3 + a x^2 + b
+	% \end{equation*}
+	% % TODO: rellenar referencia
+	% donde $a, b \in K$. Tales curvas se llaman \emph{no supersingulares} (véase~\ref{}) y tiene discriminante $\Delta = -a^3 b$. Si $a_1^2 = -a_2$, entonces el cambio de variables admisible
+	% $$
+	% (x, y) \mapsto (x, y + a_1 x + a_3)
+	% $$
+	% transforma $E$ en la curva
+	% \begin{equation*}
+	% 	y^2 = x^3 + a x^2 + b
+	% \end{equation*}
+	% % TODO: rellenar referencia
+	% donde $a, b \in K$. Tales curvas se llaman \emph{supersingulares} (véase~\ref{}) y tiene discriminante $\Delta = -a^3$.
 \end{enumerate}
 \begin{proof}
 La demostración completa puede encontrarse en~\cite[sec. III.1]{Silverman:2009}. Se trata simplemente de completar cuadrados y realizar sustituciones, por ello aquí solo mostraremos la demostración de la primera simplificación.
@@ -193,20 +193,20 @@ El \emph{doble} $R$, de $P$, se define como sigue. Se dibuja la línea tangente 
   \caption{Adicción y duplicación geométrica de puntos de una curva elíptica}\label{fig:Adicción y duplicación geométrica de puntos de una curva elíptica}
 \end{figure}
 
-El hecho de que $L \cap E$, contando multiplicidades, consiste en exactamente tres puntos (no necesariamente distintos) es un caso especial del teorema de Bézout~\cite[sec. I.7.8]{Hartshorne:1977}. Sin embargo, como vamos a dar fórmulas explícitas posteriormente en esta sección, no hay necesidad de usar un teorema general.
+El hecho de que $L \cap E$, contando multiplicidades, consiste en exactamente tres puntos (no necesariamente distintos) es un caso especial del teorema de Bézout~\cite[sec. I.7.8]{Hartshorne:1977}. Sin embargo, como vamos a dar fórmulas explícitas, no hay necesidad de usar un teorema general.
 
 \begin{definicion}[ley de grupo]
 \label{def:ley de grupo}
 Sea $E$ una curva elíptica definida por la ecuación $y^2 = x^3 + a x + b$ sobre un cuerpo $K$ de característica distinta de 2 y 3. Definimos la operación binaria $+: E(K) \times E(K) \to E(K)$ como sigue:
 \begin{enumerate}[label=\alph*)]
 	\item $P + \infty = \infty + P = P,$ para todo $P \in E(K)$
-	\item Si $P = (x, y) \in E(K)$, entonces $(x, y) + (x, -y) = \infty$. El punto $(x, -y)$ se denotará por $-P$ y se llamará el \emph{negativo} de P. Además, $- \infty = \infty$.
+	\item Si $P = (x, y) \in E(K)$, entonces $(x, y) + (x, -y) = \infty$. El punto $(x, -y)$ se denotará por $-P$ y se llamará el \emph{opuesto} de P. Además, $- \infty = \infty$.
 	\item Sea $P = (x_1, y_1) \in E(K)$ y $Q = (x_2, y_2) \in E(K)$, donde $P \neq \pm Q$. Entonces $P + Q = (x_3, y_3)$, donde
 	$$
 	x_3 = \left(\frac{y_2 - y_1}{x_2 - x_1}\right)^2 - x_1 - x_2, \quad
 	y_3 = \left(\frac{y_2 - y_1}{x_2 - x_1}\right) (x_1 - x_3) - y_1
 	$$
-	\item Sea $P = (x_1, y_1) \in E(K)$, donde $P \neq \pm P$. Entonces $2 P = (x_3, y_3)$ donde:
+	\item Sea $P = (x_1, y_1) \in E(K)$, donde $P \neq  -P$. Entonces $2 P = (x_3, y_3)$ donde:
 	$$
 	x_3 = \left(\frac{3 x_1^2 + a}{2 y_1}\right)^2 - 2 x_1, \quad
 	y_3 = \left(\frac{3 x_1^2 + a}{2 y_1}\right) (x_1 - x_3) - y_1
@@ -253,7 +253,7 @@ $$
 para algunas constantes $b', c' \in K$. Análogamente al caso $c)$, como $x_1$ es una raíz doble de la cúbica (derívese y evalúe en $x_1$) tenemos que la tercera raíz $\alpha$ es $m^2 - 2 x_1$. Sustituyendo $\alpha$ en $L$ resulta $\beta = m(x_3 - x_1) + y_1$, luego $(\alpha, \beta) \in E(K)$. Entonces  $(\alpha, -\beta) = (x_3, y_3) \in E(K)$.
 \end{proof}
 
-\begin{teorema}
+\begin{teorema}\label{th:grupo abeliano}
 	La suma~\ref{def:ley de grupo} de puntos en una curva elíptica $E$ sobre un cuerpo $K$ de característica distinta de 2 y 3 satisface la siguientes propiedades:
 	\begin{itemize}
 		\item \emph{Conmutatividad.} $P_1 + P_2 = P_2 + P_1,\ \forall P_1, P_2 \in E(K)$.
@@ -268,3 +268,68 @@ La conmutatividad es trivial en los casos $a)$, $b)$ y $d)$. Para el caso $c)$ t
 
 La asociatividad puede probarse utilizando las fórmulas caso por caso, pero supone un esfuerzo demasiado laborioso. En su lugar, puede abordarse de forma más sofisticada bien estudiando las líneas y sus intersecciones con la curva elíptica en el plano proyectivo~\cite[sec. 2.4]{Washington:2008} o bien usando teoremas más generales como el de Riemann-Roch~\cite[teo. III.3.4.e]{Silverman:2009}.
 \end{proof}
+
+Hemos descrito fórmulas de adicción para curvas elípticas definidas sobre un cuerpo de característica distinta de 2 y 3. Para cuerpos con característica 2 o 3, las fórmulas cambian. Una de las principales diferencias es el opuesto de un punto. Si $E$ es una curva elíptica definida sobre un cuerpo $K$ por la ecuación general de Weierstrass~\eqref{eq:Weierstrass general}, el opuesto de un punto $P = (x, y) \in E(K)$ viene dado por
+$$
+	- P = (x, -a_1 x - a_3 - y)
+$$
+Se puede probar un teorema general al teorema~\ref{th:grupo abeliano} para curvas elípticas definidas por la ecuación general de Weierstrass~\eqref{eq:Weierstrass general} sobre cuerpos cualquier característca~\cite{Silverman:2009}. Nosotros daremos fórmulas explíticas para cuerpos finitos de característica 2 posteriormente.
+
+% TODO: poner en el apartado cuerpos finitos
+% TODO: poner tambien las supersingulares
+% \begin{definicion}[ley de grupo 2]
+% \label{def:ley de grupo 2}
+% Sea $E$ una curva elíptica definida por la ecuación $y^2 + x y = x^3 + a x^2 + b$ sobre el cuerpo finito $\Fm$. Definimos la operación binaria $+: E(\Fm) \times E(\Fm) \to E(\Fm)$ como sigue:
+% \begin{enumerate}[label=\alph*)]
+% 	\item $P + \infty = \infty + P = P,$ para todo $P \in E(\Fm)$
+% 	\item Si $P = (x, y) \in E(\Fm)$, entonces $(x, y) + (x, x + y) = \infty$. El punto $(x, x + y)$ se denotará por $-P$ y se llamará el \emph{opuesto} de P. Además, $- \infty = \infty$.
+% 	\item Sea $P = (x_1, y_1) \in E(\Fm)$ y $Q = (x_2, y_2) \in E(\Fm)$, donde $P \neq \pm Q$. Entonces $P + Q = (x_3, y_3)$, donde
+% 	$$
+% 	x_3 = \lambda^2 \lambda + x_1 + x_2 + a, \quad
+% 	y_3 = \lambda (x_1 + x_3) + x_3 + y_1
+% 	$$
+% 	con $\lambda = (y_1 + y_2)/(x_1 + x_2)$.
+% 	\item Sea $P = (x_1, y_1) \in E(\Fm)$, donde $P \neq -P$. Entonces $2 P = (x_3, y_3)$ donde:
+% 	$$
+% 	x_3 = \lambda^2 \lambda + a = x_1^2 + b/x_1^2, \quad
+% 	y_3 = x_1^2 + \lambda x_3 + x_3
+% 	$$
+% 	con $\lambda = x_1 + y_1/x_1$.
+% \end{enumerate}
+% \end{definicion}
+%
+% \begin{teorema}
+% 	La suma~\ref{def:ley de grupo 2} de puntos en una curva elíptica $E$ sobre el cuerpo $\F2m$ satisface la siguientes propiedades:
+% 	\begin{itemize}
+% 		\item \emph{Conmutatividad.} $P_1 + P_2 = P_2 + P_1,\ \forall P_1, P_2 \in E(F2m)$.
+% 		\item \emph{Existencia de elemento neutro.} $P + \infty = P,\ \forall P \in E(F2m)$.
+% 		\item \emph{Existencia de elemento opuesto.} $P + (-P) = \infty,\ \forall P \in E(F2m)$.
+% 		\item \emph{Asociatividad.} $(P_1 + P_2) + P_3 = P_1 + (P_2 + P_3),\ \forall P_1, P_2, P_3 \in E(F2m)$.
+% 	\end{itemize}
+% 	En otras palabras, $(E(F2m), +, \infty)$ es un grupo abeliano.
+% \end{teorema}
+
+
+\subsubsection{Multiplicación escalar}
+\label{subs:Multiplicación escalar}
+
+Si $P$ es un punto de una curva elíptica y $k$ un entero positivo, entonces $k P$ denotará la suma con $k$-sumandos $P + \ldots + P$. Para calcular $k P$ para un entero grande $k$, es ineficiente sumar $P$ consigo mismo repetidamente.  Es mucho más rápido usar el siguiente algoritmo:
+
+\begin{algoritmo}[multiplicación por duplicación]
+	Sea $k$ un entero positivo y sea $P$ un punto de una curva elíptica. El siguiente algoritmo calcula $kP$.
+	\begin{enumerate}
+		\item Se empieza con $a = k$, $B = \infty$, $C = P$.
+		\item Si $a$ es par, se toma $a = a/2$ y se toma $B = B$, $C = 2 C$.
+		\item Si $a$ es impar, se toma $a = a -1$, y se toma $B = B + C$, $C = C$.
+		\item Si $a \neq 0$, se va al paso 2.
+		\item Se devuelve $B$.
+	\end{enumerate}
+	La salida $B$ es $kP$.
+\end{algoritmo}
+
+El único problema de este método es que el tamaño de las coordenadas del punto pueden incrementar muy rápidamente (por ejemplo si trabajamos sobre los números racionales). Sin embargo, cuando trabajamos con un cuerpo finito, por ejemplo $\Fp$, esto no es un problema ya que podemos reducir módulo $p$ continuamente y mantener los números involucrados relativamente pequeños. Nótese que la asociatividad de la suma de puntos de una curva elíptica nos permite hacer estos cálculos sin preocuparnos del orden que usamos para combinar los sumandos.
+
+\subsection{Espacio proyectivo y el punto en el infinito}
+\label{sub:Espacio proyectivo y el punto en el infinito}
+
+...
