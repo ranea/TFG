@@ -1,9 +1,9 @@
 %**************************
-\chapter{Aritmética de las curvas elípticas}
-\label{ch:Aritmética de las curvas elípticas}
+\chapter{Desarollo matemático}
+\label{ch:Desarollo matemático}
 %**************************
 
-% conceptos han aparecido: extensión de cuerpo, característica, grupo
+% conceptos han aparecido: extensión de cuerpo, característica, grupo, homomorfismo, clasura algebraica
 
 En el apartado~\ref{sec:Introducción} se introducen las curvas elípticas. Se explican las operaciones de grupo adicción y duplicacíon para los puntos de una curva elíptica, junto con su estructura fundamental y otras propiedades.
 
@@ -14,7 +14,7 @@ Las principales referencias usadas en este capítulo han sido~\cite{Washington:2
 % TODO: ver si el uso de section / subsection y subsubecction es correcto
 
 \section{Introducción a las curvas elípticas}
-\label{sec:Introducción}
+\label{sec:Introducción a las curvas elípticas}
 
 % TODO: preguntarle a Pascual por la forma de citar (poner en el encabezado las principales referencias y despues para cosas puntuales usar \cite), pero no en cada definición o resultado no trivial.
 \begin{definicion}
@@ -113,9 +113,9 @@ puede simplificarse considerablemente aplicando cambios de variables admisibles.
 	(x, y) \mapsto \left(\frac{x - 3 a_1^2 - 12 a_2}{36}, \frac{y - 3 a_1 x}{216} - \frac{a_1^3 + 4 a_1 a_2 - 12 a_3}{240}\right)
 	$$
 	transforma $E$ en la curva
-	\begin{equation*}\label{eq:ecuación Weierstrass}
+	\begin{equation}\label{eq:ecuación Weierstrass}
 		y^2 = x^3 + a x + b
-	\end{equation*}
+	\end{equation}
 	donde $a, b \in K$. El discriminante de esta curva es $\Delta = -16(4a^3 + 27b^2)$.
 
 	\item Si la característica de K es 2, hay dos casos que considerar. Si $a_1 \neq 0$, entonces el cambio de variables admisible
@@ -354,3 +354,103 @@ La \emph{forma proyectiva} de una ecuación de Weierstrass de una curva elíptic
 Si hacemos $z = 0$ en la forma proyectiva de la ecuación, obtenemos $0 = x^3$ y como alguna componente tiene que ser no nula, tenemos $y \neq 0$. Así, el único punto de la recta del infinito que está en $E$ es el punto $(0 : y : 0) = (0 : 1 : 0)$. Este pusto se corresponde con el punto $\infty$ de la definición~\ref{def:curva elíptica}.
 
 Hay situaciones en la que usar coordenadas proyectivas puede ser ventajoso (véase~\cite[sec 2.6]{Washington:2008}). Sin embargo, nosotros utilizaremos las coordenadas del plano afín, tratando el punto del infinito como un caso especial cuando sea necesario.
+
+\subsection{El j-invariante}
+\label{sub:El j-invariante}
+
+% TODO: decidir si poner algo
+
+\subsection{Endomorfismos}
+\label{sub:Endomorfismos}
+
+% TODO: añadir ref
+El principal objetivo de este apartado es probar la proposición ~\ref{} que será utilizada en la demostración del teorema de Hasse~\ref{}. Para ello, es necesario utilizar algunos resultados técnicos, los cuales solo los enunciaremos (puede encontrar su demostración en ~\cite{Washington:2008} ).
+
+% En este apartado, $E$ denotará una curva elíptica definida sobre un cuerpo $K$ de característica distinta de 2 y 3 y definida por la ecuación de Weierstrass simplificada $y^2 = x^3 + A x + B$. Para curvas elípticas sobre cuerpos de características 2 o 3 o definidos por la ecuación general de Weierstrass las ideas son las mismas, por lo
+
+\begin{definicion}
+	Sea $E$ una curva elíptica definida sobre un cuerpo $K$ y sea $\Kca$ su clasura algebraica. Un \emph{endomorfismo} de $E$ es un homomorfismo $\alpha: \EKca \to \EKca$ dado por funciones racionales. Esto es, $\alpha$ preserva la suma y el elemento neutro de $\EKca$.
+
+	El endomorfismo trivial que lleva cada punto a $\infty$ lo denotaremos por 0. Supondremos que $\alpha$ es no trivial a partir de ahora.
+\end{definicion}
+
+\begin{lema}\label{lm:endomorfismo con funciones racionales}
+	Si $\alpha$ es un endomorfismo de una curva elíptica definida por la ecuación de Weierstrass simplificada~\eqref{eq:ecuación Weierstrass}, entonces $\alpha$ se puede escribir como
+	$$
+	\alpha(x, y) = (r_1(x), r_2(x) y)
+	$$
+	donde
+	\begin{itemize}
+		\item $r_1(x) = p(x) / q(x)$, donde $p(x), q(x)$ no tienen factores comunes.
+		\item Si $q(x) = 0$ para algún punto $(x, y)$, asumimos que $\alpha(x, y) = \infty$.
+		\item Si $q(x) \neq 0$, entonces $r_2(x)$ está definida.
+	\end{itemize}
+\end{lema}
+
+\begin{definicion}
+	El \emph{grado} de un endomorfismo $\alpha$ es
+	$$
+		\dega= \max \{ \deg p(x) , \deg q(x) \}
+	$$
+	si $\alpha$ es no trivial. Si $\alpha = 0$, definimos $\deg(0) = 0$.
+\end{definicion}
+
+\begin{definicion}
+	Un endomorfismo $\alpha$ no trivial es \emph{separable} si la derivada $r_1(x)'$ no es idénticamente cero.
+
+	En cuerpos con característica cero, un polinomio no constante siempre tendrá derivada no nula. En cuerpos de característica $p > 0$, los polinomios con derivada nula son exactamente aquellos de la forma $g(x^p)$.
+\end{definicion}
+
+% TODO: rellenar ref
+El siguiente resultado será crucial en la demostración del teorema de Hasse~\ref{}
+
+\begin{proposicion}
+	Sea $\alpha \neq 0$ un endomorfismo separable de una curva elíptica $E$. Entonces
+	$$
+		\dega = \left\vert{\ker(\alpha)}\right\vert
+	$$
+	donde $\ker(\alpha)$ es el núcleo del homomorfismo $\alpha : \EKca \to \EKca$. Si $\alpha \neq 0$ no es separable, entonces
+	$$
+		\dega > \left\vert{\ker(\alpha)}\right\vert
+	$$
+\end{proposicion}
+\begin{proof}
+	Por el lema~\ref{lm:endomorfismo con funciones racionales}, $\alpha(x, y) = (r_1(x), r_2(x) y)$ con $r_1(x) = p(x) / q(x)$. Supongamo que $\alpha$ es separable. Entonces $r_1' \neq 0$, por lo que $p' q - p q'$ no es el polinomio cero.
+
+	Sea $S$ el conjunto de $x \in \Kca$ tal que $(p q' - p' q)(x) q(x) = 0$. Sea $(a, b) \in \EKca$ tal que
+	\begin{enumerate}
+		\item $a \neq 0,\ b \neq 0,\ (a, b) \neq \infty$,
+		\item $\deg (p(x) - a q(x) ) = \max \{ \deg(p), \deg(q) \} = \dega$,
+		\item $a \not\in r_1(S)$ y
+		\item $(a, b) \in \alpha(\EKca)$.
+	\end{enumerate}
+	Como $p' q - p q'$ no es el polinomio nulo, $S$ es un conjunto finito, por lo que su imagen bajo $\alpha$ es finita. Por otro lado $\alpha(\EKca)$ es un conjunto infinito. Así, tal $(a, b)$ existe.
+
+	Veamos que existen exactamente $\dega$ puntos $(x_1, y_1) \in \EKca$ tal que $\alpha(x_1, y_1) = (a, b)$. Para tales puntos, se tiene
+	$$
+	\frac{p(x_1)}{q(x_1)} = a, \quad y_1 r_2(x_1) = b
+	$$
+	Como $(a, b) \neq \infty$, $q(x_1) \neq 0$ luego $r_2(x_1)$ está definido. Como $b \neq 0$ y $y_1 r_2(x_1) = b$, se tendrá $y_1 = b/r_2(x_1)$, esto es, $x_1$ determina $y_1$, por lo que solo tenemos que contar valores de $x_1$.
+
+	Por la propiedad (2), $p(x) - a q(x)$ tiene $\dega$ raíces, contando multiplicidades. Tenemos que ver que $p - a q$ no tiene raíces múltiples. Supongamos que $x_0$ es una raíz múltiple. Entonces
+	$$
+		p(x_0) - a q(x_0) = 0, \quad p'(x_0) - a q'(x_0) = 0
+	$$
+	Multiplicando las ecuaciones $p = a q$ y $a q' = p'$ resulta
+	$$
+		a p(x_0) q'(x_0) = a p'(x_0) q(x_0)
+	$$
+	Como $a \neq 0$, esto implica que $x_0$ es una raíz de $p q' - p' q$, por lo que $x_0 \in S$. Así $a = r_1(x_0) \in r_1(S)$, contrario a la propiedad (3). Concluimos que $p - a q$ no tiene raíces múltiples y por ello tiene $\dega$ raíces distintas.
+
+	Como hay exactamente $\dega$ puntos $(x_1, y_1)$ con $\alpha(x_1, y_1) = (a, b)$, el núcleo de $\alpha$ tiene $\dega$ elementos.
+
+	Nótese que como $\alpha$ es un homomorfismo, para cada $(a, b) \in \alpha(\EKca)$ hay exactamente $\dega$ puntos $(x_1, y_1)$ con $\alpha(x_1, y_1) = (a, b)$. Las hipótesis sobre $(a, b)$ se hicieron para obtener el resultado para al menos un punto, lo cual es suficiente.
+
+	Si $\alpha$ no es separable, entonces los pasos de la demostración siguen siendo válidos, excepto que $p' - a q'$ es siempre el polinomio cero en este caso, por lo que $p(x) - a q(x) = 0$ tiene siempre raíces múltiplces y por ello tiene menos de $\dega$ soluciones.
+\end{proof}
+
+% TODO: ver donde meter frobenius
+% Un importante ejemplo de endomorfismo es el \emph{endomorfismo de Frobenius}. Sea $E$ una curva elíptica definida sobre un cuerpo finito $\Fq$. El endomorfismo de Frobenius $\phi_q(x, y)$ está dado por
+% $$
+% 	\phi_q(x, y) = (x^q, y^q)
+% $$
