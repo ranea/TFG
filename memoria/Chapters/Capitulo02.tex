@@ -51,7 +51,7 @@ Las principales referencias usadas en este capítulo han sido~\cite{Washington:2
 		\item La condición $\Delta \neq 0$ asegura que la curva elíptica es <<suave>>, esto es, no hay puntos en los que la curva tenga dos o mas rectas tangentes.
 		% TODO: rellenar referencia a la forma proyectiva
 		% TODO: cambiar si no se hace referencia al proyectivo (página 25 de washington)
-		\item El punto $\infty$ lo llararemos \emph{punto del infinito}. Es el único punto en la linea del infinito que satisface la forma proyectiva de la ecuación de Weierstrass (véase~\ref{}).
+		\item El punto $\infty$ lo llararemos \emph{punto del infinito}. Es el único punto en la recta del infinito que satisface la forma proyectiva de la ecuación de Weierstrass (véase apartado~\ref{sub:Forma proyectiva}).
 		%\item A $\infty$ lo llamaremos \emph{punto del infinito}. En el apartado~\ref{} le daremos rigor y significado matemático a este nombre.
 	\end{itemize}
 \end{nota}
@@ -329,7 +329,28 @@ Si $P$ es un punto de una curva elíptica y $k$ un entero positivo, entonces $k 
 
 El único problema de este método es que el tamaño de las coordenadas del punto pueden incrementar muy rápidamente (por ejemplo si trabajamos sobre los números racionales). Sin embargo, cuando trabajamos con un cuerpo finito, por ejemplo $\Fp$, esto no es un problema ya que podemos reducir módulo $p$ continuamente y mantener los números involucrados relativamente pequeños. Nótese que la asociatividad de la suma de puntos de una curva elíptica nos permite hacer estos cálculos sin preocuparnos del orden que usamos para combinar los sumandos.
 
-\subsection{Espacio proyectivo y el punto en el infinito}
-\label{sub:Espacio proyectivo y el punto en el infinito}
+\subsection{Forma proyectiva}
+\label{sub:Forma proyectiva}
 
-...
+Sea $K$ un cuerpo. El \emph{espacio proyectivo} dos dimensional sobre $K$, $\P^2(K)$, esta dado por clases de equivalencia de ternas $(x, y, z)$ con $x, y, z \in K$ y al menos algún $x, y, z$ no nulo. Dos ternas $(x_1, y_1, z_1)$ y $(x_2, y_2, z_2)$ se dicen que son \emph{equivalentes} si existe un elemento no nulo $\lambda \in K$ tal que
+$$
+	(x_1, y_1, z_1) = (\lambda x_2, \lambda y_2, \lambda z_3)
+$$
+y en tal caso escribiremos $(x_1, y_1, z_1) \sim (x_2, y_2, z_2)$. La clase de equivalencia de una terna solo depende de los ratios entre $x, y, z$. Por ello, la clase de equivalencia de $(x, y, z)$ la denotaremos por $(x : y : z)$ y diremos que es un \emph{punto proyectivo}.
+
+Si $(x : y : z)$ es un punto proyectivo con $z \neq 0$, entonces $(x : y : z) = (x/z : y/z : 1)$ y de hecho $(x/z, y/z, 1)$ es el único representante de esta clase de equivalencia con $z = 1$. Tenemos así una correspondencia $1-1$ entre el conjunto de puntos proyectivos
+$$
+	\P^2(K)^* = \left\{(x : y : z) : x, y, z \in K,\ z \neq 0 \right\}
+$$
+y el \emph{plano afín}
+$$
+	\A(K) = \left\{(x, y) : x, y \in K \right\}.
+$$
+
+Si $z = 0$, el conjunto de puntos proyectivos de la forma $(x : y : 0)$ se llaman \emph{recta del infinito} ya que sus puntos no se corresponden con ningúno del plano afín.
+
+La \emph{forma proyectiva} de una ecuación de Weierstrass de una curva elíptica $E$ definida sobre $K$ se obtiene remplazando $x$ por $x/z$, $y$ por $y/z$ y quitando denominadores. Si alguna terna $(x, y, z)$ no nula satisface la ecuación proyectiva entonces también las satisfacen las ternas $(x', y', z') \in (x : y : z)$. Podemos decir entonces que un punto proyectivo $(x : y : z)$ está en $E$. Tenemos así una correspondencia 1-1 entre los puntos del plano afín que están en $E$ y los puntos proyectivos de $P^2(K)^*$ que están en $E$.
+
+Si hacemos $z = 0$ en la forma proyectiva de la ecuación, obtenemos $0 = x^3$ y como alguna componente tiene que ser no nula, tenemos $y \neq 0$. Así, el único punto de la recta del infinito que está en $E$ es el punto $(0 : y : 0) = (0 : 1 : 0)$. Este pusto se corresponde con el punto $\infty$ de la definición~\ref{def:curva elíptica}.
+
+Hay situaciones en la que usar coordenadas proyectivas puede ser ventajoso (véase~\cite[sec 2.6]{Washington:2008}). Sin embargo, nosotros utilizaremos las coordenadas del plano afín, tratando el punto del infinito como un caso especial cuando sea necesario.
