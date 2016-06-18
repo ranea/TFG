@@ -3,20 +3,31 @@
 \label{ch:Desarollo matemático}
 %**************************
 
+% TODO: conceptos
 % conceptos han aparecido: extensión de cuerpo, característica, grupo, homomorfismo, clasura algebraica
 
-En el apartado~\ref{sec:Introducción} se introducen las curvas elípticas. Se explican las operaciones de grupo adicción y duplicacíon para los puntos de una curva elíptica, junto con su estructura fundamental y otras propiedades.
+% TODO: dudas
+% tengo que saber los teoremas que he referenciado como el teorema de Bezout o el teorema de Rienman-Roch?
+% bien la forma de citar?
 
-Las principales referencias usadas en este capítulo han sido~\cite{Washington:2008} y~\cite{Hankerson:2003}.
+% TODO: completar introducción
+En este capítulo haremos el estudio matemático de la teoría de curvas elípticas. En el apartado~\ref{sec:Teoría básica de curvas elípticas} se desarolla la teoría básica, mientras que en el apartado~\ref{} se particulariza a curvas elítipcas sobre cuerpos finitos y por último en el apartado~\ref{} se ve...
 
-% TODO: seguir con la introducción de contenidos
-% TODO: tengo que saber los teoremas que he referenciado como el teorema de Bezout o el teorema de Rienman-Roch?
-% TODO: ver si el uso de section / subsection y subsubecction es correcto
+% TODO: añadir ref si se utilizán más
+Las referencias utilizadas para el desarollo matemático han sido sido~\cite{Washington:2008},~\cite{Hankerson:2003} y~\cite{Silverman:2009}.
 
-\section{Introducción a las curvas elípticas}
-\label{sec:Introducción a las curvas elípticas}
+\section{Teoría básica de curvas elípticas}
+\label{sec:Teoría básica de curvas elípticas}
 
-% TODO: preguntarle a Pascual por la forma de citar (poner en el encabezado las principales referencias y despues para cosas puntuales usar \cite), pero no en cada definición o resultado no trivial.
+En este apartado se tratarán las ecuaciones de Weierstrass, las operaciones de adicción y duplicación, los puntos proyectivos , los endomorfismos de curvas elípticas y los conceptos de singularidad y supersingularidad.
+
+Las principales referencias utilizadas en este capítulo han sido~\cite[cap. 2]{Washington:2008} y~\cite[cap. 3]{Hankerson:2003}.
+
+\subsection{Definición de curva elíptica}
+\label{sub:Definición de curva elíptica}
+
+En esta apartado veremos la definición general de curva elíptica aunque posteriormente simplificaremos la ecuación que la define.
+
 \begin{definicion}
 \label{def:curva elíptica}
 	Una \emph{curva elíptica} $E$ se define por una una ecuación de la forma
@@ -48,11 +59,10 @@ Las principales referencias usadas en este capítulo han sido~\cite{Washington:2
 	\begin{itemize}
 		\item La ecuación~\eqref{eq:Weierstrass general} se conoce como la \emph{ecuación de Weierstrass}.
 		\item Diremos que $E$ \emph{está definida sobre} $K$ y lo notaremos $E/K$. A $K$ lo llamaremos \emph{cuerpo base}.
-		\item La condición $\Delta \neq 0$ asegura que la curva elíptica es <<suave>>, esto es, no hay puntos en los que la curva tenga dos o mas rectas tangentes.
-		% TODO: rellenar referencia a la forma proyectiva
-		% TODO: cambiar si no se hace referencia al proyectivo (página 25 de washington)
-		\item El punto $\infty$ lo llararemos \emph{punto del infinito}. Es el único punto en la recta del infinito que satisface la forma proyectiva de la ecuación de Weierstrass (véase apartado~\ref{sub:Forma proyectiva}).
-		%\item A $\infty$ lo llamaremos \emph{punto del infinito}. En el apartado~\ref{} le daremos rigor y significado matemático a este nombre.
+		% TODO: rellenar ref
+		\item La condición $\Delta \neq 0$ asegura que la curva elíptica es no singular (véase apartado~\ref{})
+		% <<suave>>, esto es, no hay puntos en los que la curva tenga dos o mas rectas tangentes.
+		\item El punto $\infty$ lo llararemos \emph{punto del infinito}. Es el único punto en la recta del infinito que satisface la forma proyectiva de la ecuación de Weierstrass (véase apartado~\ref{sub:Puntos proyectivos}).
 	\end{itemize}
 \end{nota}
 
@@ -64,7 +74,6 @@ Las principales referencias usadas en este capítulo han sido~\cite{Washington:2
 	\end{align*}
 	definidas sobre el cuerpo $\mathbb{R}$ de los números reales. Los puntos $E_1(\mathbb{R})$ y $E_2(\mathbb{R})$ se han representado en la Figura~\ref{fig:curvas elípticas reales}.
 
-	% TODO:hacer la gráfica bien (añadir label, etc, etc)
 	\begin{figure}[h]
 		\myfloatalign
 		\subfloat[$E_1: y^2 = x^3 - x$]
@@ -73,16 +82,12 @@ Las principales referencias usadas en este capítulo han sido~\cite{Washington:2
 		{\includegraphics[width=.45\linewidth]{gfx/grafo_curva_eliptica_reales_2.pdf}}
 		\caption{Curvas elípticas sobre $\mathbb{R}$}\label{fig:curvas elípticas reales}
 	\end{figure}
-
-	% \begin{figure}[h]
-	% 	\centering
-	% 	\includegraphics[scale=1]{gfx/example_1}
-	% 	\caption{Curvas elípticas sobre $\mathbb{R}$}\label{fig:curvas elípticas reales}
-	% \end{figure}
 \end{ejemplo}
 
 \subsection{Ecuaciones de Weierstrass simplificadas}
 \label{sub:Ecuaciones de Weierstrass simplificadas}
+
+Nuestro objetivo es transformar la ecuación~\eqref{eq:Weierstrass general} por una ecuación más sencilla. En este apartado veremos varias transformaciones según la característica del cuerpo base.
 
 \begin{definicion}
 	Dos curvas elípticas $E_1$ y $E_2$ definidas sobre $K$ y dadas por las ecuaciones de Weierstrass:
@@ -99,16 +104,14 @@ Las principales referencias usadas en este capítulo han sido~\cite{Washington:2
 	El cambio de variables~\eqref{eq:cambio de variables admisible} es el único que deja <<fijo>> el punto del infinito y preserva la forma de la ecuación de Weierstrass. No vamos a entrar en más detalle, pero puede consultar~\cite[prop. III.3.1b]{Silverman:2009} para más informácion.
 \end{definicion}
 
-% TODO: explicar porqué este cambio de variable referenciando a silverman
-
 Una ecuación de Weierstrass
 $$
 E:  y^2 + a_1 x y + a_3 y = x^3 + a_2 x^2 + a_4 x + a_6
 $$
-puede simplificarse considerablemente aplicando cambios de variables admisibles. Usaremos las ecuaciones simplificadas en vez de la general en el resto del trabajo. Vamos a considerar por separado los casos en los que el cuerpo base tenga característica distinta de 2 y 3 o tenga característica 2.
+puede simplificarse considerablemente aplicando cambios de variables admisibles. Veamos el caso en el que la característica del cuerpo base no es ni 2 ni 3.
 
-\begin{enumerate}
-	\item Si la característica de $K$ es distinta de $2$ y $3$, entonces el cambio de variables admisible
+\begin{lema}\label{lm: simplificación ecuación Weierstrass}
+	Si $\car(K) \neq 2, 3$, entonces el cambio de variables admisible
 	$$
 	(x, y) \mapsto \left(\frac{x - 3 a_1^2 - 12 a_2}{36}, \frac{y - 3 a_1 x}{216} - \frac{a_1^3 + 4 a_1 a_2 - 12 a_3}{240}\right)
 	$$
@@ -117,8 +120,36 @@ puede simplificarse considerablemente aplicando cambios de variables admisibles.
 		y^2 = x^3 + a x + b
 	\end{equation}
 	donde $a, b \in K$. El discriminante de esta curva es $\Delta = -16(4a^3 + 27b^2)$.
+\end{lema}
+\begin{proof}
+Basta aplicar el cambio de variables y ver que efectivamente se obtiene la expresión~\eqref{eq:ecuación Weierstrass}. En su lugar, veamos el proceso por el cual se obtuvo dicha simplificación.
 
-	\item Si la característica de K es 2, hay dos casos que considerar. Si $a_1 \neq 0$, entonces el cambio de variables admisible
+Dada la ecuación de Weierstrass~\eqref{eq:Weierstrass general}, sumamos en ambos lados por $(a_1 a_3 x)/2 + a_3^2/4 + (a_1^2 x^2)/4$ (podemos dividir por 2 ya que $\car(K) \neq 2$) para completar el cuadrado:
+$$
+\left(y + \frac{a_1 x}{2} + \frac{a_3}{2}\right)^2 = x^3 + \left(a_2 + \frac{a_1^2}{4}\right)x^2 + \left(a_4 + \frac{a_1 a_3}{2}\right)x + \left(a_6 + \frac{a_3^2}{4}\right)
+$$
+Haciendo $y_1 = y + (a_1 x)/2 + a_3/2$, obtenemos
+$$
+y_1^2 = x^3 + a_2' x^2 + a_4' x + a_6'
+$$
+para algunas constantes $a_2', a_4', a_6' \in K$. Finalmente, sustituyendo $x_1 = x + a_2'/3$ (podemos dividir por 3 ya que $\car(K) \neq 3$) resulta
+$$
+y_1^2 = x_1^3 + a x_1 + b
+$$
+para algunas constante $a, b \in K$. Para obtener el discriminante $\Delta$ basta sustiuir el valor de las constantes $a_4 = a,\ a_6 = b$ y $a_1 = a_3 = a_2 = 0$ en~\eqref{eq:discriminante}.
+\end{proof}
+\begin{nota}[comentarios del lema~\ref{lm: simplificación ecuación Weierstrass}] \leavevmode
+	\begin{itemize}
+		% TODO: rellenar ref
+		\item Si el cuerpo base tiene característica 2, la ecuación anterior~\eqref{eq:ecuación Weierstrass} no es válida ya que tiene puntos singulares (véase~\ref{}).
+		\item Para cuerpos base con característica 3, la ecuación anterior~\eqref{eq:ecuación Weierstrass} si es válida, pero existan curvas que no tienen esta forma.
+	\end{itemize}
+\end{nota}
+
+En la mayor parte del trabajo, desarollaremos la teoría de curvas elípticas utilizando la ecuación de Weierstrass simplificada~\eqref{eq:ecuación Weierstrass}. Sin embargo, como los cuerpos finitos de característica dos son de especial interés en computación, ocasionalmente señalaremos que modificaciones son necesarias de la para cuerpos de característica dos. Veamos la primera modificación.
+
+\begin{lema}
+	Si la característica de K es 2, hay dos casos que considerar. Si $a_1 \neq 0$, entonces el cambio de variables admisible
 	$$
 	(x, y) \mapsto \left(a_1^2 x + \frac{a_3}{a_1}, a_1^3 y + \frac{a_1^2 a_4 + a_3^2}{a_1^3} \right)
 	$$
@@ -137,63 +168,69 @@ puede simplificarse considerablemente aplicando cambios de variables admisibles.
 	\end{equation*}
 	% TODO: rellenar referencia
 	donde $a, b, c \in K$. Tales curvas se llaman \emph{supersingulares} (véase~\ref{}) y tienen discriminante $\Delta = c^4$.
-
-	% \item Si la característica de $K$ es 3, entonces hay dos casos que considerar. Si $a_1^2 \neq -a_2$, entonces el cambio de variables admisible
-	% $$
-	% (x, y) \mapsto \left(x + \frac{d_4}{d_2}, y + a_1 x + a_1 \frac{d_4}{d_2} + a_3 \right)
-	% $$
-	% donde $d_2 = a_1^2 + a_2$ y $d_4 = a_4 - a_1 a_3$, transforma $E$ en la curva
-	% \begin{equation*}
-	% 	y^2 = x^3 + a x^2 + b
-	% \end{equation*}
-	% % TODO: rellenar referencia
-	% donde $a, b \in K$. Tales curvas se llaman \emph{no supersingulares} (véase~\ref{}) y tiene discriminante $\Delta = -a^3 b$. Si $a_1^2 = -a_2$, entonces el cambio de variables admisible
-	% $$
-	% (x, y) \mapsto (x, y + a_1 x + a_3)
-	% $$
-	% transforma $E$ en la curva
-	% \begin{equation*}
-	% 	y^2 = x^3 + a x^2 + b
-	% \end{equation*}
-	% % TODO: rellenar referencia
-	% donde $a, b \in K$. Tales curvas se llaman \emph{supersingulares} (véase~\ref{}) y tiene discriminante $\Delta = -a^3$.
-\end{enumerate}
+\end{lema}
 \begin{proof}
-La demostración completa puede encontrarse en~\cite[sec. III.1]{Silverman:2009}. Se trata simplemente de completar cuadrados y realizar sustituciones, por ello aquí solo mostraremos la demostración de la primera simplificación.
-
-En primer lugar, sumando en la ecuación de Weierstrass~\eqref{eq:Weierstrass general} en ambos lados por $(a_1 a_3 x)/2 + a_3^2/4 + (a_1^2 x^2)/4$, completamos el cuadrado:
-$$
-\left(y + \frac{a_1 x}{2} + \frac{a_3}{2}\right)^2 = x^3 + \left(a_2 + \frac{a_1^2}{4}\right)x^2 + \left(a_4 + \frac{a_1 a_3}{2}\right)x + \left(a_6 + \frac{a_3^2}{4}\right)
-$$
-Haciendo $y_1 = y + (a_1 x)/2 + a_3/2$, obtenemos
-$$
-y_1^2 = x^3 + a_2' x^2 + a_4' x + a_6'
-$$
-para algunas constantes $a_2', a_4', a_6' \in K$. Finalmente, sustituyendo $x_1 = x + a_2'/3$ resulta
-$$
-y_1^2 = x_1^3 + a x_1 + b
-$$
-para algunas constante $a, b \in K$. Para obtener el discriminante $\Delta$ basta sustiuir el valor de las constantes $a_4 = a,\ a_6 = b$ y $a_1 = a_3 = a_2 = 0$ en~\eqref{eq:discriminante}.
+	Basta sustituir el cambio de variables en la ecuación general de Weierstrass y operar.
 \end{proof}
+
+
+% Si la característica de $K$ es 3, entonces hay dos casos que considerar. Si $a_1^2 \neq -a_2$, entonces el cambio de variables admisible
+% $$
+% (x, y) \mapsto \left(x + \frac{d_4}{d_2}, y + a_1 x + a_1 \frac{d_4}{d_2} + a_3 \right)
+% $$
+% donde $d_2 = a_1^2 + a_2$ y $d_4 = a_4 - a_1 a_3$, transforma $E$ en la curva
+% \begin{equation*}
+% 	y^2 = x^3 + a x^2 + b
+% \end{equation*}
+% % TODO: rellenar referencia
+% donde $a, b \in K$. Tales curvas se llaman \emph{no supersingulares} (véase~\ref{}) y tiene discriminante $\Delta = -a^3 b$. Si $a_1^2 = -a_2$, entonces el cambio de variables admisible
+% $$
+% (x, y) \mapsto (x, y + a_1 x + a_3)
+% $$
+% transforma $E$ en la curva
+% \begin{equation*}
+% 	y^2 = x^3 + a x^2 + b
+% \end{equation*}
+% % TODO: rellenar referencia
+% donde $a, b \in K$. Tales curvas se llaman \emph{supersingulares} (véase~\ref{}) y tiene discriminante $\Delta = -a^3$.
+
 
 \subsection{Ley de grupo}
 \label{sub:Ley de grupo}
 
-Sea $E$ una curva elíptica definida sobre un cuerpo $K$. Hay un \emph{método de la cuerda y la tangente} para sumar dos puntos en $E(K)$ y obtener un tercer punto en $E(K)$. Junto con esta operación aditiva, el conjunto de puntos $E(K)$ forma un gurpo abeliano con $\infty$ como elemento neutro.
+En este apartado veremos como dotar de estructura de grupo al conjunto de puntos una curva elíptica. Para ello definiremos una ley de composición o ley de grupo y le daremos sentido a la <<suma>> de puntos.
 
-La regla aditiva se explica fácilmente geométricamente. Sea $P$ y $Q$ dos puntos distintos de una curva elíptica $E$. Entonces la \emph{suma} $R$, de $P$ y $Q$ esta definido como sigue. Se dibuja una recta $L$ de $P$ a $Q$. Esta recta intersecta la curva elíptica en un tercer punto. Entonces $R$ es la reflexión de este punto sobre el eje-$x$. Esto se puede apreciar en la Figura~\ref{fig:ejemplo adicción}.
+Sea $E$ una curva elíptica definida sobre un cuerpo $K$. El siguiente método geométrico permite dados dos puntos en $E(K)$ producir un tercero en $E(K)$. Este método será la base para definir la ley de grupo.
 
-El \emph{doble} $R$, de $P$, se define como sigue. Se dibuja la línea tangente $L$ a la curva elíptica en $P$. Esta línea intersecta la curva elíptica en un segundo punto. Entonces $R$ es la reflexión de esto punto sobre el eje-$x$. Esto se puede apreciar en la Figura~\ref{fig:ejemplo duplicación}.
+\begin{algoritmo}[Método de la cuerda y la tangente]
+	Dados dos puntos $P$ y $Q$ , veamos como producir un tercer punto $R$. En primer lugar si $P$ y $Q$ son distintos, los pasos son:
+	\begin{enumerate}
+		\item Se dibuja una recta $L$ de $P$ a $Q$.
+		\item Esta recta intersecta la curva elíptica en un tercer punto.
+		\item Tomamos $R$ como la reflexión de este punto sobre el eje-$x$.
+	\end{enumerate}
+	Si los puntos $P$ y $Q$ son iguales, los pasos son:
+	\begin{enumerate}
+		\item Se dibuja la línea tangente $L$ a la curva elíptica en $P$.
+		\item Esta línea intersecta la curva elíptica en un segundo punto.
+		\item Tomamos $R$ como la reflexión de este punto sobre el eje-$x$.
+	\end{enumerate}
+	Esto método se puede apreciar en la figura~\ref{fig:Método de la cuerda y la tangente}.
+\end{algoritmo}
 
 \begin{figure}[h]
   \myfloatalign
-  \subfloat[Adicción: $P + Q = R$]{\includegraphics[width=.45\linewidth]{gfx/ejemplo_adiccion.pdf}\label{fig:ejemplo adicción}}
+  {\includegraphics[width=.45\linewidth]{gfx/ejemplo_adiccion.pdf}}
   \quad
-  \subfloat[Duplicación: $P + P = P$]{\includegraphics[width=.45\linewidth]{gfx/ejemplo_duplicacion.pdf}\label{fig:ejemplo duplicación}}
-  \caption{Adicción y duplicación geométrica de puntos de una curva elíptica}\label{fig:Adicción y duplicación geométrica de puntos de una curva elíptica}
+  {\includegraphics[width=.45\linewidth]{gfx/ejemplo_duplicacion.pdf}}
+  \caption{Método de la cuerda y la tangente}\label{fig:Método de la cuerda y la tangente}
 \end{figure}
 
-El hecho de que $L \cap E$, contando multiplicidades, consiste en exactamente tres puntos (no necesariamente distintos) es un caso especial del teorema de Bézout~\cite[sec. I.7.8]{Hartshorne:1977}. Sin embargo, como vamos a dar fórmulas explícitas, no hay necesidad de usar un teorema general.
+\begin{nota}[comentarios del algoritmo~\ref{al:multiplicación por duplicación}]
+El hecho de que $L \cap E$, contando multiplicidades, consiste en exactamente tres puntos (no necesariamente distintos) es un caso especial del teorema de Bézout~\cite[sec. I.7.8]{Hartshorne:1977}. Sin embargo, como a continuación vamos a dar fórmulas explícitas, haremos la demostración utilizando dichas fórmulas y no será necesario utilizar un teorema tan general.
+\end{nota}
+
+Inspirándonos en el método de la cuerda y la tangente, definimos la siguiente ley de composición para el grupo de puntos de una curva elíptica.
 
 \begin{definicion}[ley de grupo]
 \label{def:ley de grupo}
@@ -253,6 +290,17 @@ $$
 para algunas constantes $b', c' \in K$. Análogamente al caso $c)$, como $x_1$ es una raíz doble de la cúbica (derívese y evalúe en $x_1$) tenemos que la tercera raíz $\alpha$ es $m^2 - 2 x_1$. Sustituyendo $\alpha$ en $L$ resulta $\beta = m(x_3 - x_1) + y_1$, luego $(\alpha, \beta) \in E(K)$. Entonces  $(\alpha, -\beta) = (x_3, y_3) \in E(K)$.
 \end{proof}
 
+\begin{nota}[comentarios de la definición~\ref{def:ley de grupo}]
+	Para cuerpos base con característica 2 o 3, las fórmulas cambian. Por ejemplo, si $E$ es una curva elíptica definida sobre un cuerpo $K$ por la ecuación general de Weierstrass~\eqref{eq:Weierstrass general}, el opuesto de un punto $P = (x, y) \in E(K)$ viene dado por
+	$$
+		- P = (x, -a_1 x - a_3 - y)
+	$$
+	% TODO: rellenar ref
+	En el apartado~\ref{} veremos la ley de composición para una curva elíptica sobre un cuerpo finito de característica 2.
+\end{nota}
+
+Con la operación binaria~\ref{def:ley de grupo}, el conjunto de puntos de una curva elíptiptica es un grupo abeliano.
+
 \begin{teorema}\label{th:grupo abeliano}
 	La suma~\ref{def:ley de grupo} de puntos en una curva elíptica $E$ sobre un cuerpo $K$ de característica distinta de 2 y 3 satisface la siguientes propiedades:
 	\begin{itemize}
@@ -269,11 +317,9 @@ La conmutatividad es trivial en los casos $a)$, $b)$ y $d)$. Para el caso $c)$ t
 La asociatividad puede probarse utilizando las fórmulas caso por caso, pero supone un esfuerzo demasiado laborioso. En su lugar, puede abordarse de forma más sofisticada bien estudiando las líneas y sus intersecciones con la curva elíptica en el plano proyectivo~\cite[sec. 2.4]{Washington:2008} o bien usando teoremas más generales como el de Riemann-Roch~\cite[teo. III.3.4.e]{Silverman:2009}.
 \end{proof}
 
-Hemos descrito fórmulas de adicción para curvas elípticas definidas sobre un cuerpo de característica distinta de 2 y 3. Para cuerpos con característica 2 o 3, las fórmulas cambian. Una de las principales diferencias es el opuesto de un punto. Si $E$ es una curva elíptica definida sobre un cuerpo $K$ por la ecuación general de Weierstrass~\eqref{eq:Weierstrass general}, el opuesto de un punto $P = (x, y) \in E(K)$ viene dado por
-$$
-	- P = (x, -a_1 x - a_3 - y)
-$$
-Se puede probar un teorema general al teorema~\ref{th:grupo abeliano} para curvas elípticas definidas por la ecuación general de Weierstrass~\eqref{eq:Weierstrass general} sobre cuerpos cualquier característca~\cite{Silverman:2009}. Nosotros daremos fórmulas explíticas para cuerpos finitos de característica 2 posteriormente.
+\begin{nota}[comentarios del teorema~\ref{th:grupo abeliano}]
+	Puede encontrar una versión más general del teorema anterior para cuerpos bases de cualquiera característica en ~\cite{Silverman:2009}.
+\end{nota}
 
 % TODO: poner en el apartado cuerpos finitos
 % TODO: poner tambien las supersingulares
@@ -313,24 +359,33 @@ Se puede probar un teorema general al teorema~\ref{th:grupo abeliano} para curva
 \subsubsection{Multiplicación escalar}
 \label{subs:Multiplicación escalar}
 
-Si $P$ es un punto de una curva elíptica y $k$ un entero positivo, entonces $k P$ denotará la suma con $k$-sumandos $P + \ldots + P$. Para calcular $k P$ para un entero grande $k$, es ineficiente sumar $P$ consigo mismo repetidamente.  Es mucho más rápido usar el siguiente algoritmo:
+En este apartado veremos un método eficiente para calcular la duplicación reiterada de un punto.
 
-\begin{algoritmo}[multiplicación por duplicación]
+Sea $P$ es un punto de una curva elíptica y $k$ un entero positivo. Denotaremos $k P$ a la suma $P + \ldots + P$ de $k$-sumandos. El siguiente algoritmo calcula $k P$ más rápido que el método directo (sumar $P$ consigo mismo repetidamente).
+
+\begin{algoritmo}[multiplicación por duplicación]\label{al:multiplicación por duplicación}
 	Sea $k$ un entero positivo y sea $P$ un punto de una curva elíptica. El siguiente algoritmo calcula $kP$.
 	\begin{enumerate}
-		\item Se empieza con $a = k$, $B = \infty$, $C = P$.
-		\item Si $a$ es par, se toma $a = a/2$ y se toma $B = B$, $C = 2 C$.
-		\item Si $a$ es impar, se toma $a = a -1$, y se toma $B = B + C$, $C = C$.
+		\item Se empieza con $a = k$, $B = \infty$ y $C = P$.
+		\item Si $a$ es par, se toma $a = a/2$, $B = B$ y $C = 2 C$.
+		\item Si $a$ es impar, se toma $a = a -1$, $B = B + C$ y $C = C$.
 		\item Si $a \neq 0$, se va al paso 2.
 		\item Se devuelve $B$.
 	\end{enumerate}
 	La salida $B$ es $kP$.
 \end{algoritmo}
 
-El único problema de este método es que el tamaño de las coordenadas del punto pueden incrementar muy rápidamente (por ejemplo si trabajamos sobre los números racionales). Sin embargo, cuando trabajamos con un cuerpo finito, por ejemplo $\Fp$, esto no es un problema ya que podemos reducir módulo $p$ continuamente y mantener los números involucrados relativamente pequeños. Nótese que la asociatividad de la suma de puntos de una curva elíptica nos permite hacer estos cálculos sin preocuparnos del orden que usamos para combinar los sumandos.
+\begin{nota}[comentarios del algoritmo~\ref{al:multiplicación por duplicación}]\leavevmode
+	\begin{itemize}
+		\item El único problema de este método es que el tamaño de las coordenadas incrementa muy rápidamente.
+		\item Si trabajos sobre un cuerpo finito, podemos evitar este incoveniente reduciendo módulo $p$ en cada operación.
+	\end{itemize}
+\end{nota}
 
-\subsection{Forma proyectiva}
-\label{sub:Forma proyectiva}
+\subsection{Puntos proyectivos}
+\label{sub:Puntos proyectivos}
+
+En este apartado introduciremos los puntos proyectivos y veremos de donde procede el punto del infinito de una curva elíptica. Como en la mayor parte del trabajo no vamos a trabajar con puntos proyectivos, veremos este apartado de manera más informal.
 
 Sea $K$ un cuerpo. El \emph{espacio proyectivo} dos dimensional sobre $K$, $\P^2(K)$, esta dado por clases de equivalencia de ternas $(x, y, z)$ con $x, y, z \in K$ y al menos algún $x, y, z$ no nulo. Dos ternas $(x_1, y_1, z_1)$ y $(x_2, y_2, z_2)$ se dicen que son \emph{equivalentes} si existe un elemento no nulo $\lambda \in K$ tal que
 $$
@@ -353,26 +408,27 @@ La \emph{forma proyectiva} de una ecuación de Weierstrass de una curva elíptic
 
 Si hacemos $z = 0$ en la forma proyectiva de la ecuación, obtenemos $0 = x^3$ y como alguna componente tiene que ser no nula, tenemos $y \neq 0$. Así, el único punto de la recta del infinito que está en $E$ es el punto $(0 : y : 0) = (0 : 1 : 0)$. Este pusto se corresponde con el punto $\infty$ de la definición~\ref{def:curva elíptica}.
 
-Hay situaciones en la que usar coordenadas proyectivas puede ser ventajoso (véase~\cite[sec 2.6]{Washington:2008}). Sin embargo, nosotros utilizaremos las coordenadas del plano afín, tratando el punto del infinito como un caso especial cuando sea necesario.
-
-\subsection{El j-invariante}
-\label{sub:El j-invariante}
+Hay situaciones en la que usar coordenadas proyectivas puede ser ventajoso (véase~\cite[sec 2.6]{Washington:2008}). Sin embargo, nosotros utilizaremos las coordenadas del plano afín y trataremos el punto del infinito como caso especial cuando sea necesario.
 
 % TODO: decidir si poner algo
+% \subsection{El j-invariante}
+% \label{sub:El j-invariante}
 
 \subsection{Endomorfismos}
 \label{sub:Endomorfismos}
 
 % TODO: añadir ref
-El principal objetivo de este apartado es probar la proposición ~\ref{} que será utilizada en la demostración del teorema de Hasse~\ref{}. Para ello, es necesario utilizar algunos resultados técnicos, los cuales solo los enunciaremos (puede encontrar su demostración en ~\cite{Washington:2008} ).
+El principal objetivo de este apartado es probar la proposición ~\ref{} que será utilizada en la demostración del teorema de Hasse~\ref{}. Para ello, es necesario utilizar algunos resultados técnicos, los cuales solo los enunciaremos (puede encontrar su demostración en ~\cite[sec. 2.9]{Washington:2008} ).
 
 % En este apartado, $E$ denotará una curva elíptica definida sobre un cuerpo $K$ de característica distinta de 2 y 3 y definida por la ecuación de Weierstrass simplificada $y^2 = x^3 + A x + B$. Para curvas elípticas sobre cuerpos de características 2 o 3 o definidos por la ecuación general de Weierstrass las ideas son las mismas, por lo
 
 \begin{definicion}
-	Sea $E$ una curva elíptica definida sobre un cuerpo $K$ y sea $\Kca$ su clasura algebraica. Un \emph{endomorfismo} de $E$ es un homomorfismo $\alpha: \EKca \to \EKca$ dado por funciones racionales. Esto es, $\alpha$ preserva la suma y el elemento neutro de $\EKca$.
+	Sea $E$ una curva elíptica definida sobre un cuerpo $K$ y sea $\Kca$ su clasura algebraica. Un \emph{endomorfismo} de $E$ es un homomorfismo $\alpha: \EKca \to \EKca$ dado por funciones racionales (cocientes de polinomios). Dicho de otro modo, $\alpha$ preserva la suma y el elemento neutro de $\EKca$.
 
-	El endomorfismo trivial que lleva cada punto a $\infty$ lo denotaremos por 0. Supondremos que $\alpha$ es no trivial a partir de ahora.
+	El endomorfismo trivial que lleva cada punto a $\infty$ lo denotaremos por 0.
 \end{definicion}
+
+Supondremos que $\alpha$ es no trivial a partir de ahora. El siguiente resultado técnico nos facilitará el manejo de endomorfismos de una curva elíptica.
 
 \begin{lema}\label{lm:endomorfismo con funciones racionales}
 	Si $\alpha$ es un endomorfismo de una curva elíptica definida por la ecuación de Weierstrass simplificada~\eqref{eq:ecuación Weierstrass}, entonces $\alpha$ se puede escribir como
@@ -381,8 +437,8 @@ El principal objetivo de este apartado es probar la proposición ~\ref{} que ser
 	$$
 	donde
 	\begin{itemize}
-		\item $r_1(x) = p(x) / q(x)$, donde $p(x), q(x)$ no tienen factores comunes.
-		\item Si $q(x) = 0$ para algún punto $(x, y)$, asumimos que $\alpha(x, y) = \infty$.
+		\item $r_1(x) = p(x) / q(x)$, con $p(x), q(x)$ polinomios sin factores comunes.
+		\item Si $q(x) = 0$ para algún punto $(x, y)$, entonces definimos $\alpha(x, y) = \infty$.
 		\item Si $q(x) \neq 0$, entonces $r_2(x)$ está definida.
 	\end{itemize}
 \end{lema}
@@ -398,7 +454,7 @@ El principal objetivo de este apartado es probar la proposición ~\ref{} que ser
 \begin{definicion}
 	Un endomorfismo $\alpha$ no trivial es \emph{separable} si la derivada $r_1(x)'$ no es idénticamente cero.
 
-	En cuerpos con característica cero, un polinomio no constante siempre tendrá derivada no nula. En cuerpos de característica $p > 0$, los polinomios con derivada nula son exactamente aquellos de la forma $g(x^p)$.
+	% En cuerpos con característica cero, un polinomio no constante siempre tendrá derivada no nula. En cuerpos de característica $p > 0$, los polinomios con derivada nula son exactamente aquellos de la forma $g(x^p)$.
 \end{definicion}
 
 % TODO: rellenar ref
@@ -454,3 +510,9 @@ El siguiente resultado será crucial en la demostración del teorema de Hasse~\r
 % $$
 % 	\phi_q(x, y) = (x^q, y^q)
 % $$
+
+
+% TODO: ver si meter el resto de resultados de endomorfismo
+
+\subsection{Curvas singulares y supersingulares}
+\label{sub:Curvas singulares y supersingulares}
