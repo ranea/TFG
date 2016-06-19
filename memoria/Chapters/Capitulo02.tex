@@ -19,7 +19,7 @@ Las referencias utilizadas para el desarollo matemático han sido sido~\cite{Was
 \section{Teoría básica de curvas elípticas}
 \label{sec:Teoría básica de curvas elípticas}
 
-En este apartado se tratarán las ecuaciones de Weierstrass, las operaciones de adicción y duplicación, los puntos proyectivos y los endomorfismos de curvas elípticas.
+En este apartado se tratarán las ecuaciones de Weierstrass, las operaciones de adicción y duplicación, los puntos proyectivos y los endomorfismos de curvas elípticas y los puntos de torsión.
 
 Las principales referencias utilizadas en este capítulo han sido~\cite[cap. 2]{Washington:2008} y~\cite[cap. 3]{Hankerson:2003}.
 
@@ -421,9 +421,9 @@ Hay situaciones en la que usar coordenadas proyectivas puede ser ventajoso (véa
 \label{sub:Endomorfismos}
 
 % TODO: añadir ref
-El principal objetivo de este apartado es probar la proposición ~\ref{} que será utilizada en la demostración del teorema de Hasse~\ref{}. Para ello, es necesario utilizar algunos resultados técnicos, los cuales solo los enunciaremos (puede encontrar su demostración en ~\cite[sec. 2.9]{Washington:2008} ).
+El principal objetivo de este apartado es probar la proposición~\ref{pp: cardinal del nucleo} que será utilizada en la demostración del teorema de Hasse~\ref{}. Para ello, es necesario utilizar algunos resultados técnicos, los cuales solo los enunciaremos (puede encontrar su demostración en ~\cite[sec. 2.9]{Washington:2008} ).
 
-% En este apartado, $E$ denotará una curva elíptica definida sobre un cuerpo $K$ de característica distinta de 2 y 3 y definida por la ecuación de Weierstrass simplificada $y^2 = x^3 + A x + B$. Para curvas elípticas sobre cuerpos de características 2 o 3 o definidos por la ecuación general de Weierstrass las ideas son las mismas, por lo
+% En este apartado, $E$ denotará una curva elíptica definida sobre un cuerpo $K$ de característica distinta de 2 y 3 y definida por la ecuación de Weierstrass simplificada $y^2 = x^3 + a x + b$. Para curvas elípticas sobre cuerpos de características 2 o 3 o definidos por la ecuación general de Weierstrass las ideas son las mismas, por lo
 
 \begin{definicion}
 	Sea $E$ una curva elíptica definida sobre un cuerpo $K$ y sea $\Kca$ su clasura algebraica. Un \emph{endomorfismo} de $E$ es un homomorfismo $\alpha: \EKca \to \EKca$ dado por funciones racionales (cocientes de polinomios). Dicho de otro modo, $\alpha$ preserva la suma y el elemento neutro de $\EKca$.
@@ -473,41 +473,56 @@ El siguiente resultado será crucial en la demostración del teorema de Hasse~\r
 		\dega > \left\vert{\ker(\alpha)}\right\vert
 	$$
 \end{proposicion}
-\begin{proof}
+\begin{proof}\label{pp: cardinal del nucleo}
 	Por el lema~\ref{lm:endomorfismo con funciones racionales}, $\alpha(x, y) = (r_1(x), r_2(x) y)$ con $r_1(x) = p(x) / q(x)$. Supongamo que $\alpha$ es separable. Entonces $r_1' \neq 0$, por lo que $p' q - p q'$ no es el polinomio cero.
 
-	Sea $S$ el conjunto de $x \in \Kca$ tal que $(p q' - p' q)(x) q(x) = 0$. Sea $(a, b) \in \EKca$ tal que
+	Sea $S$ el conjunto de $x \in \Kca$ tal que $(p q' - p' q)(x) q(x) = 0$. Sea $(u, v) \in \EKca$ tal que
 	\begin{enumerate}
-		\item $a \neq 0,\ b \neq 0,\ (a, b) \neq \infty$,
-		\item $\deg (p(x) - a q(x) ) = \max \{ \deg(p), \deg(q) \} = \dega$,
-		\item $a \not\in r_1(S)$ y
-		\item $(a, b) \in \alpha(\EKca)$.
+		\item $u \neq 0,\ v \neq 0,\ (u, v) \neq \infty$,
+		\item $\deg (p(x) - u q(x) ) = \max \{ \deg(p), \deg(q) \} = \dega$,
+		\item $u \not\in r_1(S)$ y
+		\item $(u, v) \in \alpha(\EKca)$.
 	\end{enumerate}
-	Como $p' q - p q'$ no es el polinomio nulo, $S$ es un conjunto finito, por lo que su imagen bajo $\alpha$ es finita. Por otro lado $\alpha(\EKca)$ es un conjunto infinito. Así, tal $(a, b)$ existe.
+	Como $p' q - p q'$ no es el polinomio nulo, $S$ es un conjunto finito, por lo que su imagen bajo $\alpha$ es finita. Por otro lado $\alpha(\EKca)$ es un conjunto infinito. Así, tal $(u, v)$ existe.
 
-	Veamos que existen exactamente $\dega$ puntos $(x_1, y_1) \in \EKca$ tal que $\alpha(x_1, y_1) = (a, b)$. Para tales puntos, se tiene
+	Veamos que existen exactamente $\dega$ puntos $(x_1, y_1) \in \EKca$ tal que $\alpha(x_1, y_1) = (u, v)$. Para tales puntos, se tiene
 	$$
-	\frac{p(x_1)}{q(x_1)} = a, \quad y_1 r_2(x_1) = b
+	\frac{p(x_1)}{q(x_1)} = u, \quad y_1 r_2(x_1) = v
 	$$
-	Como $(a, b) \neq \infty$, $q(x_1) \neq 0$ luego $r_2(x_1)$ está definido. Como $b \neq 0$ y $y_1 r_2(x_1) = b$, se tendrá $y_1 = b/r_2(x_1)$, esto es, $x_1$ determina $y_1$, por lo que solo tenemos que contar valores de $x_1$.
+	Como $(u, v) \neq \infty$, $q(x_1) \neq 0$ luego $r_2(x_1)$ está definido. Como $v \neq 0$ y $y_1 r_2(x_1) = v$, se tendrá $y_1 = v/r_2(x_1)$, esto es, $x_1$ determina $y_1$, por lo que solo tenemos que contar valores de $x_1$.
 
-	Por la propiedad (2), $p(x) - a q(x)$ tiene $\dega$ raíces, contando multiplicidades. Tenemos que ver que $p - a q$ no tiene raíces múltiples. Supongamos que $x_0$ es una raíz múltiple. Entonces
+	Por la propiedad (2), $p(x) - u q(x)$ tiene $\dega$ raíces, contando multiplicidades. Tenemos que ver que $p - u q$ no tiene raíces múltiples. Supongamos que $x_0$ es una raíz múltiple. Entonces
 	$$
-		p(x_0) - a q(x_0) = 0, \quad p'(x_0) - a q'(x_0) = 0
+		p(x_0) - u q(x_0) = 0, \quad p'(x_0) - u q'(x_0) = 0
 	$$
-	Multiplicando las ecuaciones $p = a q$ y $a q' = p'$ resulta
+	Multiplicando las ecuaciones $p = u q$ y $u q' = p'$ resulta
 	$$
-		a p(x_0) q'(x_0) = a p'(x_0) q(x_0)
+		u p(x_0) q'(x_0) = u p'(x_0) q(x_0)
 	$$
-	Como $a \neq 0$, esto implica que $x_0$ es una raíz de $p q' - p' q$, por lo que $x_0 \in S$. Así $a = r_1(x_0) \in r_1(S)$, contrario a la propiedad (3). Concluimos que $p - a q$ no tiene raíces múltiples y por ello tiene $\dega$ raíces distintas.
+	Como $u \neq 0$, esto implica que $x_0$ es una raíz de $p q' - p' q$, por lo que $x_0 \in S$. Así $u = r_1(x_0) \in r_1(S)$, contrario u la propiedad (3). Concluimos que $p - u q$ no tiene raíces múltiples y por ello tiene $\dega$ raíces distintas.
 
-	Como hay exactamente $\dega$ puntos $(x_1, y_1)$ con $\alpha(x_1, y_1) = (a, b)$, el núcleo de $\alpha$ tiene $\dega$ elementos.
+	Como hay exactamente $\dega$ puntos $(x_1, y_1)$ con $\alpha(x_1, y_1) = (u, v)$, el núcleo de $\alpha$ tiene $\dega$ elementos.
 
-	Nótese que como $\alpha$ es un homomorfismo, para cada $(a, b) \in \alpha(\EKca)$ hay exactamente $\dega$ puntos $(x_1, y_1)$ con $\alpha(x_1, y_1) = (a, b)$. Las hipótesis sobre $(a, b)$ se hicieron para obtener el resultado para al menos un punto, lo cual es suficiente.
+	Nótese que como $\alpha$ es un homomorfismo, para cada $(u, v) \in \alpha(\EKca)$ hay exactamente $\dega$ puntos $(x_1, y_1)$ con $\alpha(x_1, y_1) = (u, v)$. Las hipótesis sobre $(u, v)$ se hicieron para obtener el resultado para al menos un punto, lo cual es suficiente.
 
-	Si $\alpha$ no es separable, entonces los pasos de la demostración siguen siendo válidos, excepto que $p' - a q'$ es siempre el polinomio cero en este caso, por lo que $p(x) - a q(x) = 0$ tiene siempre raíces múltiplces y por ello tiene menos de $\dega$ soluciones.
+	Si $\alpha$ no es separable, entonces los pasos de la demostración siguen siendo válidos, excepto que $p' - u q'$ es siempre el polinomio cero en este caso, por lo que $p(x) - u q(x) = 0$ tiene siempre raíces múltiplces y por ello tiene menos de $\dega$ soluciones.
 \end{proof}
 
+Veamos ahora un par de resultados que serán útiles...
+
+\begin{proposicion}
+	Sea $E$ una curva elíptica definida sobre el cuerpo $K$. Sea $\alpha \neq 0$ un endomorfismo de $E$. Entonces $\alpha$ es sobreyectiva.
+\end{proposicion}
+\begin{proof}
+Sea $(u, v) \in \EKca$. Como $\alpha(\infty) = \infty$, supongamos que $(u, v) \neq \infty$. Por el lema~\ref{lm:endomorfismo con funciones racionales}, $\alpha$ será de la forma $\alpha(x, y) = (r_1(x), r_2(x) y)$ con $r_1(x) = p(x) / q(x)$. Consideramos el polinomio $p(x) - u q(x)$. Distinguimos dos casos.
+
+Supongamos que $p(x) - u q(x)$ no es un polinomio constante. Entonces tendrá una raíz $x_0$. Como $p$ y $q$ no tiene raíces en común, $q(x_0) \neq 0$. Sea $y_0 \in \Kca$ una raíz cuadrada de $x_0^3 + u x_0 + v$. Como $q(x_0) \neq 0$, $r_2(x)$ está definido y por lo tanto $\alpha(x_0, y_0)$ también y valdrá $(u, v')$ para algún $v'$. Como $v'^2 = u^3 + a u + b = v^2$, tenemos $v' = \pm v$. Si $v' = v$, hemos terminado. Si $v' = -v$, entonces $\alpha(x_0, -y_0) = (u, -v') = (u, v)$.
+
+Supongamos que $p - uq$ es un polinomio constante. Como $\EKca$ no es finito y el núcleo de $\alpha$ sí es finito, solo un número finito de puntos de $\EKca$ puede tener como imagen un punto con una componente $x$ dada. Así, bien $p(x)$ o $q(x)$ no es constante. Si $p$ y $q$ son dos polinomios no constantes, entonces hay como mucho una constante $u$ tal que $p - uq$ es constante (si $u'$ fuera otra constante que lo verificara, se tendría $(u' - u)q = (p - u q) - (p - u' q)$ es constante y $(u - u') p = u' (p - u q) - u (p - u' q)$ es constante, lo que implicaría que $p$ y $q$ son constantes). Así, hay al menos dos puntos, $(u, v)$ y $(u, -v)$ para algún $v$, que no están en la imagen de $\alpha$. Sea $(u_1, v_1)$ otro punto. Entonces $\alpha(P_1) = (u_1, v_1)$ para algún $P_1$. Podemos elegir $(u_1, v_1)$ tal que $(u_1, v_1) + (u, v) \neq (u, \pm v)$, por lo que existe $P_2$ con $\alpha(P_2) = (u_1, v_1) + (u, v)$. Entonces $\alpha(P_2 - P_1) = (u, v)$ y $\alpha(P_1 - P_2) = (u, -v)$. 
+
+\end{proof}
+
+% TODO: ver si meter el resto de resultados de endomorfismo
 % TODO: ver donde meter frobenius
 % Un importante ejemplo de endomorfismo es el \emph{endomorfismo de Frobenius}. Sea $E$ una curva elíptica definida sobre un cuerpo finito $\Fq$. El endomorfismo de Frobenius $\phi_q(x, y)$ está dado por
 % $$
@@ -515,4 +530,6 @@ El siguiente resultado será crucial en la demostración del teorema de Hasse~\r
 % $$
 
 
-% TODO: ver si meter el resto de resultados de endomorfismo
+
+\subsection{Puntos de torsión}
+\label{sub:Puntos de torsión}
