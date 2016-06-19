@@ -4,11 +4,12 @@
 %**************************
 
 % TODO: conceptos
-% conceptos han aparecido: extensión de cuerpo, característica, grupo, homomorfismo, clasura algebraica, orden
+% conceptos han aparecido: extensión de cuerpo, característica, grupo, homomorfismo, clasura algebraica, orden, cardinal, núcleo, tª estructura gurpos abelianos..
 
 % TODO: dudas
 % tengo que saber los teoremas que he referenciado como el teorema de Bezout o el teorema de Rienman-Roch?
 % bien la forma de citar?
+% demo de estructura subgrupo de torsión
 
 % TODO: completar introducción
 En este capítulo haremos el estudio matemático de la teoría de curvas elípticas. En el apartado~\ref{sec:Teoría básica de curvas elípticas} se desarolla la teoría básica, mientras que en el apartado~\ref{} se particulariza a curvas elítipcas sobre cuerpos finitos y por último en el apartado~\ref{} se ve...
@@ -19,7 +20,7 @@ Las referencias utilizadas para el desarollo matemático han sido sido~\cite{Was
 \section{Teoría básica de curvas elípticas}
 \label{sec:Teoría básica de curvas elípticas}
 
-En este apartado se tratarán las ecuaciones de Weierstrass, las operaciones de adicción y duplicación, los puntos proyectivos y los endomorfismos de curvas elípticas y los puntos de torsión.
+En este apartado se tratarán las ecuaciones de Weierstrass, las operaciones de adicción y duplicación, los puntos proyectivos, los endomorfismos de curvas elípticas y la estructura de los puntos de torsión.
 
 Las principales referencias utilizadas en este capítulo han sido~\cite[cap. 2]{Washington:2008} y~\cite[cap. 3]{Hankerson:2003}.
 
@@ -627,6 +628,7 @@ Para demostrar este teorema vamos a usar un resultado cuya demostración técnic
 \end{proposicion}
 
 \begin{proof}[Demostración del teorema~\ref{th:estructura subgrupos torsión}]
+% TODO: puedo usar el endomorfismo multiplicación?
 Supongamos primero que $n$ no es múltiplo de la característica $p$ del cuerpo. Por la proposicion~\ref{pp:endomorfismo multiplicación}, como $n$ no es múltiplo de la característica $p$, el endomorfismo multiplicación por $n$ es separable. Por la proposición~\ref{pp:cardinal del núcleo} y~\ref{pp:grado endomorfismo multiplicación}, el núcleo de este endomorfismo, $E[n]$, tiene orden $n^2$.
 
 Por el teorema de estructura para grupos abelianos finitos, $E[n]$ es isomorfo a
@@ -641,7 +643,8 @@ $$
 	E[n] \simeq \mathbb{Z}_n \oplus \mathbb{Z}_n
 $$
 
-Supongamos ahora que la característica $p$ divide a $n$.
-% TODO: completar demostración
+Supongamos ahora que la característica $p$ divide a $n$. Primero veamos la estructura de los subgrupos de torsión para una potencia de $p$.
 
+% TODO: no entiendo la parte final
+Por la proposición~\ref{pp:endomorfismo multiplicación}, el endomorfismo multiplicación por $p$ no es separable. Por tanto, por la proposición~\ref{pp:cardinal del núcleo}, el núcleo $E[p]$ del endomorfismo multiplicación por $p$ tiene orden estrictamente menor que el grado de este endomorfismo, que es $p^2$ por la proposición~\ref{pp:grado endomorfismo multiplicación}. Como todo elemento de $E[p]$ tiene orden 1 o $p$, el orden de $E[p]$ es una potencia de $p$, por lo que debe ser 1 o $p$. Si $E[p] = {\infty}$, entonces $E[p^k]$ debe ser trivial $\forall k$. Ahora supongamos que $E[p]$ tiene orden $p$. Entonces $E[p^k] \simeq \mathbb{Z}_{p^k}$. ...
 \end{proof}
