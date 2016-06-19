@@ -4,7 +4,7 @@
 %**************************
 
 % TODO: conceptos
-% conceptos han aparecido: extensión de cuerpo, característica, grupo, homomorfismo, clasura algebraica
+% conceptos han aparecido: extensión de cuerpo, característica, grupo, homomorfismo, clasura algebraica, orden
 
 % TODO: dudas
 % tengo que saber los teoremas que he referenciado como el teorema de Bezout o el teorema de Rienman-Roch?
@@ -359,8 +359,8 @@ La asociatividad puede probarse utilizando las fórmulas caso por caso, pero sup
 % \end{teorema}
 
 
-\subsubsection{Multiplicación escalar}
-\label{subs:Multiplicación escalar}
+\subsection{Multiplicación escalar}
+\label{sub:Multiplicación escalar}
 
 En este apartado veremos un método eficiente para calcular la duplicación reiterada de un punto.
 
@@ -421,7 +421,7 @@ Hay situaciones en la que usar coordenadas proyectivas puede ser ventajoso (véa
 \label{sub:Endomorfismos}
 
 % TODO: añadir ref
-El principal objetivo de este apartado es probar la proposición~\ref{pp: cardinal del nucleo} que será utilizada en la demostración del teorema de Hasse~\ref{}. Para ello, es necesario utilizar algunos resultados técnicos, los cuales solo los enunciaremos (puede encontrar su demostración en ~\cite[sec. 2.9]{Washington:2008} ).
+El principal objetivo de este apartado es probar la proposición~\ref{pp:cardinal del núcleo} que será utilizada en la demostración del teorema de Hasse~\ref{}. Para ello, es necesario utilizar algunos resultados técnicos, los cuales solo los enunciaremos (puede encontrar su demostración en ~\cite[sec. 2.9]{Washington:2008} ).
 
 % En este apartado, $E$ denotará una curva elíptica definida sobre un cuerpo $K$ de característica distinta de 2 y 3 y definida por la ecuación de Weierstrass simplificada $y^2 = x^3 + a x + b$. Para curvas elípticas sobre cuerpos de características 2 o 3 o definidos por la ecuación general de Weierstrass las ideas son las mismas, por lo
 
@@ -463,7 +463,7 @@ Supondremos que $\alpha$ es no trivial a partir de ahora. El siguiente resultado
 % TODO: rellenar ref
 El siguiente resultado será crucial en la demostración del teorema de Hasse~\ref{}
 
-\begin{proposicion}
+\begin{proposicion}\label{pp:cardinal del núcleo}
 	Sea $\alpha \neq 0$ un endomorfismo separable de una curva elíptica $E$. Entonces
 	$$
 		\dega = \left\vert{\ker(\alpha)}\right\vert
@@ -473,7 +473,7 @@ El siguiente resultado será crucial en la demostración del teorema de Hasse~\r
 		\dega > \left\vert{\ker(\alpha)}\right\vert
 	$$
 \end{proposicion}
-\begin{proof}\label{pp: cardinal del nucleo}
+\begin{proof}
 	Por el lema~\ref{lm:endomorfismo con funciones racionales}, $\alpha(x, y) = (r_1(x), r_2(x) y)$ con $r_1(x) = p(x) / q(x)$. Supongamo que $\alpha$ es separable. Entonces $r_1' \neq 0$, por lo que $p' q - p q'$ no es el polinomio cero.
 
 	Sea $S$ el conjunto de $x \in \Kca$ tal que $(p q' - p' q)(x) q(x) = 0$. Sea $(u, v) \in \EKca$ tal que
@@ -557,7 +557,7 @@ Para demostrar esta proposición, necesitamos un resultado técnico. La demostra
 	$$
 \end{lema}
 
-\begin{proof}[Demostración de la proposición~\ref{pp: cardinal del nucleo}]
+\begin{proof}[Demostración de la proposición~\ref{pp:endomorfismo multiplicación}]
 Dado un endomorfismo cualquiera $\alpha$, se tiene
 $$
 	\alpha(x, -y) = \alpha(-(x, y)) = - \alpha(x, y).
@@ -578,5 +578,70 @@ Por otro lado, $R_n'(x) \neq 0$ si y solo si $R_n'(x) / S_n(x) \neq 0$, que es e
 % 	\phi_q(x, y) = (x^q, y^q)
 % $$
 
-% \subsection{Puntos de torsión}
-% \label{sub:Puntos de torsión}
+\subsection{Puntos de torsión}
+\label{sub:Puntos de torsión}
+
+% TODO: rellenar ref
+En este apartado introduciremos los puntos de torsión y su estructura que jugarán un papel importante en las curvas elípticas sobre cuerpos finitos. También veremos el emparejamiento Weil el cual utilizaremos en la demostración del teorema de Hasse~\ref{}.
+
+\begin{definicion}
+	Un elemento de una curva elíptica $E$ cuyo orden es finito se llamará \emph{punto de torsión}.
+\end{definicion}
+
+\begin{definicion}
+	Llamaremos \emph{subgrupo de n-torsión} al subgrupo
+	$$
+		E[n] = \{ P \in \EKca \ | \  n P = \infty \}.
+	$$
+	Estos conjuntos son subgrupos ya que son los núcleos del endomorfismo multiplicación por $n$ (definido en el apartado~\ref{sub:Endomorfismos}).
+\end{definicion}
+
+% Para describir la estructura de los subgrupos de torsión, necesitamos estudiar el endomorfismo multiplicación por un entero $n$. Los siguientes resultados nos darán las herramientas para probar el teorema~\ref{}. No es el objetivo de este trabajo la demostración de~\ref{} y~\ref{}, resultados técnicos y laboriosos, pero si está interesado puede encontrar sus demostraciones en~\cite[sec. 3.2]{Washington:2008}.
+%
+% \begin{proposicion}
+% 	Sea $P = (x, y)$ un punto de la curva elíptica $y^2 = x^3 + a x + b$ sobre un cuerpo de característica distinta de 2 y sea $n$ un entero positivo. Entonces
+% 	$$
+% 		n P = (r(x), y s(x))
+% 	%	n P = \left( \frac{\phi_n(x)}{\psi_n^2(x)} , \frac{\omega_n(x, y)}{\psi_n(x, y)^3} \right)
+% 	$$
+% \end{proposicion}
+%
+
+\begin{teorema}\label{th:estructura subgrupos torsión}
+	Sea $E$ una curva elíptica sobre un cuerpo $K$ y sea $n$ un entero positivo. Si la característica de $K$ no divide a $n$, o es cero, entonces
+	$$
+		E[n] \simeq \mathbb{Z}_n \oplus \mathbb{Z}_n.
+	$$
+	Si la característica de $K$ es $p > 0$ y $p | n$, entonces
+	$$
+		E[n] \simeq \mathbb{Z}_{n'} \oplus \mathbb{Z}_{n'} \ \textrm{o} \ \simeq \mathbb{Z}_{n} \oplus \mathbb{Z}_{n'}
+	$$
+	donde $n = p^r n'$ con $p \nmid n'$.
+\end{teorema}
+
+% TODO: ver si no hay problema
+Para demostrar este teorema vamos a usar un resultado cuya demostración técnica, extensa y laboriosa omitiremos. Puede consultar su demostración en~\cite[sec. 3.2]{Washington:2008}.
+
+\begin{proposicion}\label{pp:grado endomorfismo multiplicación}
+	Sea $E$ una curva elíptica. El endomorfismo multiplicación por $n$ de $E$ tiene grado $n^2$.
+\end{proposicion}
+
+\begin{proof}[Demostración del teorema~\ref{th:estructura subgrupos torsión}]
+Supongamos primero que $n$ no es múltiplo de la característica $p$ del cuerpo. Por la proposicion~\ref{pp:endomorfismo multiplicación}, como $n$ no es múltiplo de la característica $p$, el endomorfismo multiplicación por $n$ es separable. Por la proposición~\ref{pp:cardinal del núcleo} y~\ref{pp:grado endomorfismo multiplicación}, el núcleo de este endomorfismo, $E[n]$, tiene orden $n^2$.
+
+Por el teorema de estructura para grupos abelianos finitos, $E[n]$ es isomorfo a
+$$
+	\mathbb{Z}_{n_1} \simeq \mathbb{Z}_{n_2} \simeq \ldots \simeq \mathbb{Z}_{n_k}
+$$
+para algunos enteros $n_1, n_2, ..., n_k$ con $n_i | n_{i+1} \ \forall i$ y donde $Z_{n_i}$ denota el grupo de enteros módulo $n_i$.
+
+% TODO: no entiendo este párrafo
+Sea $l$ un primo que divide a $n_1$. Entonces $l | n_i \ \forall i$. Esto implica que $E[l] \subset E[n]$ tiene orden $l^k$. Como acabamos de probar que $E[l]$ tiene orden $l^2$, $k$ debe ser 2. Multiplicar por $n$ anula $E[n] \simeq \mathbb{Z}_{n_1} \oplus \mathbb{Z}_{n_2}$, por lo que $n_2 | n$. Como $n^2 = \left\vert{E[n] }\right\vert = n_1 n_2$, se tiene $n_1 = n_2 = n$. Así,
+$$
+	E[n] \simeq \mathbb{Z}_n \oplus \mathbb{Z}_n
+$$
+
+Supongamos ahora que la característica $p$ divide a $n$.
+% TODO: completar demostración
+
+\end{proof}
