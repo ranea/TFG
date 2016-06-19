@@ -19,7 +19,7 @@ Las referencias utilizadas para el desarollo matemático han sido sido~\cite{Was
 \section{Teoría básica de curvas elípticas}
 \label{sec:Teoría básica de curvas elípticas}
 
-En este apartado se tratarán las ecuaciones de Weierstrass, las operaciones de adicción y duplicación, los puntos proyectivos , los endomorfismos de curvas elípticas y los conceptos de singularidad y supersingularidad.
+En este apartado se tratarán las ecuaciones de Weierstrass, las operaciones de adicción y duplicación, los puntos proyectivos y los endomorfismos de curvas elípticas.
 
 Las principales referencias utilizadas en este capítulo han sido~\cite[cap. 2]{Washington:2008} y~\cite[cap. 3]{Hankerson:2003}.
 
@@ -36,7 +36,7 @@ En esta apartado veremos la definición general de curva elíptica aunque poster
 		E : y^2 + a_1 x y + a_3 y = x^3 + a_2 x^2 + a_4 x + a_6
 	\end{equation}
 
-	donde $a_1, a_2, a_3, a_4, a_6 \in K$ y $\Delta \neq 0$, donde $\Delta$ es el \emph{discriminante} de $E$ y se define como:
+	donde $a_1, a_2, a_3, a_4, a_6 \in K$ y $\Delta \neq 0$, siendo $\Delta$ el \emph{discriminante} de $E$ y definiéndose como:
 
 	\begin{align}
 		\label{eq:discriminante}
@@ -51,7 +51,7 @@ En esta apartado veremos la definición general de curva elíptica aunque poster
 
 	Si $L$ es una extensión del cuerpo $K$, entonces el conjunto de puntos \emph{L-racionales} de $E$ es:
 	$$
-	E(L) = \{\infty\} \cup \{(x, y) \in L \times L: y^2 + a_1 x y + a_3 y = x^3 + a_2 x^2 + a_4 x + a_6 = 0\}
+	E(L) = \{\infty\} \cup \{(x, y) \in L \times L: y^2 + a_1 x y + a_3 y = x^3 + a_2 x^2 + a_4 x + a_6 \}
 	$$
 \end{definicion}
 
@@ -60,8 +60,11 @@ En esta apartado veremos la definición general de curva elíptica aunque poster
 		\item La ecuación~\eqref{eq:Weierstrass general} se conoce como la \emph{ecuación de Weierstrass}.
 		\item Diremos que $E$ \emph{está definida sobre} $K$ y lo notaremos $E/K$. A $K$ lo llamaremos \emph{cuerpo base}.
 		% TODO: rellenar ref
-		\item La condición $\Delta \neq 0$ asegura que la curva elíptica es no singular (véase apartado~\ref{})
-		% <<suave>>, esto es, no hay puntos en los que la curva tenga dos o mas rectas tangentes.
+		\item La condición $\Delta \neq 0$ asegura que la curva elíptica no tenga puntos \emph{singulares}, esto es, puntos que anulen las derivadas parciales de la función polínomica
+		$$
+			f(x, y) = y^2 + a_1 x y + a_3 y - x^3 - a_2 x^2 - a_4 x - a_6
+		$$
+		asociada a la curva elíptica. Esto asegura que no haya puntos en los que la curva tenga dos o más rectas tangentes.
 		\item El punto $\infty$ lo llararemos \emph{punto del infinito}. Es el único punto en la recta del infinito que satisface la forma proyectiva de la ecuación de Weierstrass (véase apartado~\ref{sub:Puntos proyectivos}).
 	\end{itemize}
 \end{nota}
@@ -141,12 +144,12 @@ para algunas constante $a, b \in K$. Para obtener el discriminante $\Delta$ bast
 \begin{nota}[comentarios del lema~\ref{lm: simplificación ecuación Weierstrass}] \leavevmode
 	\begin{itemize}
 		% TODO: rellenar ref
-		\item Si el cuerpo base tiene característica 2, la ecuación anterior~\eqref{eq:ecuación Weierstrass} no es válida ya que tiene puntos singulares (véase~\ref{}).
+		\item Si el cuerpo base tiene característica 2, la ecuación anterior~\eqref{eq:ecuación Weierstrass} no es válida ya que tiene puntos singulares.
 		\item Para cuerpos base con característica 3, la ecuación anterior~\eqref{eq:ecuación Weierstrass} si es válida, pero existan curvas que no tienen esta forma.
 	\end{itemize}
 \end{nota}
 
-En la mayor parte del trabajo, desarollaremos la teoría de curvas elípticas utilizando la ecuación de Weierstrass simplificada~\eqref{eq:ecuación Weierstrass}. Sin embargo, como los cuerpos finitos de característica dos son de especial interés en computación, ocasionalmente señalaremos que modificaciones son necesarias de la para cuerpos de característica dos. Veamos la primera modificación.
+En la mayor parte del trabajo, desarollaremos la teoría de curvas elípticas utilizando la ecuación de Weierstrass simplificada~\eqref{eq:ecuación Weierstrass}. Sin embargo, como los cuerpos finitos de característica dos son de especial interés en computación, ocasionalmente señalaremos que modificaciones son necesarias para los cuerpos base de característica dos. Veamos la primera modificación.
 
 \begin{lema}
 	Si la característica de K es 2, hay dos casos que considerar. Si $a_1 \neq 0$, entonces el cambio de variables admisible
@@ -513,6 +516,3 @@ El siguiente resultado será crucial en la demostración del teorema de Hasse~\r
 
 
 % TODO: ver si meter el resto de resultados de endomorfismo
-
-\subsection{Curvas singulares y supersingulares}
-\label{sub:Curvas singulares y supersingulares}
