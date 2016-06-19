@@ -508,7 +508,8 @@ El siguiente resultado será crucial en la demostración del teorema de Hasse~\r
 	Si $\alpha$ no es separable, entonces los pasos de la demostración siguen siendo válidos, excepto que $p' - u q'$ es siempre el polinomio cero en este caso, por lo que $p(x) - u q(x) = 0$ tiene siempre raíces múltiplces y por ello tiene menos de $\dega$ soluciones.
 \end{proof}
 
-Veamos ahora un par de resultados que serán útiles...
+% TODO: ref
+Veamos un par de resultados que serán útiles para describir la estructura de los puntos de torsión del apartado ~\ref{}.
 
 \begin{proposicion}
 	Sea $E$ una curva elíptica definida sobre el cuerpo $K$. Sea $\alpha \neq 0$ un endomorfismo de $E$. Entonces $\alpha$ es sobreyectiva.
@@ -518,8 +519,56 @@ Sea $(u, v) \in \EKca$. Como $\alpha(\infty) = \infty$, supongamos que $(u, v) \
 
 Supongamos que $p(x) - u q(x)$ no es un polinomio constante. Entonces tendrá una raíz $x_0$. Como $p$ y $q$ no tiene raíces en común, $q(x_0) \neq 0$. Sea $y_0 \in \Kca$ una raíz cuadrada de $x_0^3 + u x_0 + v$. Como $q(x_0) \neq 0$, $r_2(x)$ está definido y por lo tanto $\alpha(x_0, y_0)$ también y valdrá $(u, v')$ para algún $v'$. Como $v'^2 = u^3 + a u + b = v^2$, tenemos $v' = \pm v$. Si $v' = v$, hemos terminado. Si $v' = -v$, entonces $\alpha(x_0, -y_0) = (u, -v') = (u, v)$.
 
-Supongamos que $p - uq$ es un polinomio constante. Como $\EKca$ no es finito y el núcleo de $\alpha$ sí es finito, solo un número finito de puntos de $\EKca$ puede tener como imagen un punto con una componente $x$ dada. Así, bien $p(x)$ o $q(x)$ no es constante. Si $p$ y $q$ son dos polinomios no constantes, entonces hay como mucho una constante $u$ tal que $p - uq$ es constante (si $u'$ fuera otra constante que lo verificara, se tendría $(u' - u)q = (p - u q) - (p - u' q)$ es constante y $(u - u') p = u' (p - u q) - u (p - u' q)$ es constante, lo que implicaría que $p$ y $q$ son constantes). Así, hay al menos dos puntos, $(u, v)$ y $(u, -v)$ para algún $v$, que no están en la imagen de $\alpha$. Sea $(u_1, v_1)$ otro punto. Entonces $\alpha(P_1) = (u_1, v_1)$ para algún $P_1$. Podemos elegir $(u_1, v_1)$ tal que $(u_1, v_1) + (u, v) \neq (u, \pm v)$, por lo que existe $P_2$ con $\alpha(P_2) = (u_1, v_1) + (u, v)$. Entonces $\alpha(P_2 - P_1) = (u, v)$ y $\alpha(P_1 - P_2) = (u, -v)$. 
+Supongamos que $p - uq$ es un polinomio constante. Como $\EKca$ no es finito y el núcleo de $\alpha$ sí es finito, solo un número finito de puntos de $\EKca$ puede tener como imagen un punto con una componente $x$ dada. Así, bien $p(x)$ o $q(x)$ no es constante. Si $p$ y $q$ son dos polinomios no constantes, entonces hay como mucho una constante $u$ tal que $p - uq$ es constante (si $u'$ fuera otra constante que lo verificara, se tendría $(u' - u)q = (p - u q) - (p - u' q)$ es constante y $(u - u') p = u' (p - u q) - u (p - u' q)$ es constante, lo que implicaría que $p$ y $q$ son constantes). Así, hay al menos dos puntos, $(u, v)$ y $(u, -v)$ para algún $v$, que no están en la imagen de $\alpha$. Sea $(u_1, v_1)$ otro punto. Entonces $\alpha(P_1) = (u_1, v_1)$ para algún $P_1$. Podemos elegir $(u_1, v_1)$ tal que $(u_1, v_1) + (u, v) \neq (u, \pm v)$, por lo que existe $P_2$ con $\alpha(P_2) = (u_1, v_1) + (u, v)$. Entonces $\alpha(P_2 - P_1) = (u, v)$ y $\alpha(P_1 - P_2) = (u, -v)$.
 
+\end{proof}
+
+% TODO: ver si especificar el resultado para cuerpos base de car != 2
+\begin{proposicion}\label{pp:endomorfismo multiplicación}
+	Sea $E$ una curva elíptica definida sobre un cuerpo $K$ y sea $n$ un entero no cero. Consideramos el endomorfismo \emph{multiplicación} por $n$  dado por
+	$$
+		n(P) = n P,\ \forall P \in \EKca
+	$$
+	Supongamos que está dado por funciones racionales $R_n$ y $S_n$, esto es,
+	$$
+		n(x, y) = (R_n(x), y S_n(x))
+	$$
+	para todo $(x, y) \in \EKca$. Entonces
+	$$
+		\frac{R_n'(x)}{S_n(x)} = n.
+	$$
+	Por tanto, la multiplicación por $n$ es separable si y sólo si $n$ no es un múltiplo de la característica del cuerpo base.
+\end{proposicion}
+
+Para demostrar esta proposición, necesitamos un resultado técnico. La demostración de este lema se puede encontrar en~\cite[sec 2.9]{Washington:2008}.
+
+\begin{lema}
+	Sean $\alpha_1,\ \alpha_2,\ \alpha_3$ endomorfismos no triviales de una curva elíptica $E$ con $\alpha_1 + \alpha_2 = \alpha_3$. Supongamos que cada endomorfismo está dado de la siguiente forma
+	$$
+		\alpha_j(x, y) = (R_{\alpha_j}(x), y S_{\alpha_j}(x))
+	$$
+	y que existen constantes $c_{\alpha_1}, c_{\alpha_2}$ tal que
+	$$
+		\frac{R_{\alpha_1}'(x)}{S_{\alpha_1}(x)} = c_{\alpha_1}, \quad  \frac{R_{\alpha_2}'(x)}{S_{\alpha_2}(x)} = c_{\alpha_2}.
+	$$
+	Entonces
+	$$
+		\frac{R_{\alpha_3}'(x)}{S_{\alpha_3}(x)} = c_{\alpha_3} + c_{\alpha_3}
+	$$
+\end{lema}
+
+\begin{proof}[Demostración de la proposición~\ref{pp: cardinal del nucleo}]
+Dado un endomorfismo cualquiera $\alpha$, se tiene
+$$
+	\alpha(x, -y) = \alpha(-(x, y)) = - \alpha(x, y).
+$$
+En particular, $R_{-n} = R_n$ y $S_{-n} = -S_n$. Luego $R_n' / S_n = - R_n' / S_n$ y basta probar el resultado para $n$ positivos.
+
+Para $n = 1$, la primera parte de la proposición es cierta. Aplicando el lema anterior, si es cierta para $n$, también es cierta para $n +1$ (la suma de $n$ y 1). Así,
+$$
+	\frac{R_n'(x)}{S_n(x)} = n.
+$$
+Por otro lado, $R_n'(x) \neq 0$ si y solo si $R_n'(x) / S_n(x) \neq 0$, que es equivalente a que la característica de $K$ no divida a $n$. Por la definición de separabilidad, esto prueba la segunda parte.
 \end{proof}
 
 % TODO: ver si meter el resto de resultados de endomorfismo
@@ -529,7 +578,5 @@ Supongamos que $p - uq$ es un polinomio constante. Como $\EKca$ no es finito y e
 % 	\phi_q(x, y) = (x^q, y^q)
 % $$
 
-
-
-\subsection{Puntos de torsión}
-\label{sub:Puntos de torsión}
+% \subsection{Puntos de torsión}
+% \label{sub:Puntos de torsión}
