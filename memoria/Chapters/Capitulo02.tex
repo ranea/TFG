@@ -512,7 +512,7 @@ El siguiente resultado será crucial en la demostración del teorema de Hasse~\r
 % TODO: ref
 Veamos un par de resultados que serán útiles para describir la estructura de los puntos de torsión del apartado ~\ref{}.
 
-\begin{proposicion}
+\begin{proposicion}\label{pp:sobreyectividad endomorfismos}
 	Sea $E$ una curva elíptica definida sobre el cuerpo $K$. Sea $\alpha \neq 0$ un endomorfismo de $E$. Entonces $\alpha$ es sobreyectiva.
 \end{proposicion}
 \begin{proof}
@@ -637,7 +637,7 @@ $$
 $$
 para algunos enteros $n_1, n_2, ..., n_k$ con $n_i | n_{i+1} \ \forall i$ y donde $Z_{n_i}$ denota el grupo de enteros módulo $n_i$.
 
-% TODO: no entiendo este párrafo
+% TODO: revisar subrayado en [Washington]
 Sea $l$ un primo que divide a $n_1$. Entonces $l | n_i \ \forall i$. Esto implica que $E[l] \subset E[n]$ tiene orden $l^k$. Como acabamos de probar que $E[l]$ tiene orden $l^2$, $k$ debe ser 2. Multiplicar por $n$ anula $E[n] \simeq \mathbb{Z}_{n_1} \oplus \mathbb{Z}_{n_2}$, por lo que $n_2 | n$. Como $n^2 = \left\vert{E[n] }\right\vert = n_1 n_2$, se tiene $n_1 = n_2 = n$. Así,
 $$
 	E[n] \simeq \mathbb{Z}_n \oplus \mathbb{Z}_n
@@ -645,6 +645,25 @@ $$
 
 Supongamos ahora que la característica $p$ divide a $n$. Primero veamos la estructura de los subgrupos de torsión para una potencia de $p$.
 
-% TODO: no entiendo la parte final
-Por la proposición~\ref{pp:endomorfismo multiplicación}, el endomorfismo multiplicación por $p$ no es separable. Por tanto, por la proposición~\ref{pp:cardinal del núcleo}, el núcleo $E[p]$ del endomorfismo multiplicación por $p$ tiene orden estrictamente menor que el grado de este endomorfismo, que es $p^2$ por la proposición~\ref{pp:grado endomorfismo multiplicación}. Como todo elemento de $E[p]$ tiene orden 1 o $p$, el orden de $E[p]$ es una potencia de $p$, por lo que debe ser 1 o $p$. Si $E[p] = {\infty}$, entonces $E[p^k]$ debe ser trivial $\forall k$. Ahora supongamos que $E[p]$ tiene orden $p$. Entonces $E[p^k] \simeq \mathbb{Z}_{p^k}$. ...
+% TODO:  revisar subrayado en [Washington]
+Por la proposición~\ref{pp:endomorfismo multiplicación}, el endomorfismo multiplicación por $p$ no es separable. Por tanto, por la proposición~\ref{pp:cardinal del núcleo}, el núcleo $E[p]$ del endomorfismo multiplicación por $p$ tiene orden estrictamente menor que el grado de este endomorfismo, que es $p^2$ por la proposición~\ref{pp:grado endomorfismo multiplicación}. Como todo elemento de $E[p]$ tiene orden 1 o $p$, el orden de $E[p]$ es una potencia de $p$, por lo que debe ser 1 o $p$. Si $E[p] = {\infty}$, entonces $E[p^k]$ debe ser trivial $\forall k$. Ahora supongamos que $E[p]$ tiene orden $p$. Veamos $E[p^k] \simeq \mathbb{Z}_{p^k}\ \forall k$.
+
+Supongamos existe un elemento $P$ de orden $p^j$. Por la proposicion~\ref{pp:sobreyectividad endomorfismos}, el endomorfismo multiplicación por $p$ es sobreyectivo, así que existirá un punto $Q$ tal que $p Q = P$. Como
+$$
+	p^j Q = p^{j-1} P \neq \infty \quad \textrm{pero} \quad p^{j+1} Q = p^j P = \infty
+$$
+$Q$ tiene orden $p^{j+1}$. Por inducción, hay puntos de orden $p^k \ \forall k$. Por tanto, $E[p^k]$ es cíclico de orden $p^k$.
+
+Escribiendo $n = p^r n'$ con $r \geq 0$ y $p \nmid n'$, resulta
+$$
+	E[n] \simeq E[n'] \oplus E[p^r].
+$$
+donde $E[n'] \simeq \mathbb{Z}_{n'} \oplus \mathbb{Z}_{n'}$, ya que $p \nmid n'$. Acabamos de ver que $E[p^r] \simeq 0$ o $\mathbb{Z}_{p^r}$. El teorema chino del resto nos dice que
+$$
+	\mathbb{Z}_{n'} \oplus \mathbb{Z}_{p^r} \simeq \mathbb{Z}_{n' p^r} \simeq \mathbb{Z}_{n}
+$$
+por lo que concluimos con
+$$
+	E[n] \simeq \mathbb{Z}_{n'} \oplus \mathbb{Z}_{n'} \quad \textrm{o} \quad  \mathbb{Z}_{n'} \oplus \mathbb{Z}_{n}.
+$$
 \end{proof}
