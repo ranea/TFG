@@ -693,11 +693,55 @@ Los subgrupos de torsión nos permiten reducir cuestiones sobre los endomorfismo
 
 El resultado que simplifica el cálculo del grado de un endomorfismo al cálculo del determinante de la matriz asociada es el siguiente.
 
-\begin{proposicion}
+\begin{proposicion}\label{pp: relacion grado de un endomorfismo y el determinante}
 	Sea $\alpha$ un endomorfismo de una curva elíptica $E$ definido sobre un cuerpo $K$. Sea $n$ un entero positivo no divisible por la característica de $K$. Entonces
 	$$
 		\det(\alpha_n) \equiv \dega \pmod{n}.
 	$$
 \end{proposicion}
 
-Para demostrar esta proposición, necesitamos introducir el \emph{emparejamiento de Weil}.
+Para demostrar esta proposición, necesitamos introducir el \emph{emparejamiento Weil}.
+
+\subsubsection{Emparejamiento Weil}
+\label{subs:Emparejamiento Weil}
+
+% TODO: ver si se utiliza más. añadir ref a Hase
+El emparejamiento de Weil sobre un subgrupo de torsión de una curva elíptica es una herramienta principal en el estudio de las curvas elípticas. En este trabajo se utilizará para probar la proposición~\ref{pp: relacion grado de un endomorfismo y el determinante} que será necesaria para probar el teorema de Hasse.
+
+Sea $E$ una curva elíptica sobre un cuerpo $K$ y sea $n$ un entero no divisible por la característica de $K$. Consideramos el grupo $\mu_n$ de las raíces $n$-ésimas de la unidad en $\Kca$, esto es,
+$$
+	\mu_n = \{ x \in \Kca \ | \ x^n = 1 \}.
+$$
+
+Como la característica de $K$ no divide a $n$, la ecuación $x^n = 1$ no tiene raíces múltiples y por lo tanto $\mu_n$ es un grupo cíclico de orden $n$.
+
+\begin{proposicion}
+	Sea $E$ una curva elíptica sobre un cuerpo $K$ y sea $n$ un entero positivo no divisible por la característica de $k$. Entonces existe un emparejamiento
+	$$
+		e_n : E[n] \times E[n] \to \mu_n
+	$$
+	llamado \emph{emparejamiento Weil} que satisface las siguientes propieades:
+	\begin{itemize}
+		\item $e_n$ es bilineaer en cada variable, esto es,
+			\begin{align*}
+				e_n(S_1 + S_2, T) &= e_n(S_1, T) e_n(S_2, T) \\
+				e_n(S, T_1 + T_2) &= e_n(S, T_1) e_n(S, T_2)
+			\end{align*}
+		$\forall S, S_1, S_2, T, T_1, T_2 \in E[n]$.
+
+		\item $e_n$ es no degenerada en cada variable, esto es,
+			\begin{align*}
+				e_n(S, T), \ \forall T \in E[n] &\implies S = \infty \\
+				e_n(S, T), \ \forall S \in E[n] &\implies T = \infty
+			\end{align*}
+
+		\item $e_n(T, T) = 1, \ \forall T \in E[n]$.
+
+		\item $e_n(T, S) = e_n(S, T)^{-1}, \ \forall S, T \in E[n]$.
+
+		\item $e_n(\sigma S, \sigma T) = \sigma(e_n(S, T))$ para todo automorfismo (endomorfismo biyectivo) $\sigma$ de $\Kca$ tal que $\sigma$ sea la identidad en los coeficientes de $E$.
+
+		% TODO: rellenar ref
+		\item $e_n(\alpha S, \alpha T) = e_n(S, T)^{\dega}$ para todo endomorfismo $\alpha$ de $E$ separable. Si los coeficientes de $E$ están en un cuerpo finito $\Fq$, entonces esta propiedad también es válida cuando $\alpha$ sea el endomorfismo de Frobenius $\phi_q$ (véase ~\ref{}).
+	\end{itemize}
+\end{proposicion}
