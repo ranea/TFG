@@ -695,7 +695,7 @@ Los subgrupos de torsión nos permiten reducir cuestiones sobre los endomorfismo
 	\end{itemize}
 \end{definicion}
 
-El resultado que simplifica el cálculo del grado de un endomorfismo al cálculo del determinante de la matriz asociada es el siguiente.
+Los resultados que simplifican el cálculo del grado de un endomorfismo al cálculo del determinante de la matriz asociada son los siguientes.
 
 \begin{proposicion}\label{pp: relacion grado de un endomorfismo y el determinante}
 	Sea $\alpha$ un endomorfismo de una curva elíptica $E$ definido sobre un cuerpo $K$. Sea $n$ un entero positivo no divisible por la característica de $K$. Entonces
@@ -704,7 +704,21 @@ El resultado que simplifica el cálculo del grado de un endomorfismo al cálculo
 	$$
 \end{proposicion}
 
-Para demostrar esta proposición, necesitamos introducir el \emph{emparejamiento Weil}.
+% TODO: rellenar ref o ver que hacer
+% 	de $E$ separables o de la forma $r + s \phi_q$ donde $r, s$ son enteros arbitrarios y $\phi_q$ el endomorfismo de Frobenius (véase ~\ref{}).
+\begin{proposicion}\label{pp:grado endomorfismo a*alpha + b*beta}
+	Sean $\alpha$ y $\beta$ endomorfismos de $E$ y sean $a, b$ enteros. Consideramos el endomorfismo $a \alpha + b \beta$ definido por
+	$$
+		(a \alpha + b \beta)(P) = a \alpha(P) + b \beta(P).
+	$$
+	Entonces
+	\begin{align*}
+		\deg(a \alpha + b \beta) =& \ a^2 \dega + b^2 \deg(\beta) \\
+		&+ a b (\deg(\alpha + \beta) - \dega - \deg(\beta))
+	\end{align*}
+\end{proposicion}
+
+Para demostrar ambas proposiciones, necesitamos introducir el \emph{emparejamiento Weil}.
 
 \subsubsection{Emparejamiento Weil}
 \label{subs:Emparejamiento Weil}
@@ -719,7 +733,7 @@ $$
 
 Como la característica de $K$ no divide a $n$, la ecuación $x^n = 1$ no tiene raíces múltiples y por lo tanto $\mu_n$ es un grupo cíclico de orden $n$.
 
-\begin{proposicion}
+\begin{proposicion}\label{pp:endomorfismo Weil}
 	Sea $E$ una curva elíptica sobre un cuerpo $K$ y sea $n$ un entero positivo no divisible por la característica de $k$. Entonces existe un emparejamiento
 	$$
 		e_n : E[n] \times E[n] \to \mu_n
@@ -745,7 +759,33 @@ Como la característica de $K$ no divide a $n$, la ecuación $x^n = 1$ no tiene 
 
 		\item $e_n(\sigma S, \sigma T) = \sigma(e_n(S, T))$ para todo automorfismo (endomorfismo biyectivo) $\sigma$ de $\Kca$ tal que $\sigma$ sea la identidad en los coeficientes de $E$.
 
-		% TODO: rellenar ref
-		\item $e_n(\alpha S, \alpha T) = e_n(S, T)^{\dega}$ para todo endomorfismo $\alpha$ de $E$ separable. Si los coeficientes de $E$ están en un cuerpo finito $\Fq$, entonces esta propiedad también es válida cuando $\alpha$ sea el endomorfismo de Frobenius $\phi_q$ (véase ~\ref{}).
+		% TODO: rellenar ref o ver que hacer
+		\item $e_n(\alpha S, \alpha T) = e_n(S, T)^{\dega}$ para todo endomorfismo $\alpha$ de $E$ .
+		%separable. Si los coeficientes de $E$ están en un cuerpo finito $\Fq$, entonces esta propiedad también es válida cuando $\alpha$ sea el endomorfismo de Frobenius $\phi_q$ (véase ~\ref{}).
 	\end{itemize}
 \end{proposicion}
+
+La proposición anterior requiere un estudio avanzado y detallado sobre curvas elípticas para realizar su demostración. Como no es nuestro objetivo hacer una teoría exhaustiva sobre curvas elípticas, el lector interesado puede consultar~\cite[cap. 11]{Washington:2008} para más información.
+
+% TODO: ver si demostrar o no
+% Por el mismo motivo, los siguientes resultados de este apartado, consecuencias de la proposición~\ref{pp:endomorfismo Weil}, los enunciaremos solo. Sus demostraciones pueden encontrarse en~\cite[cap. 3]{Washington:2008}.
+
+\begin{corolario}
+	Sea $\{ T_1, T_2 \}$ una base de $E[n]$. Entonces $e_n(T_1, T_2)$ es un raíz $n$-ésima de la unidad que genera $\mu_n$ (también llamada raíz $n$-esima primitiva).
+\end{corolario}
+\begin{proof}
+% TODO: dem
+...
+\end{proof}
+
+Ya podemos realizar las demostraciones pendientes de las proposiciones~\ref{pp: relacion grado de un endomorfismo y el determinante} y \ref{pp:grado endomorfismo a*alpha + b*beta}.
+
+\begin{proof}[Demostración de la proposición~\ref{pp: relacion grado de un endomorfismo y el determinante}]
+% TODO: dem
+...
+\end{proof}
+
+\begin{proof}[Demostración de la proposición~\ref{pp:grado endomorfismo a*alpha + b*beta}]
+% TODO: dem
+...
+\end{proof}
