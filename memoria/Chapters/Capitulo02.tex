@@ -803,6 +803,15 @@ $$
 \end{proof}
 
 \begin{proof}[Demostración de la proposición~\ref{pp:grado endomorfismo a*alpha + b*beta}]
-% TODO: dem
-...
+Sea $n$ un entero no divisible por la característica de $K$. Representamos $\alpha$ y $\beta$ por matrices $\alpha_n$ y $\beta_n$ (con respecto a alguna base de $E[n]$). Entonces $a \alpha_n + b \beta_n$ representa la acción de $a \alpha + b \beta$ sobre $E[n]$. Un cálculo directo resulta
+\begin{align*}
+	\det(a \alpha_n + b \beta_n) &= a^2 \det(\alpha_n) + b^2 \det(\beta_n) \\
+	&+ a b (\det(\alpha_n + \beta_n) - \det(\alpha_n) - \det(\beta_n))
+\end{align*}
+para cualquier matriz $\alpha_n$ y $\beta_n$. Por tanto,
+\begin{align*}
+	\deg(a \alpha + b \beta) &\equiv \ a^2 \dega + b^2 \deg(\beta) \\
+	&+ a b (\deg(\alpha + \beta) - \dega - \deg(\beta)) \pmod{n}
+\end{align*}
+Como esto es válido para cualquier $n$, debe ser una igualdad.
 \end{proof}
