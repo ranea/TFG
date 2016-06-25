@@ -51,10 +51,11 @@ En esta apartado veremos la definición general de curva elíptica aunque poster
 		\end{rcases}
 	\end{align}
 
-	Si $L$ es una extensión del cuerpo $K$, entonces el conjunto de puntos \emph{L-racionales} de $E$ es:
-	$$
-	E(L) = \{\infty\} \cup \{(x, y) \in L \times L: y^2 + a_1 x y + a_3 y = x^3 + a_2 x^2 + a_4 x + a_6 \}
-	$$
+	Si $L$ es una extensión del cuerpo $K$, entonces el conjunto de puntos \emph{L-racionales} de $E$ es $E(L) = \{\infty\} \cup \{(x, y) \in L \times L: y^2 + a_1 x y + a_3 y = x^3 + a_2 x^2 + a_4 x + a_6 \}$.
+	% \begin{align*}
+	% 	E(L) = \{\infty\} \cup \{(x, y) \in L \times L: \\
+	% 	y^2 + a_1 x y + a_3 y = x^3 + a_2 x^2 + a_4 x + a_6 \}
+	% \end{align*}
 \end{definicion}
 
 \begin{nota}[comentarios de la definición~\ref{def:curva elíptica}]\leavevmode
@@ -79,7 +80,7 @@ En esta apartado veremos la definición general de curva elíptica aunque poster
 	\end{align*}
 	definidas sobre el cuerpo $\mathbb{R}$ de los números reales. Los puntos $E_1(\mathbb{R})$ y $E_2(\mathbb{R})$ se han representado en la Figura~\ref{fig:curvas elípticas reales}.
 
-	\begin{figure}[h]
+	\begin{figure}
 		\myfloatalign
 		\subfloat[$E_1: y^2 = x^3 - x$]
 		{\includegraphics[width=.45\linewidth]{gfx/grafo_curva_eliptica_reales_1.pdf}} \quad
@@ -244,10 +245,10 @@ Sea $E$ una curva elíptica definida por la ecuación $y^2 = x^3 + a x + b$ sobr
 	\item $P + \infty = \infty + P = P,$ para todo $P \in E(K)$
 	\item Si $P = (x, y) \in E(K)$, entonces $(x, y) + (x, -y) = \infty$. El punto $(x, -y)$ se denotará por $-P$ y se llamará el \emph{opuesto} de P. Además, $- \infty = \infty$.
 	\item Sea $P = (x_1, y_1) \in E(K)$ y $Q = (x_2, y_2) \in E(K)$, donde $P \neq \pm Q$. Entonces $P + Q = (x_3, y_3)$, donde
-	$$
-	x_3 = \left(\frac{y_2 - y_1}{x_2 - x_1}\right)^2 - x_1 - x_2, \quad
-	y_3 = \left(\frac{y_2 - y_1}{x_2 - x_1}\right) (x_1 - x_3) - y_1
-	$$
+	\begin{align*}
+		x_3 &= \left(\frac{y_2 - y_1}{x_2 - x_1}\right)^2 - x_1 - x_2 \\
+		y_3 &= \left(\frac{y_2 - y_1}{x_2 - x_1}\right) (x_1 - x_3) - y_1
+	\end{align*}
 	\item Sea $P = (x_1, y_1) \in E(K)$, donde $P \neq  -P$. Entonces $2 P = (x_3, y_3)$ donde:
 	$$
 	x_3 = \left(\frac{3 x_1^2 + a}{2 y_1}\right)^2 - 2 x_1, \quad
@@ -675,7 +676,7 @@ $$
 
 Los subgrupos de torsión nos permiten reducir cuestiones sobre los endomorfismos a cálculos con matrices. Para ello, dado un endomorfismo $\alpha$, vamos a asociarle una matriz con entradas en $\mathbb{Z}_{n}$ que describirá la acción de $\alpha$ sobre una base de $E[n]$.
 
-\begin{definicion}
+\begin{definicion}\label{def: matriz endomorfismo}
 	Sea $n$ un entero positivo no divisible por la característica de $K$ y $\alpha: \EKca \to \EKca$ un homomorfismo (no necesariamente dado por funciones racionales). Definimos la matriz $\alpha_n$ dada por
 	$$
 	\alpha_n =
@@ -739,7 +740,7 @@ Como la característica de $K$ no divide a $n$, la ecuación $x^n = 1$ no tiene 
 		e_n : E[n] \times E[n] \to \mu_n
 	$$
 	llamado \emph{emparejamiento Weil} que satisface las siguientes propieades:
-	\begin{itemize}
+	\begin{enumerate}
 		\item $e_n$ es bilineaer en cada variable, esto es,
 			\begin{align*}
 				e_n(S_1 + S_2, T) &= e_n(S_1, T) e_n(S_2, T) \\
@@ -762,7 +763,7 @@ Como la característica de $K$ no divide a $n$, la ecuación $x^n = 1$ no tiene 
 		% TODO: rellenar ref o ver que hacer
 		\item $e_n(\alpha S, \alpha T) = e_n(S, T)^{\dega}$ para todo endomorfismo $\alpha$ de $E$ .
 		%separable. Si los coeficientes de $E$ están en un cuerpo finito $\Fq$, entonces esta propiedad también es válida cuando $\alpha$ sea el endomorfismo de Frobenius $\phi_q$ (véase ~\ref{}).
-	\end{itemize}
+	\end{enumerate}
 \end{proposicion}
 
 La proposición anterior requiere un estudio avanzado y detallado sobre curvas elípticas para realizar su demostración. Como no es nuestro objetivo hacer una teoría exhaustiva sobre curvas elípticas, el lector interesado puede consultar~\cite[cap. 11]{Washington:2008} para más información.
@@ -770,19 +771,35 @@ La proposición anterior requiere un estudio avanzado y detallado sobre curvas e
 % TODO: ver si demostrar o no
 % Por el mismo motivo, los siguientes resultados de este apartado, consecuencias de la proposición~\ref{pp:endomorfismo Weil}, los enunciaremos solo. Sus demostraciones pueden encontrarse en~\cite[cap. 3]{Washington:2008}.
 
-\begin{corolario}
-	Sea $\{ T_1, T_2 \}$ una base de $E[n]$. Entonces $e_n(T_1, T_2)$ es un raíz $n$-ésima de la unidad que genera $\mu_n$ (también llamada raíz $n$-esima primitiva).
+\begin{corolario}\label{cl: imagen de la base por endomorfismo Weil es raiz primitiva}
+	Sea $\{ T_1, T_2 \}$ una base de $E[n]$. Entonces $e_n(T_1, T_2)$ es un raíz $n$-ésima de la unidad que genera $\mu_n$ (también llamada raíz \emph{primitiva}).
 \end{corolario}
 \begin{proof}
-% TODO: dem
-...
+Vamos a usar la siguiente caracterización. Si $\zeta$ es una raíz $n$-ésima de la unidad, entonces $\zeta$ es una raíz primitiva si y solo si
+$$
+	\zeta^k = 1 \iff n \mid k.
+$$
+
+Supongamos $e_n(T_1, T_2) = \zeta$ con $\zeta ^ d = 1$. Entonces $e_n(T_1, d T_2) = 1$. Por (1) y (3), $e_n(T_2, d T_2) = e_n(T_2, T_2)^d = 1$. Sea $S \in E[n]$. Entonces $S = a T_1 + b T_2$ para algunos enteros $a, b$. Se verifica
+$$
+	e_n(S, d T_2) = e_n(T_1, d T_2)^a e_n(T_2, d T_2)^b = 1.
+$$
+Como esto es válido para cualquier $S$, (2) implica que $d T_2 = \infty$. Pero $d T_2 = \infty$ si y solo si $n \mid d$, luego $\zeta$ es una raíz primitiva.
 \end{proof}
 
 Ya podemos realizar las demostraciones pendientes de las proposiciones~\ref{pp: relacion grado de un endomorfismo y el determinante} y \ref{pp:grado endomorfismo a*alpha + b*beta}.
 
 \begin{proof}[Demostración de la proposición~\ref{pp: relacion grado de un endomorfismo y el determinante}]
-% TODO: dem
-...
+Por el corolario~\ref{cl: imagen de la base por endomorfismo Weil es raiz primitiva}, $\zeta = e_n(T_1, T_2)$ es una raíz $n$-ésima primitivda de la unidad. Por la propiedades del endomorfismo Weil~\ref{pp:endomorfismo Weil}, se tiene
+\begin{align*}
+	\zeta^{\dega} &= e_n(\alpha(T_1),\alpha(T_2)) = e_n(a T_1 + c T_2, b T_1 + d T_2) \\
+		&= e_n(T_1, T_1)^{a b} e_n(T_1, T_2)^{a d} e_n(T_2, T_1)^{c b} e_n(T_2, T_2)^{c d} \\
+		&= \zeta^{a d - b c}
+\end{align*}
+donde los coeficientes $a, b, c, d$ son las entradas de la matriz $\alpha_n$ de la definición~\ref{def: matriz endomorfismo}. Usando que $\zeta$ es una raíz primitiva, tenemos
+$$
+	\dega \equiv a d - b c \pmod{n}.
+$$
 \end{proof}
 
 \begin{proof}[Demostración de la proposición~\ref{pp:grado endomorfismo a*alpha + b*beta}]

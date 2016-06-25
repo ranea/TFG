@@ -43,20 +43,44 @@
 \usepackage{mathtools} % para usar rcases
 \usepackage{enumitem} % pasa usar tag distintos en las enumeraciones
 \usepackage{amssymb} % para usar el simbolo de no divide
+\usepackage{xeboiboites} % TODO: añadir ref
 
 % # Definición de estilos de "teoremas":
 % # \newtheorem{identificador}{texto}[contador]
 % \theoremstyle{plain} % titulo negrita, cuerpo cursiva
 \theoremstyle{definition} % titulo negrita, cuerpo en recta
-\newtheorem{teorema}{Teorema}[chapter]
-\newtheorem{proposicion}[teorema]{Proposicion}
-\newtheorem{lema}[teorema]{Lema}
-\newtheorem{ejemplo}[teorema]{Ejemplo}
-\newtheorem{definicion}[teorema]{Definición}
-\newtheorem{nota}[teorema]{Nota}
-\newtheorem{ley de grupo}[teorema]{Ley de grupo}
-\newtheorem{algoritmo}[teorema]{Algoritmo}
-\newtheorem{corolario}[teorema]{Corolario}
+% TODO: ver que hacer
+\newtheorem{contador}{contador}[chapter]
+% \newtheorem{proposicion}[teorema]{Proposicion}
+% \newtheorem{lema}[teorema]{Lema}
+% \newtheorem{ejemplo}[teorema]{Ejemplo}
+% \newtheorem{definicion}[teorema]{Definición}
+% \newtheorem{nota}[teorema]{Nota}
+% \newtheorem{ley de grupo}[teorema]{Ley de grupo}
+% \newtheorem{algoritmo}[teorema]{Algoritmo}
+% \newtheorem{corolario}[teorema]{Corolario}
+\newcommand{\nuevoteorema}[3] {
+    \newbreakabletheorem[small box style={draw=orange!30!black!20,%
+    fill=orange!10!black!2,decoration=penciline, decorate, thick},
+    big box style={color=orange!30!black!20,fill=orange!30!black!10,thick},
+    broken edges={draw=orange!30!black!20,thick,fill=orange!20!black!5,
+    decoration={penciline, segment length=.5cm,%
+    amplitude=1.3mm},decorate},%
+    other edges={decoration=penciline,decorate,thick}]%
+    {#1}{#2}{#3}
+}
+\nuevoteorema{teorema}{Teorema}{contador}
+\nuevoteorema{proposicion}{Proposición}{contador}
+\nuevoteorema{lema}{Lema}{contador}
+\nuevoteorema{corolario}{Corolario}{contador}
+\nuevoteorema{ley de grupo}{Ley de grupo}{contador}
+\nuevoteorema{definicion}{Definición}{contador}
+\nuevoteorema{algoritmo}{Algoritmo}{contador}
+%\nuevoteorema{ejemplo}{Ejemplo}{contador}
+\nuevoteorema{nota}{Nota}{contador}
+\newtheorem{ejemplo}[contador]{Ejemplo}
+%\newtheorem{nota}[contador]{Nota}
+
 
 % # Comandos definidos
 \newcommand{\Fq}{\mathbb{F}_q}
