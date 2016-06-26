@@ -1,0 +1,89 @@
+\clearpage
+
+\section{Curvas elípticas sobre cuerpos finitos}
+\label{sec:Curvas elípticas sobre cuerpos finitos}
+
+% TODO: intro
+% def $\Fq$
+Sea $\Fq$ un cuerpo finito de $q$ elementos, donde $q$ es la potencia $n$-ésima de un primo $p$ y sea $E$ una curva elíptica definida sobre $\Fq$. Como el número de pares $(x, y)$ con $x, y \in \Fq$ es finito, el grupo de puntos $E(\Fq)$ es finito. En este aparatado estudiaremos las propiedades de este grupo, como el orden, que serán importantes en muchos contextos.
+
+
+\subsection{Ley de grupo para característica dos}
+
+%TODO: intro
+%TODO: poner tambien las supersingulares?
+En el apartado~\ref{sub:Ley de grupo} vimos las formulas de adicción cuando la característica del cuerpo base era distinta de 2 y 3. Como los cuerpos finitos de característica dos son interesante a nivel computacional, presentamos aquí las fórmulas de adicción para las curvas no supersingulares (véase ~\ref{lm:ecuaciones curva eliptica caracteristica dos}), ya que no es recomendable usar curvas supersingulares en criptografía (véase ~\ref{}).
+
+\begin{formulasadiccion}
+Sea $E$ una curva elíptica definida por la ecuación $y^2 + x y = x^3 + a x^2 + b$ sobre el cuerpo finito $\Fm$. Las fórmulas de adicción son las siguientes:
+	\begin{enumerate}[label=\alph*)]
+	   \item $P + \infty = \infty + P = P,$ para todo $P \in E(\Fm)$
+	   \item Si $P = (x, y) \in E(\Fm)$, entonces $(x, y) + (x, x + y) = \infty$ ya que $-P = (x, x + y)$. Además, $- \infty = \infty$.
+	   \item Sea $P = (x_1, y_1) \in E(\Fm)$ y $Q = (x_2, y_2) \in E(\Fm)$, donde $P \neq \pm Q$. Entonces $P + Q = (x_3, y_3)$, donde
+	   $$
+	   x_3 = \lambda^2 \lambda + x_1 + x_2 + a, \quad
+	   y_3 = \lambda (x_1 + x_3) + x_3 + y_1
+	   $$
+	   con $\lambda = (y_1 + y_2)/(x_1 + x_2)$.
+	   \item Sea $P = (x_1, y_1) \in E(\Fm)$, donde $P \neq -P$. Entonces $2 P = (x_3, y_3)$ donde:
+	   $$
+	   x_3 = \lambda^2 \lambda + a = x_1^2 + b/x_1^2, \quad
+	   y_3 = x_1^2 + \lambda x_3 + x_3
+	   $$
+	   con $\lambda = x_1 + y_1/x_1$.
+	\end{enumerate}
+\end{formulasadiccion}
+
+% TODO: rellenar ref y ver que hacer
+% Vimos en el apartado~\ref{sub:Ecuaciones de Weierstrass simplificadas} que la ecuación de una curva elíptica definida sobre $\Fm$ podía simplificarse de dos formas, dado curvas supersingulares y no supersingulares (véase ~\ref{}). Puesto que las curvas supersingulares no se utilizan en criptografía (véase ~\ref{}), trabajaremos sobre las no supersingulares. Las fórmulas de adicción para este tipo de curvas, cuya ecuación simplificada era  $y^2 + xy = x^3 + a x^2 + b$, son las siguientes:
+%
+% Análogamente a~\ref{th:grupo abeliano}, se puede probar que el conjunto $E(\Fm)$ junto con la operación anterior definida es un grupo abeliano.
+%
+% \begin{teorema}
+% 	La suma~\ref{def:ley de grupo Fm} de puntos en una curva elíptica $E$ sobre el cuerpo $\Fm$ satisface la siguientes propiedades:
+% 	\begin{itemize}
+% 		\item \emph{Conmutatividad}: $$P_1 + P_2 = P_2 + P_1,\ \forall P_1, P_2 \in E(\Fm).$$
+% 		\item \emph{Existencia de elemento neutro}: $$P + \infty = P,\ \forall P \in E(\Fm).$$
+% 		\item \emph{Existencia de elemento opuesto}: $$P + (-P) = \infty,\ \forall P \in E(\Fm).$$
+% 		\item \emph{Asociatividad}: $$(P_1 + P_2) + P_3 = P_1 + (P_2 + P_3), \ \forall P_1, P_2, P_3 \in E(\Fm).$$
+% 	\end{itemize}
+% 	En otras palabras, $(E(\Fm), +, \infty)$ es un grupo abeliano.
+% \end{teorema}
+
+
+\subsection{Endomorfismo de Frobenius}
+\label{sub:Endomorfismo de Frobenius}
+
+Presentamos en este apartado un ejemplo importante de endomorfismo. Jugará una papel crucial en la teoría de curvas elípticas sobre cuerpos finitos.
+
+\begin{definicion}
+	Sea $E$ una curva elíptica definida sobre un cuerpo finito $\Fq$. El endomorfismo definido por
+	$$
+		\phi_q(x, y) = (x^q, y^q), \quad \phi_q(\infty) = \infty
+	$$
+	se llama \emph{endormofirsmo de Frobenius}.
+\end{definicion}
+
+Nótese que este endomorfismo no es más que aplicar el \emph{automorfismo de Frobenius}
+\begin{align*}
+	\Fqca &\to \Fqca \\
+	x &\mapsto x^q
+\end{align*}
+sobre las componentes de un punto. Veamos ahora una cuantas propiedades de este endomorfismo.
+
+\begin{lema}
+	Sea $E$ una curva elíptica definida sobre un cuerpo finito $\Fq$. Entonces $\phi_q$ es un endomorfismo de $E$ de grado $q$ y no es separable.
+\end{lema}
+\begin{proof}
+% TODO: ...
+\end{proof}
+
+\begin{proposicion}
+	Sea $E$ una curva elíptica definida sobre un cuerpo finito $\Fq$, donde $q$ es una potencia de un primo $p$. Sean $r, s$ enteros no nulos. El endomorfismo $r \phi_q + s$ es separable si y solo si $p \nmid s$.
+\end{proposicion}
+\begin{proof}
+% TODO: ...
+\end{proof}
+
+% TODO: ver que hacer
+% En general, para una curva eliptica arbitraria R definida sobre Fq y una extension F de Fq, el endomorfismo de Frobenius phiq permuta los elementos de E(F) y es la identidad en el subgrupo E(Fq).
