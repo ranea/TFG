@@ -10,7 +10,7 @@ Sea $\Fq$ un cuerpo finito de $q$ elementos, donde $q$ es la potencia $n$-ésima
 % Dos principales restricciones de los grupos $E(\Fq)$ se dan en los siguientes dos teoremas.
 Los dos resultados más importantes se dan en los siguientes dos teoremas.
 
-\begin{teorema}
+\begin{teorema}\label{th:estructura grupo puntos}
 	Sea $E$ una curva elíptica definida sobre un cuerpo finito $\Fq$. Entonces
 	$$
 		E(\Fq) \simeq \mathbb{Z}_n \textrm{ or } \mathbb{Z}_{n_1} \oplus \mathbb{Z}_{n_2}
@@ -198,7 +198,7 @@ Por lo tanto, $r \phi_q + s$ es separable si y solo si $R_{r \phiq + s}' \neq 0$
 Como $\phiq^n$ es el endomorfismo de Frobenius para el cuerpo $\F_{q^n}$, (1) es consecuencia del lema~\ref{lm:elementos fijos endomorfismo Frobenius}. (2) se tiene aplicando las proposiciones~\ref{pp:separabilidad endomorfismo frobenius menos uno} y~\ref{pp:cardinal del núcleo}.
 \end{proof}
 
-\begin{lema}
+\begin{lema}\label{lm:descomposicion grado frobenius}
 	Sean $r, s$ enteros. Entonces $\deg(r \phi_q - s) = r^2 q + s^2 - rsa$.
 \end{lema}
 \begin{proof}
@@ -207,12 +207,13 @@ La proposición~\ref{pp:grado endomorfismo a*alpha + b*beta} implica que
 	\deg(r \phi_q - s) =& \ r^2 \deg(\phiq) + s^2 \deg(-1) \\
 	&+ r s (\deg(\phiq - 1) - \deg(\phiq) - \deg(-1)).
 \end{align*}
-% TODO: rellenar ref
-Como $\deg(\phiq) = q$ y $\deg(-1) = 1$, el resultado se deduce de~\ref{pp:relacion nucleo y endomorfismo Frobenius} y~\ref{}.
+Como $\deg(\phiq) = q$ y $\deg(-1) = 1$, el resultado se deduce de~\ref{pp:relacion nucleo y endomorfismo Frobenius} y~\ref{th:estructura grupo puntos}.
 \end{proof}
 
 \subsection{Teorema de Hasse}
 \label{sub:Teorema de Hasse}
+
+Podemos ya probar el teorema de Hasse.
 
 \begin{teorema}
 	Sea $E$ una curva elíptica definida sobre un cuerpo finito $\Fq$. Entonces el orden de $E(\Fq)$ verifica
@@ -220,3 +221,29 @@ Como $\deg(\phiq) = q$ y $\deg(-1) = 1$, el resultado se deduce de~\ref{pp:relac
 		|q + 1 - \left\vert{E(\F_{q})}\right\vert| \le 2 \sqrt{q}.
 	$$
 \end{teorema}
+\begin{proof}
+Sea
+$$
+	a = q + 1 - \left\vert{E(\F_{q})}\right\vert = q + 1 - deg(\phiq - 1)
+$$
+donde estamos usando proposición~\ref{pp:relacion nucleo y endomorfismo Frobenius}. Veamos que $|a| \le 2 \sqrt{q}$.
+
+Como $\deg(r \phi_q - s) \ge 0$, el lema~\ref{lm:descomposicion grado frobenius} implica que
+$$
+q \left( \frac{r}{s} \right)^2 - a \left(\frac{r}{s} \right) ^2 + 1 \ge 0.
+$$
+para cualesquiera enteros $r, s$. Como el conjunto de los racionales es \emph{denso} en $\mathbb{R}$, tenemos que
+$$
+q x^2 - a x + 1 \ge 0
+$$
+para todo número real $x$. Así, el discriminante de este polinomio es negativo o cero, lo que implica que $a^2 - 4 q \le 0$, luego $| a | \le 2 \sqrt{q}$.
+\end{proof}
+
+En la anterior demostración, han sido esenciales tres ingredientes:
+\begin{itemize}
+	\item La identificación de $E(\Fq)$ con el núcleo de $\phiq - 1$.
+	\item La igualdad entre el orden del núcleo y el grado de $\phiq - 1$ gracias a la separabilidad de $\phiq - 1$
+	\item El emparejamiento Weil, especialmente la parte (6) del teorema~\ref{pp:endomorfismo Weil} y su consecuencia~\ref{pp:relacion nucleo y endomorfismo Frobenius}.
+\end{itemize}
+
+% Nótese que hay varios ingredientes esenciales en la demostración. El primero es que estamos identicando $E\
