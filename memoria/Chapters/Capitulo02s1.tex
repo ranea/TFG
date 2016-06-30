@@ -3,7 +3,7 @@
 
 En este apartado se tratarán las ecuaciones de Weierstrass, las operaciones de adicción y duplicación, los puntos proyectivos, los endomorfismos de curvas elípticas y la estructura de los puntos de torsión.
 
-Las principales referencias utilizadas en este capítulo han sido~\cite[cap. 2]{Washington:2008} y~\cite[cap. 3]{Hankerson:2003}.
+Las principales referencias utilizadas en este capítulo han sido~\cite{Washington:2008} y~\cite{Hankerson:2003}.
 
 \subsection{Definición de curva elíptica}
 \label{sub:Definición de curva elíptica}
@@ -85,9 +85,9 @@ Nuestro objetivo es transformar la ecuación~\eqref{eq:Weierstrass general} por 
 	(x, y) \mapsto (u^2 x + r, u^3 y + u^2 s x + t)
 	\end{equation}
 	transforma la ecuación $E_1$ en la ecuación $E_2$. La transformación~\eqref{eq:cambio de variables admisible} se llama un cambio de variables admisible.
-
-	El cambio de variables~\eqref{eq:cambio de variables admisible} es el único que deja <<fijo>> el punto del infinito y preserva la forma de la ecuación de Weierstrass. No vamos a entrar en más detalle, pero puede consultar~\cite[prop. III.3.1b]{Silverman:2009} para más informácion.
 \end{definicion}
+
+El cambio de variables~\eqref{eq:cambio de variables admisible} es el único que deja <<fijo>> el punto del infinito y preserva la forma de la ecuación de Weierstrass. No vamos a entrar en más detalle, pero puede consultar~\cite[prop. III.3.1b]{Silverman:2009} para más informácion.
 
 Una ecuación de Weierstrass
 $$
@@ -117,7 +117,7 @@ Haciendo $y_1 = y + (a_1 x)/2 + a_3/2$, obtenemos
 $$
 y_1^2 = x^3 + a_2' x^2 + a_4' x + a_6'
 $$
-para algunas constantes $a_2', a_4', a_6' \in K$. Finalmente, sustituyendo $x_1 = x + a_2'/3$ (podemos dividir por 3 ya que $\car(K) \neq 3$) resulta
+para algunas constafntes $a_2', a_4', a_6' \in K$. Finalmente, sustituyendo $x_1 = x + a_2'/3$ (podemos dividir por 3 ya que $\car(K) \neq 3$) resulta
 $$
 y_1^2 = x_1^3 + a x_1 + b
 $$
@@ -141,8 +141,7 @@ En la mayor parte del trabajo, desarollaremos la teoría de curvas elípticas ut
 	\begin{equation*}
 		y^2 + xy = x^3 + a x^2 + b
 	\end{equation*}
-	% TODO: rellenar referencia
-	donde $a, b \in K$. Tales curvas se llaman \emph{no supersingulares} (véase~\ref{}) y tienen discriminante $\Delta = b$. Si $a_1 = 0$, entonces el cambio de variables admisible
+	donde $a, b \in K$. Tales curvas se llaman \emph{no supersingulares} (véase~\ref{def:supersingular}) y tienen discriminante $\Delta = b$. Si $a_1 = 0$, entonces el cambio de variables admisible
 	$$
 	(x, y) \mapsto (x + a_2, y)
 	$$
@@ -150,8 +149,7 @@ En la mayor parte del trabajo, desarollaremos la teoría de curvas elípticas ut
 	\begin{equation*}
 		y^2 + c y = x^3 + a x + b
 	\end{equation*}
-	% TODO: rellenar referencia
-	donde $a, b, c \in K$. Tales curvas se llaman \emph{supersingulares} (véase~\ref{}) y tienen discriminante $\Delta = c^4$.
+	donde $a, b, c \in K$. Tales curvas se llaman \emph{supersingulares} (véase~\ref{def:supersingular}) y tienen discriminante $\Delta = c^4$.
 \end{lema}
 \begin{proof}
 	Basta sustituir el cambio de variables en la ecuación general de Weierstrass y operar.
@@ -181,7 +179,7 @@ Sea $E$ una curva elíptica definida sobre un cuerpo $K$. El siguiente método g
 	Esto método se puede apreciar en la figura~\ref{fig:Método de la cuerda y la tangente}.
 \end{algoritmo}
 
-\begin{figure}[h]
+\begin{figure}[!h]
   \myfloatalign
   {\includegraphics[width=.45\linewidth]{gfx/ejemplo_adiccion.pdf}}
   \quad
@@ -199,17 +197,20 @@ Inspirándonos en el método de la cuerda y la tangente, definimos la siguiente 
 \label{def:ley de grupo}
 Sea $E$ una curva elíptica definida por la ecuación $y^2 = x^3 + a x + b$ sobre un cuerpo $K$ de característica distinta de 2 y 3. Definimos la operación binaria $+: E(K) \times E(K) \to E(K)$ como sigue:
 \begin{enumerate}[label=\alph*)]
-	\item $P + \infty = \infty + P = P,$ para todo $P \in E(K)$
+	\item $P + \infty = \infty + P = P,$ para todo $P \in E(K)$.
+
 	\item Si $P = (x, y) \in E(K)$, entonces $(x, y) + (x, -y) = \infty$. El punto $(x, -y)$ se denotará por $-P$ y se llamará el \emph{opuesto} de P. Además, $- \infty = \infty$.
+
 	\item Sea $P = (x_1, y_1) \in E(K)$ y $Q = (x_2, y_2) \in E(K)$, donde $P \neq \pm Q$. Entonces $P + Q = (x_3, y_3)$, donde
 	\begin{align*}
 		x_3 &= \left(\frac{y_2 - y_1}{x_2 - x_1}\right)^2 - x_1 - x_2 \\
-		y_3 &= \left(\frac{y_2 - y_1}{x_2 - x_1}\right) (x_1 - x_3) - y_1
+		y_3 &= \left(\frac{y_2 - y_1}{x_2 - x_1}\right) (x_1 - x_3) - y_1.
 	\end{align*}
+
 	\item Sea $P = (x_1, y_1) \in E(K)$, donde $P \neq  -P$. Entonces $2 P = (x_3, y_3)$ donde:
 	$$
 	x_3 = \left(\frac{3 x_1^2 + a}{2 y_1}\right)^2 - 2 x_1, \quad
-	y_3 = \left(\frac{3 x_1^2 + a}{2 y_1}\right) (x_1 - x_3) - y_1
+	y_3 = \left(\frac{3 x_1^2 + a}{2 y_1}\right) (x_1 - x_3) - y_1.
 	$$
 \end{enumerate}
 \end{definicion}
@@ -258,8 +259,7 @@ para algunas constantes $b', c' \in K$. Análogamente al caso $c)$, como $x_1$ e
 	$$
 		- P = (x, -a_1 x - a_3 - y)
 	$$
-	% TODO: rellenar ref
-	En el apartado~\ref{} veremos la ley de composición para una curva elíptica sobre un cuerpo finito de característica 2.
+	En el apartado~\ref{sub:Ley de grupo para cuerpos base de característica 2} veremos la ley de composición para una curva elíptica sobre un cuerpo finito de característica 2.
 \end{nota}
 
 Con la operación binaria~\ref{def:ley de grupo}, el conjunto de puntos de una curva elíptiptica es un grupo abeliano.
@@ -281,7 +281,7 @@ La asociatividad puede probarse utilizando las fórmulas caso por caso, pero sup
 \end{proof}
 
 \begin{nota}[comentarios del teorema~\ref{th:grupo abeliano}]
-	Puede encontrar una versión más general del teorema anterior para cuerpos bases de cualquiera característica en ~\cite{Silverman:2009}.
+	Puede encontrar una versión más general del teorema anterior para cuerpos base de cualquiera característica en ~\cite{Silverman:2009}.
 \end{nota}
 
 
@@ -346,8 +346,7 @@ Hay situaciones en la que usar coordenadas proyectivas puede ser ventajoso (véa
 \subsection{Endomorfismos}
 \label{sub:Endomorfismos}
 
-% TODO: añadir ref
-El principal objetivo de este apartado es probar la proposición~\ref{pp:cardinal del núcleo} que será utilizada en la demostración del teorema de Hasse~\ref{}. Para ello, es necesario utilizar algunos resultados técnicos, los cuales solo los enunciaremos (puede encontrar su demostración en ~\cite[sec. 2.9]{Washington:2008} ).
+El principal objetivo de este apartado es probar la proposición~\ref{pp:cardinal del núcleo} que será utilizada en la demostración del teorema de Hasse~\ref{th:teorema de Hasse}. Para ello, es necesario utilizar algunos resultados técnicos, los cuales solo los enunciaremos (puede encontrar su demostración en ~\cite[sec. 2.9]{Washington:2008} ).
 
 \begin{definicion}
 	Sea $E$ una curva elíptica definida sobre un cuerpo $K$ y sea $\Kca$ su clasura algebraica. Un \emph{endomorfismo} de $E$ es un homomorfismo $\alpha: \EKca \to \EKca$ dado por funciones racionales (cocientes de polinomios). Dicho de otro modo, $\alpha$ preserva la suma y el elemento neutro de $\EKca$.
@@ -384,8 +383,7 @@ Supondremos que $\alpha$ es no trivial a partir de ahora. El siguiente resultado
 	% En cuerpos con característica cero, un polinomio no constante siempre tendrá derivada no nula. En cuerpos de característica $p > 0$, los polinomios con derivada nula son exactamente aquellos de la forma $g(x^p)$.
 \end{definicion}
 
-% TODO: rellenar ref
-El siguiente resultado será crucial en la demostración del teorema de Hasse~\ref{}. Denotaremos por  $\left\vert{C}\right\vert$ al número de elementos de un conjunto $C$.
+El siguiente resultado será crucial en la demostración del teorema de Hasse~\ref{th:teorema de Hasse}. Denotaremos por  $\left\vert{C}\right\vert$ al número de elementos de un conjunto $C$.
 
 \begin{proposicion}\label{pp:cardinal del núcleo}
 	Sea $\alpha \neq 0$ un endomorfismo separable de una curva elíptica $E$. Entonces
@@ -494,11 +492,12 @@ $$
 Por otro lado, $R_n'(x) \neq 0$ si y solo si $R_n'(x) / S_n(x) \neq 0$, que es equivalente a que la característica de $K$ no divida a $n$. Por la definición de separabilidad, esto prueba la segunda parte.
 \end{proof}
 
-\subsection{Puntos de torsión}
+\clearpage
+
+\section{Puntos de torsión}
 \label{sub:Puntos de torsión}
 
-% TODO: rellenar ref
-En este apartado introduciremos los puntos de torsión y su estructura que jugarán un papel importante en las curvas elípticas sobre cuerpos finitos. También veremos el emparejamiento Weil el cual utilizaremos en la demostración del teorema de Hasse~\ref{}.
+En este apartado introduciremos los puntos de torsión y su estructura que jugarán un papel importante en las curvas elípticas sobre cuerpos finitos. También veremos el emparejamiento Weil el cual utilizaremos en la demostración del teorema de Hasse~\ref{th:teorema de Hasse}.
 
 \begin{definicion}
 	Dada una curva elíptica $E$, un elemento del grupo $\EKca$ cuyo orden es finito se llamará \emph{punto de torsión}.
@@ -512,16 +511,7 @@ En este apartado introduciremos los puntos de torsión y su estructura que jugar
 	Estos conjuntos son subgrupos ya que son los núcleos del endomorfismo multiplicación por $n$ (definido en el apartado~\ref{sub:Endomorfismos}).
 \end{definicion}
 
-% TODO: ver que hacer
-% Para describir la estructura de los subgrupos de torsión, necesitamos estudiar el endomorfismo multiplicación por un entero $n$. Los siguientes resultados nos darán las herramientas para probar el teorema~\ref{}. No es el objetivo de este trabajo la demostración de~\ref{} y~\ref{}, resultados técnicos y laboriosos, pero si está interesado puede encontrar sus demostraciones en~\cite[sec. 3.2]{Washington:2008}.
-%
-% \begin{proposicion}
-% 	Sea $P = (x, y)$ un punto de la curva elíptica $y^2 = x^3 + a x + b$ sobre un cuerpo de característica distinta de 2 y sea $n$ un entero positivo. Entonces
-% 	$$
-% 		n P = (r(x), y s(x))
-% 	%	n P = \left( \frac{\phi_n(x)}{\psi_n^2(x)} , \frac{\omega_n(x, y)}{\psi_n(x, y)^3} \right)
-% 	$$
-% \end{proposicion}
+El siguiente resultado da la estructura de los subgrupos de torsión.
 
 \begin{teorema}\label{th:estructura subgrupos torsión}
 	Sea $E$ una curva elíptica sobre un cuerpo $K$ y sea $n$ un entero positivo. Si la característica de $K$ no divide a $n$, o es cero, entonces
@@ -542,7 +532,6 @@ Para demostrar este teorema vamos a usar un resultado cuya demostración técnic
 \end{proposicion}
 
 \begin{proof}[Demostración del teorema~\ref{th:estructura subgrupos torsión}]
-% TODO: puedo usar el endomorfismo multiplicación?
 Supongamos primero que $n$ no es múltiplo de la característica $p$ del cuerpo. Por la proposicion~\ref{pp:endomorfismo multiplicación}, como $n$ no es múltiplo de la característica $p$, el endomorfismo multiplicación por $n$ es separable. Por la proposición~\ref{pp:cardinal del núcleo} y~\ref{pp:grado endomorfismo multiplicación}, el núcleo de este endomorfismo, $E[n]$, tiene orden $n^2$.
 
 Por el teorema de estructura para grupos abelianos finitos, $E[n]$ es isomorfo a
@@ -583,6 +572,10 @@ $$
 	E[n] \simeq \mathbb{Z}_{n'} \oplus \mathbb{Z}_{n'} \quad \textrm{o} \quad  \mathbb{Z}_{n'} \oplus \mathbb{Z}_{n}.
 $$
 \end{proof}
+
+
+\subsection{Endomorfismos y matrices}
+\label{subs:Endomorfismos y matrices}
 
 Los subgrupos de torsión nos permiten reducir cuestiones sobre los endomorfismos a cálculos con matrices. Para ello, dado un endomorfismo $\alpha$, vamos a asociarle una matriz con entradas en $\mathbb{Z}_{n}$ que describirá la acción de $\alpha$ sobre una base de $E[n]$.
 
@@ -629,11 +622,11 @@ Los resultados que simplifican el cálculo del grado de un endomorfismo al cálc
 
 Para demostrar ambas proposiciones, necesitamos introducir el emparejamiento Weil.
 
-\subsubsection{Emparejamiento Weil}
+\subsection{Emparejamiento Weil}
 \label{subs:Emparejamiento Weil}
 
-% TODO: ver si se utiliza más. añadir ref a Hase
-El emparejamiento de Weil sobre un subgrupo de torsión de una curva elíptica es una herramienta principal en el estudio de las curvas elípticas. En este trabajo se utilizará para probar la proposición~\ref{pp: relacion grado de un endomorfismo y el determinante} que será necesaria para probar el teorema de Hasse.
+% TODO: ver si se utiliza más
+El emparejamiento de Weil sobre un subgrupo de torsión de una curva elíptica es una herramienta principal en el estudio de las curvas elípticas. En este trabajo se utilizará para probar la proposición~\ref{pp: relacion grado de un endomorfismo y el determinante} que será necesaria para probar el teorema de Hasse~\ref{th:teorema de Hasse}.
 
 Sea $E$ una curva elíptica sobre un cuerpo $K$ y sea $n$ un entero no divisible por la característica de $K$. Consideramos el grupo $\mu_n$ de las raíces $n$-ésimas de la unidad en $\Kca$, esto es,
 $$

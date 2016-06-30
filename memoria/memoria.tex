@@ -64,9 +64,9 @@
     fill=orange!10!black!2,decoration=penciline, decorate, thick},
     big box style={color=orange!30!black!20,fill=orange!30!black!10,thick},
     broken edges={draw=orange!30!black!20,thick,fill=orange!20!black!5,
-    decoration={penciline, segment length=.5cm,%
+    decoration={penciline,segment length=.5cm,%
     amplitude=1.3mm},decorate},%
-    other edges={decoration=penciline,decorate,thick}]%
+    other edges={decorate,thick}]%
     {#1}{#2}{#3}
 }
 \nuevoteorema{teorema}{Teorema}{contador}
@@ -78,9 +78,12 @@
 \nuevoteorema{algoritmo}{Algoritmo}{contador}
 \nuevoteorema{formulasadiccion}{Fórmulas de adicción}{contador}
 %\nuevoteorema{ejemplo}{Ejemplo}{contador}
-\nuevoteorema{nota}{Nota}{contador}
+%\nuevoteorema{nota}{Nota}{contador}
+\newtheorem{nota}[contador]{Nota}
 \newtheorem{ejemplo}[contador]{Ejemplo}
 %\newtheorem{nota}[contador]{Nota}
+
+\nuevoteorema{teorema2}{Teorema}{}
 
 
 % # Comandos definidos
@@ -137,7 +140,7 @@
 %\cleardoublepage\include{FrontBackmatter/Publications}
 %\cleardoublepage\include{FrontBackmatter/Acknowledgments}
 \pagestyle{scrheadings}
-%\cleardoublepage\include{FrontBackmatter/Contents}
+\cleardoublepage\include{FrontBackmatter/Contents}
 %********************************************************************
 % Mainmatter
 %*******************************************************

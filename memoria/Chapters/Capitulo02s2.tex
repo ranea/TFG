@@ -3,7 +3,6 @@
 \section{Curvas elípticas sobre cuerpos finitos}
 \label{sec:Curvas elípticas sobre cuerpos finitos}
 
-% TODO: reformular
 Sea $\Fq$ un cuerpo finito de $q$ elementos, donde $q$ es la potencia $n$-ésima de un primo $p$ y sea $E$ una curva elíptica definida sobre $\Fq$. Como el número de pares $(x, y)$ con $x, y \in \Fq$ es finito, el grupo de puntos $E(\Fq)$ es finito. En este aparatado estudiaremos las propiedades de este grupo, como el orden, que serán importantes en muchos contextos.
 
 % TODO: ver como dejar
@@ -25,7 +24,7 @@ $$
 con $n_i \mid n_{i+1}$. Como, para cada $i$, el grupo $Z_{n_i}$ tiene $n_1$ elementos de orden un divisor de $n_1$, tenemos que $E(\Fq)$ tiene $n_1^r$ elementos de orden un divisor de $n_1$. Por el teorema~\ref{th:estructura subgrupos torsión}, hay hasta $n_1^2$ (incluso si permitimos coordenadas en la clasura algebraica de $\Fq$). Por tanto, $r \le 2$.
 \end{proof}
 
-\begin{teorema}
+\begin{teorema}[Teorema de Hasse]\label{th:teorema de Hasse}
 	Sea $E$ una curva elíptica definida sobre un cuerpo finito $\Fq$. Entonces el orden de $E(\Fq)$ verifica
 	$$
 		|q + 1 - \left\vert{E(\F_{q})}\right\vert| \le 2 \sqrt{q}.
@@ -37,10 +36,18 @@ con $n_i \mid n_{i+1}$. Como, para cada $i$, el grupo $Z_{n_i}$ tiene $n_1$ elem
 
 
 \subsection{Ley de grupo para cuerpos base de característica 2}
+\label{sub:Ley de grupo para cuerpos base de característica 2}
 
-%TODO: intro
-%TODO: poner tambien las supersingulares?
-En el apartado~\ref{sub:Ley de grupo} vimos las formulas de adicción cuando la característica del cuerpo base era distinta de 2 y 3. Como los cuerpos finitos de característica 2 son interesante a nivel computacional, presentamos aquí las fórmulas de adicción para las curvas no supersingulares (véase ~\ref{lm:ecuaciones curva eliptica caracteristica dos}), ya que no es recomendable usar curvas supersingulares en criptografía (véase ~\ref{}).
+En el apartado~\ref{sub:Ecuaciones de Weierstrass simplificadas}, clasificamos las curvas elípticas sobre $\Fm$ según eran supersingulares o no. Ahora podemos definir este concepto.
+
+\begin{definicion}\label{def:supersingular}
+	Sea $E$ una curva elíptica sobre un cuerpo base de característica $p$. Diremos que $E$ es \emph{supersingular} si $E[p] = \{\infty\}$.
+\end{definicion}
+
+Una ventaja de las curvas supersingulares es que los cálculos involucrados en la multiplicación de un punto por un escalar se pueden hacer con aritmética de cuerpos finitos, que es en general más rápida que la aritmética de curvas elípticas~\cite[cap. 4]{Washington:2008}. Sin embargo, estas curvas no son seguras en criptografía ya que son vulnerables a un tipo de ataques conocidos como ataques de emparejamiento Weil y Tate ~\cite[cap. 4]{Hankerson:2003}. Por este último motivo, sólo vamos a dar las fórmulas de adicción para curvas no supersingulares sobre $\Fm$.
+
+% TODO: ver que hacer.
+%En el apartado~\ref{sub:Ley de grupo} vimos las formulas de adicción cuando la característica del cuerpo base era distinta de 2 y 3. Como los cuerpos finitos de característica 2 son interesante a nivel computacional, presentamos aquí las fórmulas de adicción para las curvas no supersingulares (véase ~\ref{lm:ecuaciones curva eliptica caracteristica dos}), ya que no es recomendable usar curvas supersingulares en criptografía (véase ~\ref{}).
 
 \begin{formulasadiccion}
 Sea $E$ una curva elíptica definida por la ecuación $y^2 + x y = x^3 + a x^2 + b$ sobre el cuerpo finito $\Fm$. Las fórmulas de adicción son las siguientes:
@@ -213,15 +220,15 @@ Como $\deg(\phiq) = q$ y $\deg(-1) = 1$, el resultado se deduce de~\ref{pp:relac
 \subsection{Teorema de Hasse}
 \label{sub:Teorema de Hasse}
 
-Podemos ya probar el teorema de Hasse.
+Tenemos ya todas las herramientas para probar el teorema de Hasse.
 
-\begin{teorema}
+\begin{teorema2}[\ref{th:teorema de Hasse}]
 	Sea $E$ una curva elíptica definida sobre un cuerpo finito $\Fq$. Entonces el orden de $E(\Fq)$ verifica
 	$$
 		|q + 1 - \left\vert{E(\F_{q})}\right\vert| \le 2 \sqrt{q}.
 	$$
-\end{teorema}
-\begin{proof}
+\end{teorema2}
+\begin{proof}[Demostración del teorema~\ref{th:teorema de Hasse}]
 Sea
 $$
 	a = q + 1 - \left\vert{E(\F_{q})}\right\vert = q + 1 - deg(\phiq - 1)
@@ -239,11 +246,20 @@ $$
 para todo número real $x$. Así, el discriminante de este polinomio es negativo o cero, lo que implica que $a^2 - 4 q \le 0$, luego $| a | \le 2 \sqrt{q}$.
 \end{proof}
 
-En la anterior demostración, han sido esenciales tres ingredientes:
-\begin{itemize}
-	\item La identificación de $E(\Fq)$ con el núcleo de $\phiq - 1$.
-	\item La igualdad entre el orden del núcleo y el grado de $\phiq - 1$ gracias a la separabilidad de $\phiq - 1$
-	\item El emparejamiento Weil, especialmente la parte (6) del teorema~\ref{pp:endomorfismo Weil} y su consecuencia~\ref{pp:relacion nucleo y endomorfismo Frobenius}.
-\end{itemize}
+\begin{nota}[comentarios del teorema~\ref{th:teorema de Hasse}]\leavevmode
+	\begin{itemize}
+		\item Como la ecuación de Weierstrass tiene al menos dos soluciones para todo $x \in \Fq$, una primera acotación del orden de $E(\Fq)$ es  $\left\vert{E(\F_{q})}\right\vert \in [1, 2 q + 1]$. El teorema de Hasse proporciona cotas más optimas:
+		$$
+		\left\vert{E(\F_{q})}\right\vert \in [q + 1 - 2 \sqrt{q}, \ q + 1 + 2 \sqrt{q}].
+		$$
+		Como $2\sqrt{2}$ es pequeño respecto a $q$, $E(\Fq) \approx q$.
+		\item La demostración del teorema hace uso de todas los resultados vistos hasta ahora. En particular, destacamos los siguientes tres:
+			\begin{itemize}
+				\item La identificación de $E(\Fq)$ con el núcleo de $\phiq - 1$.
+				\item La igualdad entre el orden del núcleo y el grado de $\phiq - 1$ gracias a la separabilidad de $\phiq - 1$
+				\item El emparejamiento Weil, especialmente la parte (6) del teorema~\ref{pp:endomorfismo Weil} y su consecuencia~\ref{pp:relacion nucleo y endomorfismo Frobenius}.
+			\end{itemize}
+	\end{itemize}
+\end{nota}
 
-% Nótese que hay varios ingredientes esenciales en la demostración. El primero es que estamos identicando $E\
+% TODO: probar caracterizacion supersingularidad?
