@@ -179,7 +179,7 @@ Sea $E$ una curva elíptica definida sobre un cuerpo $K$. El siguiente método g
 	Esto método se puede apreciar en la figura~\ref{fig:Método de la cuerda y la tangente}.
 \end{algoritmo}
 
-\begin{figure}[!h]
+\begin{figure}[h]
   \myfloatalign
   {\includegraphics[width=.45\linewidth]{gfx/ejemplo_adiccion.pdf}}
   \quad
@@ -195,8 +195,8 @@ Inspirándonos en el método de la cuerda y la tangente, definimos la siguiente 
 
 \begin{definicion}[ley de grupo]
 \label{def:ley de grupo}
-Sea $E$ una curva elíptica definida por la ecuación $y^2 = x^3 + a x + b$ sobre un cuerpo $K$ de característica distinta de 2 y 3. Definimos la operación binaria $+: E(K) \times E(K) \to E(K)$ como sigue:
-\begin{enumerate}[label=\alph*)]
+Sea $E$ una curva elíptica definida por la ecuación $y^2 = x^3 + a x + b$ sobre un cuerpo $K$ de característica distinta de 2 y 3. Definimos la operación binaria $$+: E(K) \times E(K) \to E(K)$$ como sigue:
+\begin{enumerate}
 	\item $P + \infty = \infty + P = P,$ para todo $P \in E(K)$.
 
 	\item Si $P = (x, y) \in E(K)$, entonces $(x, y) + (x, -y) = \infty$. El punto $(x, -y)$ se denotará por $-P$ y se llamará el \emph{opuesto} de P. Además, $- \infty = \infty$.
@@ -208,10 +208,10 @@ Sea $E$ una curva elíptica definida por la ecuación $y^2 = x^3 + a x + b$ sobr
 	\end{align*}
 
 	\item Sea $P = (x_1, y_1) \in E(K)$, donde $P \neq  -P$. Entonces $2 P = (x_3, y_3)$ donde:
-	$$
-	x_3 = \left(\frac{3 x_1^2 + a}{2 y_1}\right)^2 - 2 x_1, \quad
-	y_3 = \left(\frac{3 x_1^2 + a}{2 y_1}\right) (x_1 - x_3) - y_1.
-	$$
+	\begin{align*}
+	x_3 &= \left(\frac{3 x_1^2 + a}{2 y_1}\right)^2 - 2 x_1 \\
+	y_3 &= \left(\frac{3 x_1^2 + a}{2 y_1}\right) (x_1 - x_3) - y_1.
+	\end{align*}
 \end{enumerate}
 \end{definicion}
 \begin{proof}
