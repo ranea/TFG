@@ -1,0 +1,36 @@
+%**************************
+\chapter{Desarrollo informático}
+\label{ch:Desarrollo informático}
+%**************************
+
+% TODO: completar introducción
+En este capítulo haremos el desarrollo informático sobre criptografía con curvas elípticas. En el apartado~\ref{} hablaremos sobre protocolos criptográficos y explicaremos la implementación del programa desarrollado en el apartado~\ref{}.
+
+% TODO: añadir ref si se utilizán más
+Las referencias utilizadas para el desarrollo informático han sido sido~\cite{Hankerson:2003} y~\cite{Washington:2008}.
+
+% TODO: ver si hacer una introducción de criptografía.
+
+\section{Protocolos criptográficos}
+\label{sec:Protocolos criptográficos}
+
+% TODO: intro
+
+\subsection{Problema del logaritmo discreto}
+\label{sub:Problema del logaritmo discreto}
+
+La dificultad del problema del logaritmo discreto es esencial para la seguridad de los esquemas criptográficos sobre curvas elípticas.
+
+\begin{definicion}
+    El \emph{problema del logaritmo discreto sobre curvas elípticas (ECDLP)} es: dado una curva elíptica $E$ definida sobre un cuerpo finito $\Fq$, un punto $P \in E(\Fq)$ de orden $n$ y un punto $Q \in <P>$, encontrar el entero $k \in [0, n - 1]$ tal que $Q = k P$. El entero $k$ se llama el \emph{logaritmo discreto de $Q$ respecto a la base $P$} y se denota $k = \log_p Q$.
+\end{definicion}
+
+Los parámetros de una curva elíptica para los esquema criptográficos deben ser elegidos con cuidado para resistir todos los ataques conocidos sobre el ECDLP.
+
+El ataque más simple es el ataque por \emph{fuerza bruta}: probar todos los valores posibles de $k$ hasta dar con el válido. El tiempo de ejecucción es aproximadamente $n$ pasos en el peor caso y $n / 2$ pasos en el caso medio. Así, el ataque por fuerza bruta puede ser evitado tomando curvas elípticas con $n$ suficientemente largo (p. ej. $n > 2^{80}$).
+
+El mejor ataque de propósito general conocido sobre el ECDLP es la combinación del \emph{algoritmo de Pohlig-Hellman} y del \emph{algoritmo rho de Pollard}, que tiene un complejidad temporal exponencial de $O(\sqrt{p})$ donde $p$ es el divisor primo más grande de $n$. Para resistir este ataque, se debe elegir curvas elípticas tal que $n$ sea divisible por un primo $p$ suficiente grande (p. ej $p > 2^{160}$).
+
+Además se deben evitar ciertos tipos de curvas para los cuales existen ataques específicos más rápidos que el algoritmo rho de Pollard. Así pues, se deben evitar las curvas \emph{anómalas} (cuyo orden es de la forma $|E(\Fp)| = p$), curvas supersingulares (véase ~\ref{def:supersingular}), curvas con un orden de la forma $|E(\Fq)| = q - 1$ y curvas sobre $\Fm$ si $m$ es compuesto.
+
+Puede encontrar una descripción de estos ataques en~\cite[cap. 4]{Hankerson:2003} y en~\cite[cap. 4]{Washington:2008}.
