@@ -4,16 +4,16 @@
 %**************************
 
 % TODO: completar introducción
-En este capítulo haremos el desarrollo informático sobre criptografía con curvas elípticas. En el apartado~\ref{} hablaremos sobre criptografía asimétrica utilizando curvas elípticas, explicaremos algunos protoclos criptografícos con curvas elípticas en el apartado~\ref{} y por último en el apartado~\ref{} hablaremos del programa desarollado para trabajar con curvas elípticas y protocolos criptográficos.
+En este capítulo haremos el desarrollo informático sobre criptografía con curvas elípticas. En el apartado~\ref{sec:Criptografía con curvas elípticas} hablaremos sobre criptografía asimétrica utilizando curvas elípticas, explicaremos algunos protoclos criptografícos con curvas elípticas en el apartado~\ref{sec:Protocolos criptográficos} y por último en el apartado~\ref{} hablaremos del programa desarrollado para trabajar con curvas elípticas y protocolos criptográficos.
 
 % TODO: añadir ref si se utilizán más
 Las referencias utilizadas para el desarrollo informático han sido sido~\cite{Hankerson:2003}, \cite{Washington:2008} y \cite{Silverman:2009}.
 
 \section{Criptografía con curvas elípticas}
 \label{sec:Criptografía con curvas elípticas}
-% TODO: hacer introducción
 
-% TODO: poner nota a pie de página mencionando a los descubridores originales del gobierno británico
+% TODO: hacer introducción
+% TODO: poner nota a pie de página mencionando a los descubridores originales del gobierno británico?
 La criptografía de llave pública (o asimétrica) fue inventada por Diffie y Hellman en 1976, aunque no fueron capaces de encontrar un método práctico para implementar su idea. El primer criptosistema de llave pública llevado a la práctica fue concebido por Rivest, Shamir y Adleman. El criptosistema RSA basa su seguridad en la dificultad de factorizar números grandes. Sin embargo, Diffie y Hellman describieron un algoritmo de intercambio de llaves cuya seguridad se basaba en el logaritmo discreto en $\Fq^*$ y posteriormente ElGamal creó un criptosistema de llave pública basado en el mismo problema. Koblitz y Miller propusieron remplazar el cuerpo finito $\Fq$ con una curva elíptica $E$, con la esperanza de que el logaritmo discreto en el grupo de puntos de una curva elíptca fuera más difícil de resolver que el logaritmo discreto en el grupo multiplicativo de un cuerpo finito. Su intuición conllevó la creación de la criptografía con curvas elípticas.
 
 % TODO: ver si introducir comparación RSA vs ECC o hacer comparación profunda (pag 38 guide, pag 182 wash, pag 388 silver)
@@ -31,12 +31,15 @@ La dificultad del problema del logaritmo discreto es esencial para la seguridad 
 
 El ataque más simple para resolver el ECDLP es el ataque por \emph{fuerza bruta}, esto es, probar todos los valores posibles de $k$ hasta dar con el válido. El tiempo de ejecucción es aproximadamente $n$ pasos en el peor caso y $n / 2$ pasos en el caso medio. Así, el ataque por fuerza bruta puede ser evitado tomando puntos base cuyo orden $n$ suficientemente largo (p. ej. $n > 2^{80}$).
 
-% TODO: mencionar la O grande
+% TODO: mencionar la O grande?
 El mejor ataque para curvas arbitrarias conocido sobre el ECDLP es la combinación del \emph{algoritmo de Pohlig-Hellman} y del \emph{algoritmo rho de Pollard}, que tiene un complejidad temporal de $O(\sqrt{p})$, esto es, el tiempo de ejecucción es exponencial en $\log{p}$. donde $p$ es el divisor primo más grande de $n$. Para resistir este ataque, se deben elegir puntos base cuyo orden $n$ sea divisible por un primo $p$ suficiente grande (p. ej $p > 2^{160}$).
 
 Además se deben evitar ciertos tipos de curvas para los cuales existen ataques específicos más rápidos que el algoritmo rho de Pollard, llamados \emph{ataques por isomorfismo}. Así pues, se deben evitar curvas \emph{anómalas} (curvas cuyo orden es de la forma $|E(\Fp)| = p$), curvas supersingulares (véase ~\ref{def:supersingular}), curvas con un orden de la forma $|E(\Fq)| = q - 1$ y curvas sobre $\Fm$ si $m$ es compuesto. Adicionalmente habría que comprobar que $n$ no divide a $q^k - 1$ para todo $1 \le k \le C$, donde $C$ es suficientemente grande (si $n > 2^{160}$, entonces $C = 20$ basta).
 
-Puede más información sobre estos ataques en~\cite[cap. 4]{Hankerson:2003} y en~\cite[cap. 4]{Washington:2008}.
+% TODO: poner nota a pie de página con P y NP
+Si se siguen estas restricciones para evitar todos los ataques conocidos, se cree que el ECDLP no es factible con la tecnología actual. Nótese que no existe prueba matemática de la intratabilidad del ECDLP, esto es, nadie ha probado que no existe un algoritmo eficiente que lo resuelve. Para apreciar la dificultad de encontrar dicha prueba, la no existencia de un algoritmo en tiempo polinomial para el ECDLP implicaría que $P \neq NP$, una de las preguntas abiertas mas importantes de la teoría de la computación.
+
+Puede más información sobre los ataques al ECDLP en~\cite[cap. 4]{Hankerson:2003} y en~\cite[cap. 4]{Washington:2008}.
 
 \subsection{Parámetros de dominio}
 \label{sub:Parámetros de dominio}
@@ -62,9 +65,10 @@ parámetros de dominio verificados. En~\cite[apéndice B]{Hankerson:2003} puede 
 \subsection{Pareja de llaves}
 \label{sub:Pareja de llaves}
 
-En los protocolos que vamos a ver, cada participante dispondrá de una pareja de llaves, una llave privada (conocida solo por dicho participante) y una llave pública (publicada al resto de participantes). Esta pareja de llaves estará asociada a unos parámetros de dominio particulares. Para generar la pareja de llaves, se elige un punto aleatorio $Q$ en el grupo $\langle P \rangle$. La correspondiente llave privada es $d = \log_p Q$. Si $D = (q, a, b, P, n)$ son los parámetros de dominio, el algoritmo para la generación de llaves es el siguiente:
+En los protocolos que vamos a ver, cada participante dispondrá de una pareja de llaves, una llave privada (conocida solo por dicho participante) y una llave pública (publicada al resto de participantes). Esta pareja de llaves estará asociada a unos parámetros de dominio particulares. Para generar la pareja de llaves, se elige un punto aleatorio $Q$ en el grupo $\langle P \rangle$. La correspondiente llave privada es $d = \log_p Q$.
 
 \begin{algoritmo}\label{alg:pareja de llaves}
+    Sea $D = (q, a, b, P, n)$ los parámetros de dominios. Los pasos para generar una pareja de llaves son:
     \begin{enumerate}
         \item Seleccionar $d \in [1, n -1]$ aleatoriamente.
         \item Calcular $Q = d P$.
@@ -77,22 +81,69 @@ Nótese que el problema de calcular la llave privada a partir de la llave públi
 \section{Protocolos criptográficos}
 \label{sec:Protocolos criptográficos}
 
-% TODO: intro
-Como es común en criptografía, vamos a representar a los participantes que desean comunicarse como Alicia y Bob y representaremos al atacante por Eva.
+En este sección vamos ver dos ejemplos de protocolos criptográficos que usan curvas elípticas. El primero será un protocolo de intercambio de llaves y el segundo será un esquema de firma digital. Describiremos ambos protocolos a nivel de introducción. Para detalles técnicos véase~\cite[cap. 4]{Hankerson:2003}.
 
-Este primer protocole que vamos a describir permite a Alicia y Bob intercambiar de forma segura una pieza de información cuyo valor no conoce ninguno de los dos a prori.
+Como es común en criptografía, vamos a representar a los participantes que desean comunicarse como Alicia y Bob y representaremos al atacante por Eva.
 
 \subsection{Protocolo Diffie-Hellman}
 \label{sub:Protocolo Diffie-Hellman}
 
-El siguiente procedimiento permite a Alicia y Bob intercambiar de forma segura el valor de un punto en una curva elíptica aunque ninguno de los dos conozca inicialmente el valor del punto.
+El primer protocolo que vamos a ver es el \emph{Protocolo de Intercambio de Llaves Diffie-Hellman para Curvas Elípticas} o ECDH.
 
-\begin{protocolo}\label{pc:diffie-hellman}
+\begin{protocolo}[ECDH]\label{pc:diffie-hellman}
+    El siguiente procedimiento permite a Alicia y Bob intercambiar de forma segura el valor de un punto en una curva elíptica aunque ninguno de los dos conozca inicialmente el valor del punto.
+
     \begin{enumerate}
         \item Alicia y Bob concuerdan unos parámetros de dominio $D = (q, a, b, P, n)$.
         \item Alicia calcula su pareja de llaves $(Q_A, d_A)$ según~\ref{alg:pareja de llaves}.
         \item Bob calcula su pareja de llaves $(Q_B, d_B)$ según~\ref{alg:pareja de llaves}.
         \item Alicia y Bob intercambian sus llaves pública $Q_A, Q_B$.
-        \item Alicia calcula $d_A Q_B$ y Bob calcula $d_B Q_A$. Ambos cálculos devuelven el punto $d_A d_B P$.
+        \item Alicia calcula $d_A Q_B$ y Bob calcula $d_B Q_A$. Ambos cálculos devuelven el punto $(d_A d_B) P$.
     \end{enumerate}
 \end{protocolo}
+
+La utilidad de este protocolo es que permite que Alicia y Bob intercambien una llave por un canal inseguro que pueda ser utilizada posteriormente para transmitir datos sobre un esquema de cifrado simétrico como el Advanced Encryption Standard o AES. Esta llave se suele obtener extrayendo unos cuantos bits de la coordenada $x$ de $d_A d_B P$ o evaluando una función hash en la coordenada $x$.
+
+El atacante, Eva, conoce los parámetros de dominio y las llaves públicas $Q_A$ y $Q_B$, por lo que si Eva fuera capaz de resolver el ECDLP podría encontrar las llaves privadas $d_A$ y $d_B$ y recuperar el punto secreto $(d_A d_B) P$. Sin embargo, en principio Eva no necesita encontrar $d_A$ o $d_B$. Le basta con resolver el problema de Diffie-Hellman: dados tres puntos $P, d_A P, d_B P$ en $E(\Fq)$, calcular el punto $d_A d_B P$. Actualmente, la única forma de resolver el problema de Diffie-Hellman es resolver el problema del logaritmo discreto asociado pero no se sabe si ambos problemas son equivalentes~\cite{Hankerson:2003}.
+
+\subsection{Protocolo ECDSA}
+\label{sub:Protocolo ECDSA}
+
+Un \emph{esquema de firma digital} permite a Alicia usar su llave privada para firmar un documento (p. ej. un fichero del ordenador) de tal forma que Bob puede usar la llave pública de Alicia para verificar la validez de la firma. Un ejemplo de esto es el \emph{Algoritmo de Firma Digital para Curvas Elípticas} o ECDSA.
+
+\begin{protocolo}[ECDSA]
+    El siguiente procedimiento permite a Alicia firmar un documento digital y a Bob verificar que la firma es válida.
+    \begin{enumerate}
+        \item Alicia y Bob concuerdan unos parámetros de dominio $D = (q, a, b, P, n)$, con $n$ primo.
+        \item Alicia calcula su pareja de llaves $(Q, d)$ según~\ref{alg:pareja de llaves}.
+        \item Alicia representa el documento con un entero $m \in [1, n -1]$ (por ejemplo con una función hash).
+        \item Alicia calcula la firma $(r, s)$ de $m$ de la siguiente forma:
+        \begin{itemize}
+            \item Selecciona $k \in [1, n - 1]$ aleatoriamente.
+            \item Calcula el punto $k P = (x, y)$.
+            \item Calcula $\overline{x}$ como el representante entero del elemento $x \in Fq$.
+            \item Calcula $s \equiv k^{-1} (m + d \overline{x}) \pmod{n}$.
+        \end{itemize}
+        \item Alicia publica $(m, r, s, Q)$.
+        \item Bob verifica la firma de la siguiente forma:
+        \begin{itemize}
+            \item Calcula $u_1 \equiv m s^{-1} \pmod{n}$.
+            \item Calcula $u_2 \equiv r s^{-1} \pmod{n}$.
+            \item Calcula el punto $X = u_1 P + u_2 Q$.
+            \item Calcula $v$ como el representante entero de la coordenada $x$ de $X$.
+            \item Comprueba si $v \equiv r \pmod{n}$. En caso afirmativo, la firma es válida. En caso negativo, la firma no es válida.
+        \end{itemize}
+    \end{enumerate}
+\end{protocolo}
+\begin{proof}[Demostración de que la verificación de la firma funciona]
+Si una firma $(r, s)$ de un mensaje $m$ fue generada por el firmador legítimo, entonces $s \equiv k^{-1} (m + d r) \pmod{n}$. Reordando se tiene
+$$
+    k \equiv s^{-1} (m + d r) \equiv s^{-1} m + s^{-1} r d \equiv u_1 + u_2 d \pmod{n},
+$$
+Así $X = u_1 P + u_2 Q = (u_1 + u_2 P) = k P$, por lo que $v = r$ como se requería.
+\end{proof}
+
+% TODO: incluir parte de Washington?
+
+\section{Criptografía con curvas elípticas con Python}
+\label{sec:Criptografía con curvas elípticas con Python}
