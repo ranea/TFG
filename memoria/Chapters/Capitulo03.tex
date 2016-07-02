@@ -4,42 +4,39 @@
 %**************************
 
 % TODO: completar introducción
-En este capítulo haremos el desarrollo informático sobre criptografía con curvas elípticas. En el apartado~\ref{} hablaremos sobre protocolos criptográficos y explicaremos la implementación del programa desarrollado en el apartado~\ref{}.
+En este capítulo haremos el desarrollo informático sobre criptografía con curvas elípticas. En el apartado~\ref{} hablaremos sobre criptografía asimétrica utilizando curvas elípticas, explicaremos algunos protoclos criptografícos con curvas elípticas en el apartado~\ref{} y por último en el apartado~\ref{} hablaremos del programa desarollado para trabajar con curvas elípticas y protocolos criptográficos.
 
 % TODO: añadir ref si se utilizán más
-Las referencias utilizadas para el desarrollo informático han sido sido~\cite{Hankerson:2003} y~\cite{Washington:2008}.
+Las referencias utilizadas para el desarrollo informático han sido sido~\cite{Hankerson:2003}, \cite{Washington:2008} y \cite{Silverman:2009}.
 
-\section{Protocolos criptográficos}
-\label{sec:Protocolos criptográficos}
-
+\section{Criptografía con curvas elípticas}
+\label{sec:Criptografía con curvas elípticas}
 % TODO: hacer introducción
 
-\subsection{Criptografía con curvas elípticas}
-\label{sub:Criptografía con curvas elípticas}
-
 % TODO: poner nota a pie de página mencionando a los descubridores originales del gobierno británico
-La criptografía de llave pública fue inventada por Diffie y Hellman en 1976, aunque no fueron capaces de encontrar un método práctico para implementar su idea. El primer criptosistema de llave pública llevado a la práctica fue concebido por Rivest, Shamir y Adleman. El criptosistema RSA basa su seguridad en la dificultad de factorizar números grandes. Sin embargo, Diffie y Hellman describieron un algoritmo de intercambio de llaves cuya seguridad se basaba en el logaritmo discreto en $\Fq^*$ y posteriormente ElGamal creó un criptosistema de llave pública basado en el mismo problema. Koblitz y Miller propusieron remplazar el cuerpo finito $\Fq$ con una curva elíptica $E$, con la esperanza de que el logaritmo discreto en el grupo de puntos de una curva elíptca fuera más difícil de resolver que el logaritmo discreto en el grupo multiplicativo de un cuerpo finito. Su intuición conllevó la creación de la criptografía con curvas elípticas.
+La criptografía de llave pública (o asimétrica) fue inventada por Diffie y Hellman en 1976, aunque no fueron capaces de encontrar un método práctico para implementar su idea. El primer criptosistema de llave pública llevado a la práctica fue concebido por Rivest, Shamir y Adleman. El criptosistema RSA basa su seguridad en la dificultad de factorizar números grandes. Sin embargo, Diffie y Hellman describieron un algoritmo de intercambio de llaves cuya seguridad se basaba en el logaritmo discreto en $\Fq^*$ y posteriormente ElGamal creó un criptosistema de llave pública basado en el mismo problema. Koblitz y Miller propusieron remplazar el cuerpo finito $\Fq$ con una curva elíptica $E$, con la esperanza de que el logaritmo discreto en el grupo de puntos de una curva elíptca fuera más difícil de resolver que el logaritmo discreto en el grupo multiplicativo de un cuerpo finito. Su intuición conllevó la creación de la criptografía con curvas elípticas.
 
 % TODO: ver si introducir comparación RSA vs ECC o hacer comparación profunda (pag 38 guide, pag 182 wash, pag 388 silver)
 
+En esta sección trataremos el problema del logaritmo discreto y sus ataques y dos aspectos comunes de los protocolos criptográficos que vamos a ver: los parámetros de dominio y las parejas de llaves.
 
 \subsection{Problema del logaritmo discreto}
 \label{sub:Problema del logaritmo discreto}
 
-La dificultad del problema del logaritmo discreto es esencial para la seguridad de los esquemas criptográficos sobre curvas elípticas.
+La dificultad del problema del logaritmo discreto es esencial para la seguridad de los criptografía asimétrica sobre curvas elípticas.
 
 \begin{definicion}
-    El \emph{problema del logaritmo discreto sobre curvas elípticas (ECDLP)} es: dado una curva elíptica $E$ definida sobre un cuerpo finito $\Fq$, un punto $P \in E(\Fq)$ de orden $n$ y un punto $Q \in <P>$, encontrar el entero $k \in [0, n - 1]$ tal que $Q = k P$. El entero $k$ se llama el \emph{logaritmo discreto de $Q$ respecto a la base $P$} y se denota $k = \log_p Q$.
+    El \emph{problema del logaritmo discreto sobre curvas elípticas (ECDLP)} es: dado una curva elíptica $E$ definida sobre un cuerpo finito $\Fq$, un punto $P \in E(\Fq)$ de orden $n$ y un punto $Q \in \langle P \rangle$, encontrar el entero $k \in [0, n - 1]$ tal que $Q = k P$. El entero $k$ se llama el \emph{logaritmo discreto de $Q$ respecto a la base $P$} y se denota $k = \log_p Q$.
 \end{definicion}
 
-El ataque más simple es el ataque por \emph{fuerza bruta}, esto es, probar todos los valores posibles de $k$ hasta dar con el válido. El tiempo de ejecucción es aproximadamente $n$ pasos en el peor caso y $n / 2$ pasos en el caso medio. Así, el ataque por fuerza bruta puede ser evitado tomando curvas elípticas con $n$ suficientemente largo (p. ej. $n > 2^{80}$).
+El ataque más simple para resolver el ECDLP es el ataque por \emph{fuerza bruta}, esto es, probar todos los valores posibles de $k$ hasta dar con el válido. El tiempo de ejecucción es aproximadamente $n$ pasos en el peor caso y $n / 2$ pasos en el caso medio. Así, el ataque por fuerza bruta puede ser evitado tomando puntos base cuyo orden $n$ suficientemente largo (p. ej. $n > 2^{80}$).
 
 % TODO: mencionar la O grande
-El mejor ataque para curvas arbitrarias conocido sobre el ECDLP es la combinación del \emph{algoritmo de Pohlig-Hellman} y del \emph{algoritmo rho de Pollard}, que tiene un complejidad temporal de $O(\sqrt{p})$ (tiempo de ejecucción es exponencial en $log p$) donde $p$ es el divisor primo más grande de $n$. Para resistir este ataque, se debe elegir curvas elípticas tal que $n$ sea divisible por un primo $p$ suficiente grande (p. ej $p > 2^{160}$).
+El mejor ataque para curvas arbitrarias conocido sobre el ECDLP es la combinación del \emph{algoritmo de Pohlig-Hellman} y del \emph{algoritmo rho de Pollard}, que tiene un complejidad temporal de $O(\sqrt{p})$, esto es, el tiempo de ejecucción es exponencial en $\log{p}$. donde $p$ es el divisor primo más grande de $n$. Para resistir este ataque, se deben elegir puntos base cuyo orden $n$ sea divisible por un primo $p$ suficiente grande (p. ej $p > 2^{160}$).
 
 Además se deben evitar ciertos tipos de curvas para los cuales existen ataques específicos más rápidos que el algoritmo rho de Pollard, llamados \emph{ataques por isomorfismo}. Así pues, se deben evitar curvas \emph{anómalas} (curvas cuyo orden es de la forma $|E(\Fp)| = p$), curvas supersingulares (véase ~\ref{def:supersingular}), curvas con un orden de la forma $|E(\Fq)| = q - 1$ y curvas sobre $\Fm$ si $m$ es compuesto. Adicionalmente habría que comprobar que $n$ no divide a $q^k - 1$ para todo $1 \le k \le C$, donde $C$ es suficientemente grande (si $n > 2^{160}$, entonces $C = 20$ basta).
 
-Puede encontrar una descripción de estos ataques en~\cite[cap. 4]{Hankerson:2003} y en~\cite[cap. 4]{Washington:2008}.
+Puede más información sobre estos ataques en~\cite[cap. 4]{Hankerson:2003} y en~\cite[cap. 4]{Washington:2008}.
 
 \subsection{Parámetros de dominio}
 \label{sub:Parámetros de dominio}
@@ -57,12 +54,45 @@ Los parámetros de dominio de un esquema criptográfico con curvas elípticas de
 \end{definicion}
 
 % TODO: ver si cambiar o citar
-A la hora de elegir los parámetros de dominio, existen dos opciones. Por un lado, se pueden generar aleatoriamente y posteriormente validarlos para comprobar que describen una curva elíptica. Nótese que para cumplir las restricciones de seguridad es necesario determinar el número de puntos de una curva elíptica. Entre los distintos algoritmos para ello (fuerza bruta, el método de multiplicación compleja, ...) el mejor es el algoritmo de Schoof-Elkies-Atkin (SEA). En~\cite[sec. 4]{Hankerson:2003} puede encontrar los algoritmos de generación y validación de parámetros de dominio, además de una introducción a los métodos para determinar el cardinal de $E(\Fq)$.
+A la hora de elegir los parámetros de dominio, existen dos opciones. Por un lado, se pueden generar aleatoriamente y posteriormente validarlos para comprobar que describen una curva elíptica segura. Nótese que para cumplir las restricciones de seguridad es necesario determinar el número de puntos de una curva elíptica. Entre los distintos algoritmos para ello (fuerza bruta, el método de multiplicación compleja, \ldots) el mejor es el algoritmo de Schoof-Elkies-Atkin (SEA). En~\cite[cap. 4]{Hankerson:2003} puede encontrar los algoritmos de generación y validación de parámetros de dominio, mientras que en~\cite[cap. XI]{Silverman:2009} puede encontrar un descripción del algoritmo SEA.
 
 Por otro lado, los parámetros de dominio se pueden elegir de algún \emph{estándar}. Organizaciones como el Instituto Nacional de Normas y Tecnología (NIST) o el Grupo de Estándares para la Criptografía Eficiente (SECG), entre muchos otros, publican
-parámetros de dominio verificados. En~\cite[apéndice B]{Hankerson:2003} puede encontrar algunas de estas organizaciones y algunos de los estándares.
+parámetros de dominio verificados. En~\cite[apéndice B]{Hankerson:2003} puede encontrar algunas de estas organizaciones y los estándares que han publicado.
 
-\subsection{Protocolo de intercambio de llaves}
-\label{sub:Protocolo de intercambio de llaves}
+\subsection{Pareja de llaves}
+\label{sub:Pareja de llaves}
 
-% TODO: Diffie-Hellman
+En los protocolos que vamos a ver, cada participante dispondrá de una pareja de llaves, una llave privada (conocida solo por dicho participante) y una llave pública (publicada al resto de participantes). Esta pareja de llaves estará asociada a unos parámetros de dominio particulares. Para generar la pareja de llaves, se elige un punto aleatorio $Q$ en el grupo $\langle P \rangle$. La correspondiente llave privada es $d = \log_p Q$. Si $D = (q, a, b, P, n)$ son los parámetros de dominio, el algoritmo para la generación de llaves es el siguiente:
+
+\begin{algoritmo}\label{alg:pareja de llaves}
+    \begin{enumerate}
+        \item Seleccionar $d \in [1, n -1]$ aleatoriamente.
+        \item Calcular $Q = d P$.
+        \item Devolver $(Q, d)$ donde $Q$ es la llave pública y $d$ la llave privada.
+    \end{enumerate}
+\end{algoritmo}
+
+Nótese que el problema de calcular la llave privada a partir de la llave pública es precisamente el ECDLP. Por eso es crucial que los parámetros de dominio sean seleccionados de tal forma que el ECDLP sea intratable. Además, es necesario que los participantes validen las llave públicas que utilicen ya que existen ataques efectivos si no se hace algunas comprobaciones~\cite[cap. 4]{Hankerson:2003}.
+
+\section{Protocolos criptográficos}
+\label{sec:Protocolos criptográficos}
+
+% TODO: intro
+Como es común en criptografía, vamos a representar a los participantes que desean comunicarse como Alicia y Bob y representaremos al atacante por Eva.
+
+Este primer protocole que vamos a describir permite a Alicia y Bob intercambiar de forma segura una pieza de información cuyo valor no conoce ninguno de los dos a prori.
+
+\subsection{Protocolo Diffie-Hellman}
+\label{sub:Protocolo Diffie-Hellman}
+
+El siguiente procedimiento permite a Alicia y Bob intercambiar de forma segura el valor de un punto en una curva elíptica aunque ninguno de los dos conozca inicialmente el valor del punto.
+
+\begin{protocolo}\label{pc:diffie-hellman}
+    \begin{enumerate}
+        \item Alicia y Bob concuerdan unos parámetros de dominio $D = (q, a, b, P, n)$.
+        \item Alicia calcula su pareja de llaves $(Q_A, d_A)$ según~\ref{alg:pareja de llaves}.
+        \item Bob calcula su pareja de llaves $(Q_B, d_B)$ según~\ref{alg:pareja de llaves}.
+        \item Alicia y Bob intercambian sus llaves pública $Q_A, Q_B$.
+        \item Alicia calcula $d_A Q_B$ y Bob calcula $d_B Q_A$. Ambos cálculos devuelven el punto $d_A d_B P$.
+    \end{enumerate}
+\end{protocolo}
