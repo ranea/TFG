@@ -1,0 +1,74 @@
+\section{Criptografía con curvas elípticas con Python}
+\label{sec:Criptografía con curvas elípticas con Python}
+
+En esta sección se explica el programa desarollado \emph{Criptografía con Curvas Elípticas con Python} o \emph{ccecpy}. Este programa permite trabajar con el grupo de puntos de una curva elíptica y desarrollar protocolos criptográficos que usen curvas elípticas.
+
+% TODO: + intro
+% TODO: ref
+Puede consultar el código fuente en~\ref{}. La documentación en formato de página web se adjutará a este documento.
+
+\subsection{Motivación}
+\label{sub:Motivación}
+
+Existen diversos software de álgebra computacional que permiten hacer cálculos sobre curvas elípticas. \cite{Washington:2008} muestra como usar algunos de los principales ejemplos en este ámbito como Pari, Magma y Sage.
+
+% TODO: ref
+El principal motivo para implementar un programa y no utilizar uno ya existente ha sido para aplicar los conceptos aprendidos en el desarrollo matemático~\ref{} e implementar los algoritmos estudiados en el desarrollo informático~\ref{}. Sin embargo, y no menos importante, otro motivo era crear un programa libre y gratuito,
+fácil de entender y extender y con una documentación extensa en español.
+
+A diferencia de grandes soluciones como Magma o Sage, ccepy es framework \emph{minimalista}, es decir, provee un conjunto de funcionalidades imprescindibles para cualquiera que desee trabajar con curvas elípticas y a partir de dichas funcionalidades es muy fácil añadir nuevas mejoras. Además, dichas funcionalidades se han implementado siguiendo un diseño lo más simple posible, de tal forma que entender el programa en su totalidad requiere un esfuerzo mínimo comparado con otros software.
+
+\subsection{Herramientras utilizadas}
+\label{sub:Herramientras utilizadas}
+
+% TODO: rellenar ref
+Se ha utilizado \emph{python 3} como lenguaje de programación para ccepy. La lógica del programa no usa ninguna biblioteca externa, solo se utiliza la biblioteca estándar de python. Por eso, con tener python instalado es suficiente para usar ccepy. En ~\ref{} se detalla como usar este programa.
+
+% TODO: ref
+Para realizar la documentación se ha utilizado el software \emph{sphinx} que permite generar páginas web y documentos en formato latex a partir del código fuente y fichero en formato \emph{reStructuredText}. El proceso de documentación se ha detallado en~\ref{}.
+
+% TODO: ref
+Para realizar tests basados en propiedades (véase ~\ref{}) se ha utilizado la biblioteca \emph{hypothesis} que permite generar múltiples test unitarios a partir de una especificación de propiedades.
+
+\subsection{Arquitectura}
+\label{sub:Arquitectura}
+
+El software ccepy consta de cuatro módulos:
+
+\begin{itemize}
+    \item Aritmética elemental.
+    \item Cuerpos finitos.
+    \item Curvas elípticas.
+    \item Protocolos criptográficos.
+\end{itemize}
+
+Cada uno está contenido en el anterior, en el sentido que el módulo de cuerpos finitos usa el de aritmética elemental, el módulo de curvas elípticas usa el módulo de cuerpos finitos (y en consecuencia el de aritmética elemental) y el módulo de protocolos criptográficos usa el módulo de curvas elípticas (y en consecuencia el de cuerpos finitos y aritmética elemental).
+
+% TODO: ref
+Explicaremos la implementación de cada módulo en ~\ref{} y como usarlo en~\ref{}.
+
+\subsection{Implementación}
+\label{sub:Implementación}
+
+% TODO: documentación, ref algoritmos no triviales, estructura de datos
+Para implementar ccepy hemos seguido un diseño orientado a objetos ya que los elementos algebraicos que queremos implementar (enteros módulo un primo, elementos de un cuerpo finito, puntos de una curva elítipca) se pueden manejar muy bien siguiendo un modelo con objetos y clases.
+
+% TODO: ref
+El objetivo final es conseguir implementar los protocolos criptográficos explicados en~\ref{}. Por lo tanto, necesitamos manejar puntos de una curva elítipca sobre cuerpos finitos. Luego necesitaremos saber crear y operar con elementos de un cuerpo finito. Esto nos conduce en primer lugar a manejar aritmética modular con enteros y polinomios.
+
+\begin{nota}
+    Este apartado \emph{no} es la documentación. La documentación puede encontrarse adjunta en formato de página web. En este apartado se contará como se ha llevado a cabo la implementación, los algoritmos no triviales utilizados y la estructura de datos manejadas.
+\end{nota}
+
+\subsubsection{Aritmética elemental}
+\label{subs:Aritmética elemental}
+
+\subsection{Pruebas}
+\label{sub:Pruebas}
+
+% TODO: pruebas unitarias, hypothesis
+
+\subsection{Generación de la documentación}
+\label{sub:Generación de la documentación}
+
+% TODO: sphinx
