@@ -4,10 +4,10 @@
 %**************************
 
 % TODO: completar introducción
-En este capítulo haremos el desarrollo informático sobre criptografía con curvas elípticas. En el apartado~\ref{sec:Criptografía con curvas elípticas} hablaremos sobre criptografía asimétrica utilizando curvas elípticas, explicaremos algunos protoclos criptografícos con curvas elípticas en el apartado~\ref{sec:Protocolos criptográficos} y por último en el apartado~\ref{} hablaremos del programa desarrollado para trabajar con curvas elípticas y protocolos criptográficos.
+En este capítulo haremos el desarrollo informático sobre criptografía con curvas elípticas. En el apartado~\ref{sec:Criptografía con curvas elípticas} hablaremos sobre criptografía asimétrica utilizando curvas elípticas, explicaremos algunos protocolos criptografícos con curvas elípticas en el apartado~\ref{sec:Protocolos criptográficos} y por último en el apartado~\ref{sec:Criptografía con curvas elípticas con Python} hablaremos del programa desarrollado para trabajar con curvas elípticas y protocolos criptográficos.
 
 % TODO: añadir ref si se utilizán más
-Las referencias utilizadas para el desarrollo informático han sido sido~\cite{Hankerson:2003}, \cite{Washington:2008} y \cite{Silverman:2009}.
+Las referencias utilizadas han sido sido~\cite{Hankerson:2003}, \cite{Washington:2008} y \cite{Silverman:2009}.
 
 \section{Criptografía con curvas elípticas}
 \label{sec:Criptografía con curvas elípticas}
@@ -23,23 +23,23 @@ En esta sección trataremos el problema del logaritmo discreto y sus ataques y d
 \subsection{Problema del logaritmo discreto}
 \label{sub:Problema del logaritmo discreto}
 
-La dificultad del problema del logaritmo discreto es esencial para la seguridad de los criptografía asimétrica sobre curvas elípticas.
+La dificultad del problema del logaritmo discreto es esencial para la seguridad de la criptografía asimétrica sobre curvas elípticas.
 
 \begin{definicion}
     El \emph{problema del logaritmo discreto sobre curvas elípticas (ECDLP)} es: dado una curva elíptica $E$ definida sobre un cuerpo finito $\Fq$, un punto $P \in E(\Fq)$ de orden $n$ y un punto $Q \in \langle P \rangle$, encontrar el entero $k \in [0, n - 1]$ tal que $Q = k P$. El entero $k$ se llama el \emph{logaritmo discreto de $Q$ respecto a la base $P$} y se denota $k = \log_p Q$.
 \end{definicion}
 
-El ataque más simple para resolver el ECDLP es el ataque por \emph{fuerza bruta}, esto es, probar todos los valores posibles de $k$ hasta dar con el válido. El tiempo de ejecucción es aproximadamente $n$ pasos en el peor caso y $n / 2$ pasos en el caso medio. Así, el ataque por fuerza bruta puede ser evitado tomando puntos base cuyo orden $n$ suficientemente largo (p. ej. $n > 2^{80}$).
+El ataque más simple para resolver el ECDLP es el ataque por \emph{fuerza bruta}, esto es, probar todos los valores posibles de $k$ hasta dar con el válido. El tiempo de ejecucción es aproximadamente $n$ pasos en el peor caso y $n / 2$ pasos en el caso medio. Así, el ataque por fuerza bruta puede ser evitado tomando puntos base cuyo orden $n$ sea suficientemente largo (p. ej. $n > 2^{80}$).
 
 % TODO: mencionar la O grande?
-El mejor ataque para curvas arbitrarias conocido sobre el ECDLP es la combinación del \emph{algoritmo de Pohlig-Hellman} y del \emph{algoritmo rho de Pollard}, que tiene un complejidad temporal de $O(\sqrt{p})$, esto es, el tiempo de ejecucción es exponencial en $\log{p}$. donde $p$ es el divisor primo más grande de $n$. Para resistir este ataque, se deben elegir puntos base cuyo orden $n$ sea divisible por un primo $p$ suficiente grande (p. ej $p > 2^{160}$).
+El mejor ataque conocido para curvas arbitrarias es la combinación del \emph{algoritmo de Pohlig-Hellman} y del \emph{algoritmo rho de Pollard}, que tiene un complejidad temporal de $O(\sqrt{p})$, esto es, el tiempo de ejecucción es exponencial en $\log{p}$. donde $p$ es el divisor primo más grande de $n$. Para resistir este ataque, se deben elegir puntos base cuyo orden $n$ sea divisible por un primo $p$ suficiente grande (p. ej $p > 2^{160}$).
 
-Además se deben evitar ciertos tipos de curvas para los cuales existen ataques específicos más rápidos que el algoritmo rho de Pollard, llamados \emph{ataques por isomorfismo}. Así pues, se deben evitar curvas \emph{anómalas} (curvas cuyo orden es de la forma $|E(\Fp)| = p$), curvas supersingulares (véase ~\ref{def:supersingular}), curvas con un orden de la forma $|E(\Fq)| = q - 1$ y curvas sobre $\Fm$ si $m$ es compuesto. Adicionalmente habría que comprobar que $n$ no divide a $q^k - 1$ para todo $1 \le k \le C$, donde $C$ es suficientemente grande (si $n > 2^{160}$, entonces $C = 20$ basta).
+Además se deben evitar ciertos tipos de curvas para los cuales existen ataques específicos más rápidos que el algoritmo rho de Pollard, llamados \emph{ataques por isomorfismo}. Así pues, se deben evitar curvas \emph{anómalas} (curvas cuyo orden es de la forma $|E(\Fp)| = p$), curvas supersingulares (véase ~\ref{def:supersingular}), curvas con órdenes de la forma $|E(\Fq)| = q - 1$ y curvas sobre $\Fm$ si $m$ es compuesto. Adicionalmente, se debe comprobar que $n$ no divide a $q^k - 1$ para todo $1 \le k \le C$, donde $C$ es suficientemente grande (si $n > 2^{160}$, entonces $C = 20$ basta).
 
 % TODO: poner nota a pie de página con P y NP
-Si se siguen estas restricciones para evitar todos los ataques conocidos, se cree que el ECDLP no es factible con la tecnología actual. Nótese que no existe prueba matemática de la intratabilidad del ECDLP, esto es, nadie ha probado que no existe un algoritmo eficiente que lo resuelve. Para apreciar la dificultad de encontrar dicha prueba, la no existencia de un algoritmo en tiempo polinomial para el ECDLP implicaría que $P \neq NP$, una de las preguntas abiertas mas importantes de la teoría de la computación.
+Si se siguen estas restricciones, se cree que el ECDLP no es factible con la tecnología actual. Nótese que no existe prueba matemática de la intratabilidad del ECDLP, esto es, nadie ha probado que no existe un algoritmo eficiente que lo resuelve. Para apreciar la dificultad de encontrar dicha prueba, la no existencia de un algoritmo en tiempo polinomial para el ECDLP implicaría que $P \neq NP$, una de las preguntas abiertas mas importantes de la teoría de la computación.
 
-Puede más información sobre los ataques al ECDLP en~\cite[cap. 4]{Hankerson:2003} y en~\cite[cap. 4]{Washington:2008}.
+Puede encontrar más información sobre el ECDLP y sus ataques en~\cite[cap. 4]{Hankerson:2003} y en~\cite[cap. 4]{Washington:2008}.
 
 \subsection{Parámetros de dominio}
 \label{sub:Parámetros de dominio}
@@ -51,8 +51,8 @@ Los parámetros de dominio de un esquema criptográfico con curvas elípticas de
     \begin{itemize}
         \item El \emph{orden $q$ del cuerpo finito}.
         \item Dos \emph{coeficientes} $a, b \in \Fq$ que definen la ecuación de la curva eliptica $E$ sobre $\Fq$ (p. ej. $y^2 = x^3 + a x + b$ si la característica del cuerpo finito es distinta de 2 y 3 o $y^2 + x y = x^3 + a x^2 + b$ si la característica es 2).
-        \item Dos elementos $x_p, y_p \in \Fq$ que definen el punto $P = (x_p, y_p) \in E(\Fq)$ de orden primo. $P$ se conoce como el \emph{punto base}.
-        \item El \emph{orden $n$} de $P$.
+        \item Dos elementos $x_p, y_p \in \Fq$ que definen el punto $P = (x_p, y_p) \in E(\Fq)$. $P$ se conoce como el \emph{punto base}.
+        \item El \emph{orden $n$} de $P$, normalmente un número primo.
     \end{itemize}
 \end{definicion}
 
@@ -65,7 +65,7 @@ parámetros de dominio verificados. En~\cite[apéndice B]{Hankerson:2003} puede 
 \subsection{Pareja de llaves}
 \label{sub:Pareja de llaves}
 
-En los protocolos que vamos a ver, cada participante dispondrá de una pareja de llaves, una llave privada (conocida solo por dicho participante) y una llave pública (publicada al resto de participantes). Esta pareja de llaves estará asociada a unos parámetros de dominio particulares. Para generar la pareja de llaves, se elige un punto aleatorio $Q$ en el grupo $\langle P \rangle$. La correspondiente llave privada es $d = \log_p Q$.
+En los protocolos que vamos a ver, cada participante dispondrá de una pareja de llaves: una llave privada (conocida solo por dicho participante) y una llave pública (publicada al resto de participantes). Esta pareja de llaves estará asociada a unos parámetros de dominio particulares. Para generar la pareja de llaves, se elige un punto aleatorio $Q$ en el grupo $\langle P \rangle$. La correspondiente llave privada es $d = \log_p Q$.
 
 \begin{algoritmo}\label{alg:pareja de llaves}
     Sea $D = (q, a, b, P, n)$ los parámetros de dominios. Los pasos para generar una pareja de llaves son:
@@ -76,7 +76,7 @@ En los protocolos que vamos a ver, cada participante dispondrá de una pareja de
     \end{enumerate}
 \end{algoritmo}
 
-Nótese que el problema de calcular la llave privada a partir de la llave pública es precisamente el ECDLP. Por eso es crucial que los parámetros de dominio sean seleccionados de tal forma que el ECDLP sea intratable. Además, es necesario que los participantes validen las llave públicas que utilicen ya que existen ataques efectivos si no se hace algunas comprobaciones~\cite[cap. 4]{Hankerson:2003}.
+Nótese que el problema de calcular la llave privada a partir de la llave pública es precisamente el ECDLP. Por eso es crucial que los parámetros de dominio sean seleccionados de tal forma que el ECDLP sea intratable. Además, es necesario que los participantes validen las llave públicas en todo procedimiento ya que existen ataques efectivos si no se hace algunas comprobaciones~\cite[cap. 4]{Hankerson:2003}.
 
 \section{Protocolos criptográficos}
 \label{sec:Protocolos criptográficos}
@@ -102,9 +102,9 @@ El primer protocolo que vamos a ver es el \emph{Protocolo de Intercambio de Llav
     \end{enumerate}
 \end{protocolo}
 
-La utilidad de este protocolo es que permite que Alicia y Bob intercambien una llave por un canal inseguro que pueda ser utilizada posteriormente para transmitir datos sobre un esquema de cifrado simétrico como el Advanced Encryption Standard o AES. Esta llave se suele obtener extrayendo unos cuantos bits de la coordenada $x$ de $d_A d_B P$ o evaluando una función hash en la coordenada $x$.
+La utilidad de este protocolo es que permite que Alicia y Bob intercambien una llave por un canal inseguro que pueda ser utilizada posteriormente para transmitir datos sobre un esquema de cifrado simétrico como el Advanced Encryption Standard o AES. Esta llave se suele obtener extrayendo unos cuantos bits de la coordenada $x$ de $(d_A d_B) P$ o evaluando una función hash en dicha coordenada $x$.
 
-El atacante, Eva, conoce los parámetros de dominio y las llaves públicas $Q_A$ y $Q_B$, por lo que si Eva fuera capaz de resolver el ECDLP podría encontrar las llaves privadas $d_A$ y $d_B$ y recuperar el punto secreto $(d_A d_B) P$. Sin embargo, en principio Eva no necesita encontrar $d_A$ o $d_B$. Le basta con resolver el problema de Diffie-Hellman: dados tres puntos $P, d_A P, d_B P$ en $E(\Fq)$, calcular el punto $d_A d_B P$. Actualmente, la única forma de resolver el problema de Diffie-Hellman es resolver el problema del logaritmo discreto asociado pero no se sabe si ambos problemas son equivalentes~\cite{Hankerson:2003}.
+El atacante, Eva, conoce los parámetros de dominio y las llaves públicas $Q_A$ y $Q_B$, por lo que si Eva fuera capaz de resolver el ECDLP podría encontrar las llaves privadas $d_A$ y $d_B$ y recuperar el punto secreto $(d_A d_B) P$. Sin embargo, en principio Eva no necesita encontrar $d_A$ o $d_B$. Le basta con resolver el problema de Diffie-Hellman: dados tres puntos $P, d_A P, d_B P$ en $E(\Fq)$, calcular el punto $(d_A d_B) P$. Actualmente, la única forma de resolver el problema de Diffie-Hellman es resolver el problema del logaritmo discreto asociado pero no se sabe si ambos problemas son equivalentes~\cite{Hankerson:2003}.
 
 \subsection{Protocolo ECDSA}
 \label{sub:Protocolo ECDSA}
@@ -116,7 +116,7 @@ Un \emph{esquema de firma digital} permite a Alicia usar su llave privada para f
     \begin{enumerate}
         \item Alicia y Bob concuerdan unos parámetros de dominio $D = (q, a, b, P, n)$, con $n$ primo.
         \item Alicia calcula su pareja de llaves $(Q, d)$ según~\ref{alg:pareja de llaves}.
-        \item Alicia representa el documento con un entero $m \in [1, n -1]$ (por ejemplo con una función hash).
+        \item Alicia representa el documento con un entero $m$ (por ejemplo con una función hash).
         \item Alicia calcula la firma $(r, s)$ de $m$ de la siguiente forma:
         \begin{itemize}
             \item Selecciona $k \in [1, n - 1]$ aleatoriamente.
@@ -136,7 +136,7 @@ Un \emph{esquema de firma digital} permite a Alicia usar su llave privada para f
     \end{enumerate}
 \end{protocolo}
 \begin{proof}[Demostración de que la verificación de la firma funciona]
-Si una firma $(r, s)$ de un mensaje $m$ fue generada por el firmador legítimo, entonces $s \equiv k^{-1} (m + d r) \pmod{n}$. Reordando se tiene
+Si una firma $(r, s)$ de un mensaje $m$ fue generada por el firmador legítimo, entonces $s \equiv k^{-1} (m + d r) \pmod{n}$. Reordenando se tiene
 $$
     k \equiv s^{-1} (m + d r) \equiv s^{-1} m + s^{-1} r d \equiv u_1 + u_2 d \pmod{n},
 $$
