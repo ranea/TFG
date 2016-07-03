@@ -57,11 +57,30 @@ Para implementar ccepy hemos seguido un diseño orientado a objetos ya que los e
 El objetivo final es conseguir implementar los protocolos criptográficos explicados en~\ref{}. Por lo tanto, necesitamos manejar puntos de una curva elítipca sobre cuerpos finitos. Luego necesitaremos saber crear y operar con elementos de un cuerpo finito. Esto nos conduce en primer lugar a manejar aritmética modular con enteros y polinomios.
 
 \begin{nota}
-    Este apartado \emph{no} es la documentación. La documentación puede encontrarse adjunta en formato de página web. En este apartado se contará como se ha llevado a cabo la implementación, los algoritmos no triviales utilizados y la estructura de datos manejadas.
+    Este apartado \emph{no} es la documentación. En esta sección se contará los detalles técnicos de la implementación como la estructura de datos o lo algoritmos no triviales utilizados. Para ver como llamar a las distintas funciones y clases, los atributos y métodos de una clase y cómo usar dichas funciones, clases y módulos, diríjase a la documentación adjunta en formato de página web.
 \end{nota}
 
 \subsubsection{Aritmética elemental}
 \label{subs:Aritmética elemental}
+
+Este módulo permite operar con enteros módulo un primo $p$ y polinomios
+cuyos coeficientes sean enteros módulo un primo $p$.
+
+Los enteros módulo un primo se han representado los objetos instanciados de la clase \code{EnteroModuloP}. Para tener clases distintas para módulos distintos, se ha imitado la filosofía del patrón \emph{factoría}, esto es, hemos creado una función \code{Zp()} que acepta como parámetro un número primo y devuelve la clase que representa los enteros módulo dicho primo. Podemos ver la función \code{Zp} como el constructor de cuerpos $Z_p$. Esto lo hemos podido hacer ya que python permite definir clases dentro de funciones y devolver definiciones de clases como valor de retorno de una función.
+
+Además, \code{EnteroModuloP} es subclase del tipo básico \code{int}. Así, hemos sobrecargado los operadores $+$, $-$, $*$, $/$ y $**$ simplemente llamando a dichos operadores ya implementados para el tipo de dato \code{int} y haciendo $\%$ en cada operación. Además, gracias a esta herencia, se permite usar estas operaciones con un dato de tipo \code{EnteroModuloP} y otro de tipo \code{int}, devolviendo el resultado como dato de tipo \code{EnteroModuloP}.
+
+La clase \code{EnteroModuloP} utiliza el algoritmo de euclides para números enteros para calcular inversos. El algoritmo, extraído de \cite{Menezes:1996}, es el siguiente:
+\begin{algoritmo}
+    % TODO: alg euclides
+\end{algoritmo}
+Este algoritmo está encapsulado en la función \code{alg\_euclides()}. El proceso para calcular inversos a partir del algoritmo de euclides, extraído también de \cite{Menezes:1996}, es el siguiente:
+\begin{algoritmo}
+    % TODO: calculo inverso
+\end{algoritmo}
+y este algoritmo lo ejecuta el método \code{inverso()} de la clase \code{EnteroModuloP}.
+
+% TODO: clase polinomio
 
 \subsection{Pruebas}
 \label{sub:Pruebas}
