@@ -18,6 +18,8 @@ La criptografía de llave pública (o asimétrica) fue inventada por Diffie y He
 
 % TODO: ver si introducir comparación RSA vs ECC o hacer comparación profunda (pag 38 guide, pag 182 wash, pag 388 silver)
 
+% TODO: introducir ordenadores cuánticos?
+
 En esta sección trataremos el problema del logaritmo discreto y sus ataques y dos aspectos comunes de los protocolos criptográficos que vamos a ver: los parámetros de dominio y las parejas de llaves.
 
 \subsection{Problema del logaritmo discreto}
@@ -143,7 +145,9 @@ $$
 Así $X = u_1 P + u_2 Q = (u_1 + u_2 P) = k P$, por lo que $v = r$ como se requería.
 \end{proof}
 
-% TODO: incluir parte de Washington?
+Análogamente al protocolo Diffie-Hellman, si Eva, el atacante, pudiera calcular logaritmos discretos, entonces podría calcular la llave privada $d$ y firmar como Alicia en cada mensaje. Por otro lado, si el número aleatorio $k$ se reutiliza, Eva podría recuperar $d$ sin necesidad de resolver el ECDLP. Por ello, $k$ debe ser generando de forma segura, almacenado de forma segura y destruido de forma segura tras haber sido utilizado.
+
+En el paso (3) es recomendable utilizar una función hash para firmar documentos grandes y prevenir varios tipos de ataques. Ejemplo de funciones hash comunes son MD5 (Message-Digest Algorithm 5) y la familia de algoritmos SHA (Secure Hash Algorithm). Puede encontrar más información sobre este protocolo en ~\cite{Hankerson:2003}.
 
 \section{Criptografía con curvas elípticas con Python}
 \label{sec:Criptografía con curvas elípticas con Python}
