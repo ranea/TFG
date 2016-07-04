@@ -39,11 +39,11 @@ El software ccepy consta de cinco módulos:
     \item Aritmética elemental.
     \item Cuerpos finitos.
     \item Curvas elípticas.
-    \item Protocolos criptográficos.
+    \item Esquemas criptográficos.
     \item Listado de curvas elípticas.
 \end{itemize}
 
-Excepto el último módulo, cada uno está contenido en el anterior, en el sentido que el módulo de cuerpos finitos usa el de aritmética elemental, el módulo de curvas elípticas usa el módulo de cuerpos finitos (y en consecuencia el de aritmética elemental) y el módulo de protocolos criptográficos usa el módulo de curvas elípticas (y en consecuencia el de cuerpos finitos y aritmética elemental).
+Excepto el último módulo, cada uno está contenido en el anterior, en el sentido que el módulo de cuerpos finitos usa el de aritmética elemental, el módulo de curvas elípticas usa el módulo de cuerpos finitos (y en consecuencia el de aritmética elemental) y el módulo de esquemas criptográficos usa el módulo de curvas elípticas (y en consecuencia el de cuerpos finitos y aritmética elemental).
 
 % TODO: ref
 Explicaremos la implementación de cada módulo en ~\ref{} y como usarlo en~\ref{}.
@@ -65,7 +65,7 @@ La estructura en directorios es la siguiente:
 La carpeta \code{ccepy/ccepy} contiene el código fuente los módulos listados en~\ref{sub:Arquitectura}, \code{ccepy/docs} contiene la documentación y el código que la genera y por último \code{ccepy/tests} contiene las pruebas unitarias y basadas en propiedades.
 
 % TODO: ref
-El objetivo final es conseguir implementar los protocolos criptográficos explicados en~\ref{}. Por ello, explicaremos primero lo más esencial, el módulo de aritmética elemental hasta llegar al módulo de protocolos criptográficos y listado de curvas elipticas.
+El objetivo final es conseguir implementar los protocolos criptográficos explicados en~\ref{}. Por ello, explicaremos primero lo más esencial, el módulo de aritmética elemental.
 % que nos permitirá implementar los cuerpos finitos y posteriormente el grupo de puntos de una curva elíptica.
 
 \begin{nota}
@@ -80,7 +80,7 @@ cuyos coeficientes sean enteros módulo un primo $p$. El código fuente de este 
 
 Los enteros módulo un primo se han representado con la clase \code{EnteroModuloP}. Para tener clases distintas para módulos distintos (para que cada clase tengo como atributo de clase el primo con el que se hace el módulo), se ha imitado la filosofía del patrón \emph{factoría}, esto es, hemos creado una función \code{Zp()} que acepta como parámetro un número primo y devuelve la clase que representa los enteros módulo dicho primo. Podemos ver la función \code{Zp} como el constructor de cuerpos $\mathbb{Z}_p$. Esto lo hemos podido hacer ya que python permite definir clases dentro de funciones y devolver definiciones de clases como valor de retorno de una función. Además, hemos utilizado el \emph{decorador} \code{@lru\_cache()} del módulo \code{functools} de la biblioteca estándar de python para que llamadas iguales sucesivas a \code{Zp()} devuelvan el mismo objeto y no se creen copias de una misma clase para un mismo primo.
 
-Además, \code{EnteroModuloP} es subclase del tipo básico \code{int}. Así, hemos sobrecargado los operadores $+$, $-$, $*$, $/$ y $**$ simplemente llamando a dichos operadores ya implementados para el tipo de dato \code{int} y haciendo $\%$ en cada operación. Además, gracias a esta herencia, se permite usar estas operaciones con un dato de tipo \code{EnteroModuloP} y otro de tipo \code{int}, devolviendo el resultado como dato de tipo \code{EnteroModuloP}.
+Además, \code{EnteroModuloP} es subclase del tipo básico \code{int}. Así, hemos implementado los operadores $+$, $-$, $*$, $/$ y $**$ simplemente llamando a dichos operadores ya implementados para el tipo de dato \code{int} y haciendo $\%$ en cada operación. Además, gracias a esta herencia, se permite usar estas operaciones con un dato de tipo \code{EnteroModuloP} y otro de tipo \code{int}, devolviendo el resultado como dato de tipo \code{EnteroModuloP}.
 
 La clase \code{EnteroModuloP} utiliza el \emph{algoritmo extendido de Euclides} para el cálculo de inversos. El algoritmo, extraído de~\cite{Menezes:1996}, es el siguiente:
 \begin{algoritmo2}[Algoritmo extendido de Euclides para enteros]
@@ -101,7 +101,7 @@ Este algoritmo está encapsulado en la función \code{alg\_euclides()}. Así, el
 
 Los polinomios con coeficientes enteros módulo un primo se han representando con la clase \code{PolinomioZp}. Internamente, cada objeto de \code{PolinomioZp} contiene una lista de python de datos de tipo \code{EnteroModuloP} (que representan los coeficientes del polinomio) y un entero (que representa el primo con el que se hizo módulo los coeficientes). La lista se ha definido como una \emph{propiedad} de python para permitir solo los accesos de lectura.
 
-\code{PolinomioZp} sobrecarga los operadores  $+$, $-$, $*$, $/$, $\%$ y $**$ para operar entre polinomios más cómodamente. También se ha sobrecargado el método \code{\_\_hash\_\_()} para poder utilizar posteriormente el decorador \code{\@lru\_cache()} sobre la función \code{Fq()} del módulo de cuerpos finitos ya que este decorador requiere que todos los argumentos de la función sobre la que se aplica tengan como representación un número entero y esta representación debe definirse en el método \code{\_\_hash\_\_()}.
+\code{PolinomioZp} implementa los operadores  $+$, $-$, $*$, $/$, $\%$ y $**$ para operar entre polinomios más cómodamente. También se ha implementado el método \code{\_\_hash\_\_()} para poder utilizar posteriormente el decorador \code{\@lru\_cache()} sobre la función \code{Fq()} del módulo de cuerpos finitos ya que este decorador requiere que todos los argumentos de la función sobre la que se aplica tengan como representación un número entero y esta representación debe definirse en el método \code{\_\_hash\_\_()}.
 
 De entre todos los métodos de \code{PolinomioZp}, destacamos \code{es\_irreducible()}. Como este método utiliza el \emph{algoritmo extendido de Euclides para polinomios}, vamos a detallar primero este.
 \begin{algoritmo2}[Algoritmo extendido de Euclides para polinomios]
@@ -150,9 +150,9 @@ Estos dos algoritmos y este par de resultados han sido extraídos de~ \cite{Mene
 
 Este módulo permite operar con elementos de un cuerpos finito de $q$ elementos, donde $q$ será la potencia de un primo. El código fuente de este módulo está en el archivo \code{cuerpos\_finitos.py}.
 
-Los elementos del cuerpo finito $p$ elementos, con $p$ primo, ya están implementados por la clase \code{EnteroModuloP}. El resto de cuerpos finitos, esto es, aquellos con un número de elementos de la forma $q = p^n$ con $n > 1$ se han representado con la clase \code{ElementoFq}. Análogamente a \code{EnteroModuloP}, le hemos asociado una función factoría a \code{ElementoFq}, llamada \code{Fq()}, que devuelve cada clase para cada número de elementos de un cuerpo finito. También hemos utilizado el decorador \code{@lru\_cache()} sobre \code{Fq()} para no tener cuerpos finitos iguales duplicados en memoria.
+Los elementos del cuerpo finito $p$ elementos, con $p$ primo, ya están implementados por la clase \code{EnteroModuloP}. Los elementos del resto de cuerpos finitos, esto es, aquellos con un número de elementos de la forma $q = p^n$ con $n > 1$ se han representado con la clase \code{ElementoFq}. Análogamente a \code{EnteroModuloP}, le hemos asociado una función factoría a \code{ElementoFq}, llamada \code{Fq()}, que devuelve cada clase para cada número de elementos de un cuerpo finito. También hemos utilizado el decorador \code{@lru\_cache()} sobre \code{Fq()} para no tener cuerpos finitos iguales duplicados en memoria.
 
-\code{ElementoFq} es definido como subclase de \code{PolinomioZp} ya que estamos representado los elementos de un cuerpo finito $\Fq = \Fpn$ como polinomios de $\mathbb{Z}_p[X]$ de hasta grado $n-1$. El polinomio irreducible de $\mathbb{Z}_p[X]$ de grado $n$ puede especificarse o no; si no se especifica, se elige un polinomio irreducible aleatorio de grado $n$. Los operadores  $+$, $-$, $*$, $/$ y $**$ se han sobrecargado usando los operadores ya implementados para \code{PolinomioZp}.
+\code{ElementoFq} es definido como subclase de \code{PolinomioZp} ya que estamos representado los elementos de un cuerpo finito $\Fq = \Fpn$ como polinomios de $\mathbb{Z}_p[X]$ de hasta grado $n-1$. El polinomio irreducible de $\mathbb{Z}_p[X]$ de grado $n$ puede especificarse o no; si no se especifica, se elige un polinomio irreducible aleatorio de grado $n$. Los operadores  $+$, $-$, $*$, $/$ y $**$ se han implementado usando los operadores ya implementados para \code{PolinomioZp}.
 
 Para el cálculo de inversos en $\Fq$ se utiliza el algoritmo de Euclides para polinomios de forma análoga a como se hacía para $\mathbb{Z}$. Para calcular potencias hemos utilizado el \emph{algoritmo de exponenciación binaria}, más eficiente que el algoritmo de multiplicar el elemento consigo mismo. El algoritmo, sacado de~\cite{Menezes:1996}, es el siguiente.
 \begin{algoritmo2}
@@ -175,6 +175,26 @@ Para obtener la representación binaria de un entero se ha utilizado la función
 \subsubsection{Módulo de curvas elípticas}
 \label{subs:Módulo de curvas elípticas}
 
+Este módulo permite operar con el grupo de puntos de una curva elíptica. El código fuente de este módulo está en el archivo \code{curvas\_elipticas.py}.
+
+Los puntos de una curva elíptca se han representando con distintas clases según el modelo de curva elítipca. Así, hay una clase para el grupo de puntos $E(\Fq)$, con $\Fq$ de característica distinta de 2 y 3, otra clase para $E(\Fm)$ y una última clase para $E(\mathbb{Q})$. Sin embargo, todas heredan de la misma clase y empezaremos por esta clase madre.
+
+La clase \code{PuntoRacional} es una clase \emph{abstracta}. Esta clase define el comportamiento de algunos métodos y deja sin implementar otros (similiar a los métodos \emph{virtuales} de C++). En python, este tipo de clases se crean utilizando la \emph{metaclase} \code{ABCMeta} y el decorador \code{@abstractmethod}, ambos del módulo \emph{abc} de la biblioteca estándar. Así, esta clase define el elemento neutro, que se representa como la tupla \code{(None, None)}, y especifica que los puntos deben representarse con un atributo para la componente $x$ y otro para la componente $y$ y además restringe el acceso para que sea de solo lectura, a través de las propiedades de python. Por último, indica que se deben implementar los métodos \code{contiene} (que evalúa la ecuación de la curva elíptica dado un par de componentes) y los operadores aritméticos básicos.
+
+% TODO: add ref
+La clase que representa $E(\Fq)$ es la clase \code{PuntoFqRacional}. Análogamente a \code{EnteroModuloP}, le hemos asociado una función factoría a \code{PuntoFqRacional}, llamada \code{curva\_eliptica\_sobre\_Fq()}, que pasandole como argumentos los coeficientes de la ecuación de Weierstrass~\ref{} y el cuerpo base, devuelve \code{PuntoFqRacional} con sus atributos de clase (los coeficientes de la ecuación, el cuerpo base y el discriminate) inicializados. De esta forma, dos curvas sobre $\Fq$ pero con distinta ecuación (distintos coeficientes) son dos clases distintas.
+
+% TODO: add ref
+\code{PuntoFqRacional} crea un punto de la curva pásandole como argumentos la componente $x$ y la componente $y$. Si dicho punto no estuviera en la curva, se lanza una excepción. Además, \code{PuntoFqRacional} implementa los operadores $+$, $-$ y $*$ con su significado natural. Para ello, en los métodos especiales \code{\_\_add\_\_} y \code{\_\_neg\_\_} se incluyen las fórmulas de adicción~\ref{}; el algoritmo eficiente de multiplicación de un punto por un escalar~\ref{} se incluye en el método \code{\_\_mul\_\_}.
+
+Las clases \code{PuntoF2mRacional} y \code{PuntoQRacional} que representan respectivamente a $E(\Fm)$ y $E(\mathbb{Q})$ se han implementado de forma similar a \code{PuntoFqRacional}: se crean mediante una función factoría (\code{curva\_eliptica\_sobre\_F2m} y \code{curva\_eliptica\_sobre\_Q} respectivamente), heredan de \code{PuntoRacional} e implementan los operadores $+$, $-$ y $*$ utilizando las fórmulas de adicción ~\ref{} y \ref{} respectivamente.
+
+La clase \code{PuntoQRacional} se ha implementado para mostrar un ejemplo de una curva elítipca definida sobre un cuerpo distinto a los cuerpos finitos. Se ha utilizado el módulo \code{fractions} de python para representar a los racionales. Esta clase no será utilizada en el siguiente módulo a diferencia de las otras dos clases.
+
+\subsubsection{Módulo de esquemas criptográficos}
+\label{subs:Módulo de esquemas criptográficos}
+
+...
 
 \subsection{Pruebas}
 \label{sub:Pruebas}
