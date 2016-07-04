@@ -33,16 +33,17 @@ Para realizar tests basados en propiedades (véase ~\ref{}) se ha utilizado la b
 \subsection{Arquitectura}
 \label{sub:Arquitectura}
 
-El software ccepy consta de cuatro módulos:
+El software ccepy consta de cinco módulos:
 
 \begin{itemize}
     \item Aritmética elemental.
     \item Cuerpos finitos.
     \item Curvas elípticas.
     \item Protocolos criptográficos.
+    \item Listado de curvas elípticas.
 \end{itemize}
 
-Cada uno está contenido en el anterior, en el sentido que el módulo de cuerpos finitos usa el de aritmética elemental, el módulo de curvas elípticas usa el módulo de cuerpos finitos (y en consecuencia el de aritmética elemental) y el módulo de protocolos criptográficos usa el módulo de curvas elípticas (y en consecuencia el de cuerpos finitos y aritmética elemental).
+Excepto el último módulo, cada uno está contenido en el anterior, en el sentido que el módulo de cuerpos finitos usa el de aritmética elemental, el módulo de curvas elípticas usa el módulo de cuerpos finitos (y en consecuencia el de aritmética elemental) y el módulo de protocolos criptográficos usa el módulo de curvas elípticas (y en consecuencia el de cuerpos finitos y aritmética elemental).
 
 % TODO: ref
 Explicaremos la implementación de cada módulo en ~\ref{} y como usarlo en~\ref{}.
@@ -53,24 +54,35 @@ Explicaremos la implementación de cada módulo en ~\ref{} y como usarlo en~\ref
 % TODO: documentación, ref algoritmos no triviales, estructura de datos
 Para implementar ccepy hemos seguido un diseño orientado a objetos ya que los elementos algebraicos que queremos implementar (enteros módulo un primo, elementos de un cuerpo finito, puntos de una curva elítipca) se pueden manejar muy bien representándolos como objetos y clases.
 
+% TODO: ver si hay que actualiar
+La estructura en directorios es la siguiente:
+\begin{verbatim}
+    ccepy/
+        ccepy/
+        docs/
+        tests/
+\end{verbatim}
+La carpeta \code{ccepy/ccepy} contiene el código fuente los módulos listados en~\ref{sub:Arquitectura}, \code{ccepy/docs} contiene la documentación y el código que la genera y por último \code{ccepy/tests} contiene las pruebas unitarias y basadas en propiedades.
+
 % TODO: ref
-El objetivo final es conseguir implementar los protocolos criptográficos explicados en~\ref{}. Para ello, el primer paso es implementar el módulo de aritmética elemental que nos permitirá implementar los cuerpos finitos y posteriormente el grupo de puntos de una curva elíptica.
+El objetivo final es conseguir implementar los protocolos criptográficos explicados en~\ref{}. Por ello, explicaremos primero lo más esencial, el módulo de aritmética elemental hasta llegar al módulo de protocolos criptográficos y listado de curvas elipticas.
+% que nos permitirá implementar los cuerpos finitos y posteriormente el grupo de puntos de una curva elíptica.
 
 \begin{nota}
     Este apartado \emph{no} es la documentación. En esta sección se contarán los detalles técnicos de la implementación como la estructura de datos o lo algoritmos no triviales utilizados. Para ver un listado de las distintas funciones y clases, los atributos y métodos de una clase y cómo usar dichas funciones, clases y módulos, diríjase a la documentación adjunta en formato de página web.
 \end{nota}
 
-\subsubsection{Aritmética elemental}
-\label{subs:Aritmética elemental}
+\subsubsection{Módulo de aritmética elemental}
+\label{subs:Módulo de aritmética elemental}
 
 Este módulo permite operar con enteros módulo un primo $p$ y polinomios
-cuyos coeficientes sean enteros módulo un primo $p$.
+cuyos coeficientes sean enteros módulo un primo $p$. El código fuente de este módulo está en el archivo \code{aritmetica\_elemental.py}.
 
-Los enteros módulo un primo se han representado como objetos instanciados de la clase \code{EnteroModuloP}. Para tener clases distintas para módulos distintos (para que cada clase tengo como atributo de clase el primo con el que se hace el módulo), se ha imitado la filosofía del patrón \emph{factoría}, esto es, hemos creado una función \code{Zp()} que acepta como parámetro un número primo y devuelve la clase que representa los enteros módulo dicho primo. Podemos ver la función \code{Zp} como el constructor de cuerpos $\mathbb{Z}_p$. Esto lo hemos podido hacer ya que python permite definir clases dentro de funciones y devolver definiciones de clases como valor de retorno de una función. Además, hemos utilizado el decorador \code{\@lru\_cache()} del módulo \code{functools} de la biblioteca estándar de python para que llamadas iguales sucesivas a \code{Zp()} devuelvan el mismo objeto y no se creen copias de una misma clase para un mismo primo.
+Los enteros módulo un primo se han representado con la clase \code{EnteroModuloP}. Para tener clases distintas para módulos distintos (para que cada clase tengo como atributo de clase el primo con el que se hace el módulo), se ha imitado la filosofía del patrón \emph{factoría}, esto es, hemos creado una función \code{Zp()} que acepta como parámetro un número primo y devuelve la clase que representa los enteros módulo dicho primo. Podemos ver la función \code{Zp} como el constructor de cuerpos $\mathbb{Z}_p$. Esto lo hemos podido hacer ya que python permite definir clases dentro de funciones y devolver definiciones de clases como valor de retorno de una función. Además, hemos utilizado el \emph{decorador} \code{@lru\_cache()} del módulo \code{functools} de la biblioteca estándar de python para que llamadas iguales sucesivas a \code{Zp()} devuelvan el mismo objeto y no se creen copias de una misma clase para un mismo primo.
 
 Además, \code{EnteroModuloP} es subclase del tipo básico \code{int}. Así, hemos sobrecargado los operadores $+$, $-$, $*$, $/$ y $**$ simplemente llamando a dichos operadores ya implementados para el tipo de dato \code{int} y haciendo $\%$ en cada operación. Además, gracias a esta herencia, se permite usar estas operaciones con un dato de tipo \code{EnteroModuloP} y otro de tipo \code{int}, devolviendo el resultado como dato de tipo \code{EnteroModuloP}.
 
-La clase \code{EnteroModuloP} utiliza el algoritmo de Euclides para el cálculo de inversos. El algoritmo, extraído de~\cite{Menezes:1996}, es el siguiente:
+La clase \code{EnteroModuloP} utiliza el \emph{algoritmo extendido de Euclides} para el cálculo de inversos. El algoritmo, extraído de~\cite{Menezes:1996}, es el siguiente:
 \begin{algoritmo2}[Algoritmo extendido de Euclides para enteros]
     ENTRADA: dos enteros no negativos $a$ y $b$ con $a \ge b$. \\
     SALIDA: $d = mcd(a, b)$ y enteros $x, y$ satisfaciendo $a x + b y = d$.
@@ -87,11 +99,11 @@ La clase \code{EnteroModuloP} utiliza el algoritmo de Euclides para el cálculo 
 \end{algoritmo2}
 Este algoritmo está encapsulado en la función \code{alg\_euclides()}. Así, el cálculo del inverso de un elemento $a \in \mathbb{Z}_p$ se reduce a calcular el algoritmo de Euclides para la pareja $(a, p)$ y el inverso es el coeficiente $x$.
 
-Los polinomios con coeficientes enteros módulo un primo se han representando como objetos de la clase \code{PolinomioZp}. Internamente, cada objeto de \code{PolinomioZp} contiene una lista de python de datos de tipo \code{EnteroModuloP} (que representan los coeficientes del polinomio) y un entero (que representa el primo con el que se hizo módulo los coeficientes). La lista se ha definido como una \emph{propiedad} de python para permitir solo los accesos de lectura.
+Los polinomios con coeficientes enteros módulo un primo se han representando con la clase \code{PolinomioZp}. Internamente, cada objeto de \code{PolinomioZp} contiene una lista de python de datos de tipo \code{EnteroModuloP} (que representan los coeficientes del polinomio) y un entero (que representa el primo con el que se hizo módulo los coeficientes). La lista se ha definido como una \emph{propiedad} de python para permitir solo los accesos de lectura.
 
 \code{PolinomioZp} sobrecarga los operadores  $+$, $-$, $*$, $/$, $\%$ y $**$ para operar entre polinomios más cómodamente. También se ha sobrecargado el método \code{\_\_hash\_\_()} para poder utilizar posteriormente el decorador \code{\@lru\_cache()} sobre la función \code{Fq()} del módulo de cuerpos finitos ya que este decorador requiere que todos los argumentos de la función sobre la que se aplica tengan como representación un número entero y esta representación debe definirse en el método \code{\_\_hash\_\_()}.
 
-De entre todos los métodos de \code{PolinomioZp}, destacamos \code{es\_irreducible()}. Como este método utiliza el algoritmo extendido de Euclides para polinomios, vamos a detallar primero este.
+De entre todos los métodos de \code{PolinomioZp}, destacamos \code{es\_irreducible()}. Como este método utiliza el \emph{algoritmo extendido de Euclides para polinomios}, vamos a detallar primero este.
 \begin{algoritmo2}[Algoritmo extendido de Euclides para polinomios]
 \label{alg:algoritmo extendido de Euclides para polinomios}
     ENTRADA: dos polinomios $g, h \in \mathbb{Z}_p[X]$. \\
@@ -133,8 +145,36 @@ Este algoritmo está encapsulado en la función \code{alg\_euclides\_polinomios(
 \end{nota}
 Estos dos algoritmos y este par de resultados han sido extraídos de~ \cite{Menezes:1996}.
 
-\subsubsection{Cuerpos finitos}
-\label{subs:Cuerpos finitos}
+\subsubsection{Módulo de cuerpos finitos}
+\label{subs:Módulo de cuerpos finitos}
+
+Este módulo permite operar con elementos de un cuerpos finito de $q$ elementos, donde $q$ será la potencia de un primo. El código fuente de este módulo está en el archivo \code{cuerpos\_finitos.py}.
+
+Los elementos del cuerpo finito $p$ elementos, con $p$ primo, ya están implementados por la clase \code{EnteroModuloP}. El resto de cuerpos finitos, esto es, aquellos con un número de elementos de la forma $q = p^n$ con $n > 1$ se han representado con la clase \code{ElementoFq}. Análogamente a \code{EnteroModuloP}, le hemos asociado una función factoría a \code{ElementoFq}, llamada \code{Fq()}, que devuelve cada clase para cada número de elementos de un cuerpo finito. También hemos utilizado el decorador \code{@lru\_cache()} sobre \code{Fq()} para no tener cuerpos finitos iguales duplicados en memoria.
+
+\code{ElementoFq} es definido como subclase de \code{PolinomioZp} ya que estamos representado los elementos de un cuerpo finito $\Fq = \Fpn$ como polinomios de $\mathbb{Z}_p[X]$ de hasta grado $n-1$. El polinomio irreducible de $\mathbb{Z}_p[X]$ de grado $n$ puede especificarse o no; si no se especifica, se elige un polinomio irreducible aleatorio de grado $n$. Los operadores  $+$, $-$, $*$, $/$ y $**$ se han sobrecargado usando los operadores ya implementados para \code{PolinomioZp}.
+
+Para el cálculo de inversos en $\Fq$ se utiliza el algoritmo de Euclides para polinomios de forma análoga a como se hacía para $\mathbb{Z}$. Para calcular potencias hemos utilizado el \emph{algoritmo de exponenciación binaria}, más eficiente que el algoritmo de multiplicar el elemento consigo mismo. El algoritmo, sacado de~\cite{Menezes:1996}, es el siguiente.
+\begin{algoritmo2}
+ENTRADA: $g(x) \in \Fpn$, un entero $0 \le k < p^n - 1$ y su representación binaria $k = \sum_{i=0}^{t} k_i 2^i$. \\
+SALIDA: $g(x)^k \textrm{ mod } f(x)$.
+\begin{enumerate}
+    \item Inicializar $s(x) \leftarrow 1$. Si $k = 0$, devolver $s(x)$.
+    \item Inicializar $G(x) \leftarrow  g(x)$.
+    \item Si $k_0 = 1$, hacer $s(x) \leftarrow  g(x)$.
+    \item Para $i$ desde 1 hata $t$, hacer lo siguiente:
+    \begin{enumerate}
+        \item Calcular $G(x) \leftarrow  G(x)^2 \textrm{ mod } f(x)$.
+        \item Si $k_i = 1$, calcular $s(x) \leftarrow G(x) * s(x) \textrm{ mod } f(x)$.
+    \end{enumerate}
+    \item Devolver $s(x)$.
+\end{enumerate}
+\end{algoritmo2}
+Para obtener la representación binaria de un entero se ha utilizado la función de la biblioteca estándar de python \code{bin()}.
+
+\subsubsection{Módulo de curvas elípticas}
+\label{subs:Módulo de curvas elípticas}
+
 
 \subsection{Pruebas}
 \label{sub:Pruebas}
