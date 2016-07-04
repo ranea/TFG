@@ -51,13 +51,13 @@ Explicaremos la implementación de cada módulo en ~\ref{} y como usarlo en~\ref
 \label{sub:Implementación}
 
 % TODO: documentación, ref algoritmos no triviales, estructura de datos
-Para implementar ccepy hemos seguido un diseño orientado a objetos ya que los elementos algebraicos que queremos implementar (enteros módulo un primo, elementos de un cuerpo finito, puntos de una curva elítipca) se pueden manejar muy bien siguiendo un modelo con objetos y clases.
+Para implementar ccepy hemos seguido un diseño orientado a objetos ya que los elementos algebraicos que queremos implementar (enteros módulo un primo, elementos de un cuerpo finito, puntos de una curva elítipca) se pueden manejar muy bien representándolos como objetos y clases.
 
 % TODO: ref
-El objetivo final es conseguir implementar los protocolos criptográficos explicados en~\ref{}. Por lo tanto, necesitamos manejar puntos de una curva elítipca sobre cuerpos finitos. Luego necesitaremos saber crear y operar con elementos de un cuerpo finito. Esto nos conduce en primer lugar a manejar aritmética modular con enteros y polinomios.
+El objetivo final es conseguir implementar los protocolos criptográficos explicados en~\ref{}. Para ello, el primer paso es implementar el módulo de aritmética elemental que nos permitirá implementar los cuerpos finitos y posteriormente el grupo de puntos de una curva elíptica.
 
 \begin{nota}
-    Este apartado \emph{no} es la documentación. En esta sección se contará los detalles técnicos de la implementación como la estructura de datos o lo algoritmos no triviales utilizados. Para ver como llamar a las distintas funciones y clases, los atributos y métodos de una clase y cómo usar dichas funciones, clases y módulos, diríjase a la documentación adjunta en formato de página web.
+    Este apartado \emph{no} es la documentación. En esta sección se contarán los detalles técnicos de la implementación como la estructura de datos o lo algoritmos no triviales utilizados. Para ver un listado de las distintas funciones y clases, los atributos y métodos de una clase y cómo usar dichas funciones, clases y módulos, diríjase a la documentación adjunta en formato de página web.
 \end{nota}
 
 \subsubsection{Aritmética elemental}
@@ -66,21 +66,75 @@ El objetivo final es conseguir implementar los protocolos criptográficos explic
 Este módulo permite operar con enteros módulo un primo $p$ y polinomios
 cuyos coeficientes sean enteros módulo un primo $p$.
 
-Los enteros módulo un primo se han representado los objetos instanciados de la clase \code{EnteroModuloP}. Para tener clases distintas para módulos distintos, se ha imitado la filosofía del patrón \emph{factoría}, esto es, hemos creado una función \code{Zp()} que acepta como parámetro un número primo y devuelve la clase que representa los enteros módulo dicho primo. Podemos ver la función \code{Zp} como el constructor de cuerpos $Z_p$. Esto lo hemos podido hacer ya que python permite definir clases dentro de funciones y devolver definiciones de clases como valor de retorno de una función.
+Los enteros módulo un primo se han representado como objetos instanciados de la clase \code{EnteroModuloP}. Para tener clases distintas para módulos distintos (para que cada clase tengo como atributo de clase el primo con el que se hace el módulo), se ha imitado la filosofía del patrón \emph{factoría}, esto es, hemos creado una función \code{Zp()} que acepta como parámetro un número primo y devuelve la clase que representa los enteros módulo dicho primo. Podemos ver la función \code{Zp} como el constructor de cuerpos $\mathbb{Z}_p$. Esto lo hemos podido hacer ya que python permite definir clases dentro de funciones y devolver definiciones de clases como valor de retorno de una función. Además, hemos utilizado el decorador \code{\@lru\_cache()} del módulo \code{functools} de la biblioteca estándar de python para que llamadas iguales sucesivas a \code{Zp()} devuelvan el mismo objeto y no se creen copias de una misma clase para un mismo primo.
 
 Además, \code{EnteroModuloP} es subclase del tipo básico \code{int}. Así, hemos sobrecargado los operadores $+$, $-$, $*$, $/$ y $**$ simplemente llamando a dichos operadores ya implementados para el tipo de dato \code{int} y haciendo $\%$ en cada operación. Además, gracias a esta herencia, se permite usar estas operaciones con un dato de tipo \code{EnteroModuloP} y otro de tipo \code{int}, devolviendo el resultado como dato de tipo \code{EnteroModuloP}.
 
-La clase \code{EnteroModuloP} utiliza el algoritmo de euclides para números enteros para calcular inversos. El algoritmo, extraído de \cite{Menezes:1996}, es el siguiente:
-\begin{algoritmo}
-    % TODO: alg euclides
-\end{algoritmo}
-Este algoritmo está encapsulado en la función \code{alg\_euclides()}. El proceso para calcular inversos a partir del algoritmo de euclides, extraído también de \cite{Menezes:1996}, es el siguiente:
-\begin{algoritmo}
-    % TODO: calculo inverso
-\end{algoritmo}
-y este algoritmo lo ejecuta el método \code{inverso()} de la clase \code{EnteroModuloP}.
+La clase \code{EnteroModuloP} utiliza el algoritmo de Euclides para el cálculo de inversos. El algoritmo, extraído de~\cite{Menezes:1996}, es el siguiente:
+\begin{algoritmo2}[Algoritmo extendido de Euclides para enteros]
+    ENTRADA: dos enteros no negativos $a$ y $b$ con $a \ge b$. \\
+    SALIDA: $d = mcd(a, b)$ y enteros $x, y$ satisfaciendo $a x + b y = d$.
+    \begin{enumerate}
+        \item Si $b = 0$, tomar $d \leftarrow a, \ x \leftarrow 1, \ y \leftarrow 0$ y devolver $(d, x, y)$.
+        \item Inicializar $x_2 \leftarrow 1, \ x_1 \leftarrow 0, \ y_2 \leftarrow 0,\ y_1 \leftarrow 1$.
+        \item Mientras $b > 0$, hacer lo siguiente:
+        \begin{enumerate}
+            \item $q \leftarrow \lfloor a/b \rfloor, r \leftarrow a - q b, \ x \leftarrow x_2 - q x_1, \ y \leftarrow y_2 - q y_1$.
+            \item $a \leftarrow b, \ b \leftarrow r, \ x_2 \leftarrow x_1, \ x_1 \leftarrow x, \ y_2 \leftarrow y_1$ y $y_1 \leftarrow y$.
+        \end{enumerate}
+        \item Tomar $d \leftarrow a, \ x \leftarrow x_2, \ y \leftarrow y_2$ y devolver $(d, x, y)$.
+    \end{enumerate}
+\end{algoritmo2}
+Este algoritmo está encapsulado en la función \code{alg\_euclides()}. Así, el cálculo del inverso de un elemento $a \in \mathbb{Z}_p$ se reduce a calcular el algoritmo de Euclides para la pareja $(a, p)$ y el inverso es el coeficiente $x$.
 
-% TODO: clase polinomio
+Los polinomios con coeficientes enteros módulo un primo se han representando como objetos de la clase \code{PolinomioZp}. Internamente, cada objeto de \code{PolinomioZp} contiene una lista de python de datos de tipo \code{EnteroModuloP} (que representan los coeficientes del polinomio) y un entero (que representa el primo con el que se hizo módulo los coeficientes). La lista se ha definido como una \emph{propiedad} de python para permitir solo los accesos de lectura.
+
+\code{PolinomioZp} sobrecarga los operadores  $+$, $-$, $*$, $/$, $\%$ y $**$ para operar entre polinomios más cómodamente. También se ha sobrecargado el método \code{\_\_hash\_\_()} para poder utilizar posteriormente el decorador \code{\@lru\_cache()} sobre la función \code{Fq()} del módulo de cuerpos finitos ya que este decorador requiere que todos los argumentos de la función sobre la que se aplica tengan como representación un número entero y esta representación debe definirse en el método \code{\_\_hash\_\_()}.
+
+De entre todos los métodos de \code{PolinomioZp}, destacamos \code{es\_irreducible()}. Como este método utiliza el algoritmo extendido de Euclides para polinomios, vamos a detallar primero este.
+\begin{algoritmo2}[Algoritmo extendido de Euclides para polinomios]
+\label{alg:algoritmo extendido de Euclides para polinomios}
+    ENTRADA: dos polinomios $g, h \in \mathbb{Z}_p[X]$. \\
+    SALIDA: $d = mcd(g, h)$ y polinomios $s, t \in \mathbb{Z}_p[X]$ satisfaciendo $s g + t h= d$.
+    \begin{enumerate}
+        \item Si $h = 0$, tomar $d \leftarrow g, \ s \leftarrow 1, \ t \leftarrow 0$ y devolver $(d, s, t)$.
+        \item Inicializar $s_2 \leftarrow 1, \ s_1 \leftarrow 0, \ t_2 \leftarrow 0,\ t_1 \leftarrow 1$.
+        \item Mientras $h \neq 0$, hacer lo siguiente:
+        \begin{enumerate}
+            \item $q \leftarrow g \textrm{ div } h, \ r \leftarrow g - h q$.
+            \item $s \leftarrow s_2 - q s_1, \ t \leftarrow t_2 - q t_1$.
+            \item $g \leftarrow h, \ h \leftarrow r$.
+            \item $s_2 \leftarrow s_1, \ s_1 \leftarrow s, \ t_2 \leftarrow t_1$ y $t_1 \leftarrow t$.
+        \end{enumerate}
+        \item Tomar $d \leftarrow g, \ s \leftarrow s_2, \ t \leftarrow t_2$ y devolver $(d, s, t)$.
+    \end{enumerate}
+\end{algoritmo2}
+Este algoritmo está encapsulado en la función \code{alg\_euclides\_polinomios()}. Así pues, el método \code{es\_irreducible()} se encagar de ver si un polinomio es irreducible de manera eficiente en $\mathbb{Z}_p[X]$ y para ello utiliza el siguiente procedimiento.
+\begin{algoritmo2}
+    ENTRADA: un primo $p$ y un polinomio mónico $f(x)$ de grado $m$ en $\mathbb{Z}_p[X]$. \\
+    SALIDA: verdadero o falso según $f(x)$ sea irreducible o no.
+    \begin{enumerate}
+        \item Inicializar $u(x) \leftarrow x$.
+        \item Para $i$ desde 1 hasta $\lfloor m/2 \rfloor$, hacer lo siguiente:
+            \begin{enumerate}
+                \item Calcular $u(x) \leftarrow u(x)^p \textrm{ mod } f(x)$.
+                \item Calcular $d(x) = mcd(f(x), u(x) - x)$ usando el algoritmo~\ref{alg:algoritmo extendido de Euclides para polinomios}.
+                \item Si $d(x) \neq 1$, devolver \code{Falso}.
+            \end{enumerate}
+        \item Devolver \code{Verdadero}.
+    \end{enumerate}
+\end{algoritmo2}
+\begin{nota}
+    El algoritmo anterior está basado en los siguientes resultados. Sea $p$ un primo y $k$ un entero.
+    \begin{itemize}
+        \item El producto de todos los polinomios mónicos irreducibles de $\mathbb{Z}_p[X]$ de grado un divisor de $k$ es igual a $x^{p^k} - x$.
+        \item Sea $f(x)$ un polinomio de grado $m$ en $\mathbb{Z}_p[X]$. Entonces $f(x)$ es irreducible en $\mathbb{Z}_p[X]$ si y solo si $mcd(f(x), x^{p^i} - x) = 1$ para cada $i, \ 1 \le i \le \lfloor m/2 \rfloor$.
+    \end{itemize}
+\end{nota}
+Estos dos algoritmos y este par de resultados han sido extraídos de~ \cite{Menezes:1996}.
+
+\subsubsection{Cuerpos finitos}
+\label{subs:Cuerpos finitos}
 
 \subsection{Pruebas}
 \label{sub:Pruebas}
