@@ -13,7 +13,7 @@ Puede consultar el código fuente en~\ref{}. La documentación en formato de pá
 Existen diversos software de álgebra computacional que permiten hacer cálculos sobre curvas elípticas. \cite{Washington:2008} muestra como usar algunos de los principales ejemplos en este ámbito como Pari, Magma y Sage.
 
 % TODO: ref
-El principal motivo para implementar un programa y no utilizar uno ya existente ha sido para aplicar los conceptos aprendidos en el desarrollo matemático~\ref{} e implementar los algoritmos estudiados en el desarrollo informático~\ref{}. Sin embargo, y no menos importante, otro motivo era crear un programa libre y gratuito,
+El principal motivo para implementar un programa y no utilizar uno ya existente ha sido para aplicar los conceptos aprendidos en el desarrollo matemático e implementar los algoritmos estudiados en los apartados \ref{sec:Criptografía con curvas elípticas} y \ref{sec:Protocolos criptográficos} del desarrollo informático. Sin embargo, y no menos importante, otro motivo era crear un programa libre y gratuito,
 fácil de entender y extender y con una documentación extensa en español.
 
 A diferencia de grandes soluciones como Magma o Sage, ccepy es framework \emph{minimalista}, es decir, provee un conjunto de funcionalidades imprescindibles para cualquiera que desee trabajar con curvas elípticas y a partir de dichas funcionalidades es muy fácil añadir nuevas mejoras. Además, dichas funcionalidades se han implementado siguiendo un diseño lo más simple posible, de tal forma que entender el programa en su totalidad requiere un esfuerzo mínimo comparado con otros software.
@@ -45,16 +45,12 @@ El software ccepy consta de cinco módulos:
 
 Excepto el último módulo, cada uno está contenido en el anterior, en el sentido que el módulo de cuerpos finitos usa el de aritmética elemental, el módulo de curvas elípticas usa el módulo de cuerpos finitos (y en consecuencia el de aritmética elemental) y el módulo de esquemas criptográficos usa el módulo de curvas elípticas (y en consecuencia el de cuerpos finitos y aritmética elemental).
 
-% TODO: ref
-Explicaremos la implementación de cada módulo en ~\ref{} y como usarlo en~\ref{}.
-
 \subsection{Implementación}
 \label{sub:Implementación}
 
-% TODO: documentación, ref algoritmos no triviales, estructura de datos
 Para implementar ccepy hemos seguido un diseño orientado a objetos ya que los elementos algebraicos que queremos implementar (enteros módulo un primo, elementos de un cuerpo finito, puntos de una curva elítipca) se pueden manejar muy bien representándolos como objetos y clases.
 
-% TODO: ver si hay que actualiar
+% TODO: ver si hay que actualizar
 La estructura en directorios es la siguiente:
 \begin{verbatim}
     ccepy/
@@ -65,8 +61,7 @@ La estructura en directorios es la siguiente:
 La carpeta \code{ccepy/ccepy} contiene el código fuente los módulos listados en~\ref{sub:Arquitectura}, \code{ccepy/docs} contiene la documentación y el código que la genera y por último \code{ccepy/tests} contiene las pruebas unitarias y basadas en propiedades.
 
 % TODO: ref
-El objetivo final es conseguir implementar los protocolos criptográficos explicados en~\ref{}. Por ello, explicaremos primero lo más esencial, el módulo de aritmética elemental.
-% que nos permitirá implementar los cuerpos finitos y posteriormente el grupo de puntos de una curva elíptica.
+El objetivo final es conseguir implementar los protocolos criptográficos explicados en el apartado~\ref{sec:Protocolos criptográficos}. Por ello, explicaremos primero lo más esencial, el módulo de aritmética elemental.
 
 \begin{nota}
     Este apartado \emph{no} es la documentación. En esta sección se contarán los detalles técnicos de la implementación como la estructura de datos o lo algoritmos no triviales utilizados. Para ver un listado de las distintas funciones y clases, los atributos y métodos de una clase y cómo usar dichas funciones, clases y módulos, diríjase a la documentación adjunta en formato de página web.
@@ -181,20 +176,45 @@ Los puntos de una curva elíptca se han representando con distintas clases segú
 
 La clase \code{PuntoRacional} es una clase \emph{abstracta}. Esta clase define el comportamiento de algunos métodos y deja sin implementar otros (similiar a los métodos \emph{virtuales} de C++). En python, este tipo de clases se crean utilizando la \emph{metaclase} \code{ABCMeta} y el decorador \code{@abstractmethod}, ambos del módulo \emph{abc} de la biblioteca estándar. Así, esta clase define el elemento neutro, que se representa como la tupla \code{(None, None)}, y especifica que los puntos deben representarse con un atributo para la componente $x$ y otro para la componente $y$ y además restringe el acceso para que sea de solo lectura, a través de las propiedades de python. Por último, indica que se deben implementar los métodos \code{contiene} (que evalúa la ecuación de la curva elíptica dado un par de componentes) y los operadores aritméticos básicos.
 
-% TODO: add ref
-La clase que representa $E(\Fq)$ es la clase \code{PuntoFqRacional}. Análogamente a \code{EnteroModuloP}, le hemos asociado una función factoría a \code{PuntoFqRacional}, llamada \code{curva\_eliptica\_sobre\_Fq()}, que pasandole como argumentos los coeficientes de la ecuación de Weierstrass~\ref{} y el cuerpo base, devuelve \code{PuntoFqRacional} con sus atributos de clase (los coeficientes de la ecuación, el cuerpo base y el discriminate) inicializados. De esta forma, dos curvas sobre $\Fq$ pero con distinta ecuación (distintos coeficientes) son dos clases distintas.
+La clase que representa $E(\Fq)$ es la clase \code{PuntoFqRacional}. Análogamente a \code{EnteroModuloP}, le hemos asociado una función factoría a \code{PuntoFqRacional}, llamada \code{curva\_eliptica\_sobre\_Fq()}, que pasandole como argumentos los coeficientes de la ecuación de Weierstrass~\ref{eq:ecuación Weierstrass} y el cuerpo base, devuelve \code{PuntoFqRacional} con sus atributos de clase (los coeficientes de la ecuación, el cuerpo base y el discriminate) inicializados. De esta forma, dos curvas sobre $\Fq$ pero con distinta ecuación (distintos coeficientes) son dos clases distintas.
 
-% TODO: add ref
-\code{PuntoFqRacional} crea un punto de la curva pásandole como argumentos la componente $x$ y la componente $y$. Si dicho punto no estuviera en la curva, se lanza una excepción. Además, \code{PuntoFqRacional} implementa los operadores $+$, $-$ y $*$ con su significado natural. Para ello, en los métodos especiales \code{\_\_add\_\_} y \code{\_\_neg\_\_} se incluyen las fórmulas de adicción~\ref{}; el algoritmo eficiente de multiplicación de un punto por un escalar~\ref{} se incluye en el método \code{\_\_mul\_\_}.
+\code{PuntoFqRacional} crea un punto de la curva pásandole como argumentos la componente $x$ y la componente $y$. Si dicho punto no estuviera en la curva, se lanza una excepción. Además, \code{PuntoFqRacional} implementa los operadores $+$, $-$ y $*$ con su significado natural. Para ello, en los métodos especiales \code{\_\_add\_\_} y \code{\_\_neg\_\_} se incluyen las fórmulas de adicción (véase \ref{def:ley de grupo}); el algoritmo eficiente de multiplicación de un punto por un escalar (véase \ref{al:multiplicación por duplicación}) se incluye en el método \code{\_\_mul\_\_}.
 
-Las clases \code{PuntoF2mRacional} y \code{PuntoQRacional} que representan respectivamente a $E(\Fm)$ y $E(\mathbb{Q})$ se han implementado de forma similar a \code{PuntoFqRacional}: se crean mediante una función factoría (\code{curva\_eliptica\_sobre\_F2m} y \code{curva\_eliptica\_sobre\_Q} respectivamente), heredan de \code{PuntoRacional} e implementan los operadores $+$, $-$ y $*$ utilizando las fórmulas de adicción ~\ref{} y \ref{} respectivamente.
+Las clases \code{PuntoF2mRacional} y \code{PuntoQRacional} que representan respectivamente a $E(\Fm)$ y $E(\mathbb{Q})$ se han implementado de forma similar a \code{PuntoFqRacional}: se crean mediante una función factoría (\code{curva\_eliptica\_sobre\_F2m} y \code{curva\_eliptica\_sobre\_Q} respectivamente), heredan de \code{PuntoRacional} e implementan los operadores $+$, $-$ y $*$ utilizando las fórmulas de adicción ~\ref{def:ley de grupo} y \ref{fa:cuerpos base caracteristica 2} respectivamente.
 
 La clase \code{PuntoQRacional} se ha implementado para mostrar un ejemplo de una curva elítipca definida sobre un cuerpo distinto a los cuerpos finitos. Se ha utilizado el módulo \code{fractions} de python para representar a los racionales. Esta clase no será utilizada en el siguiente módulo a diferencia de las otras dos clases.
 
 \subsubsection{Módulo de esquemas criptográficos}
 \label{subs:Módulo de esquemas criptográficos}
 
-...
+Este módulo permite trabajar con protocolos criptográficos asimétricos,
+como el esquema Diffie-Hellman conocido como ECDH o el algoritmo
+de firmas digitales conocido como ECDSA. El código fuente de este módulo está en el archivo \code{esquemas\_criptograficos.py}.
+
+El esquema Diffie-Hellman con curvas elípticas (protocolo~\ref{pc:diffie-hellman}) se ha implementado con la clase \code{ECDH} mientras que el esquema de firmas digitales con curvas elítipcas (protocolo~\ref{pc:ecdsa}) se ha implementado con la clase \code{ECDSA}. Ambos clases siguen el mismo arquetipo: cada instancia representa un participante del protocolo, requieren como parámetros los parámetros de dominio (véase \ref{def:parámetros de dominio}) y en la inicialización se generan la pareja de llaves siguiendo el algoritmo~\ref{alg:pareja de llaves}.
+
+Hemos usado el módulo \code{hashlib} de la biblioteca estándar de python, en particular la función \code{sha1()}, para aplicarle el hash a un mensaje la clase \code{ECDSA}.
+
+Nótese que la implementación de ambos protocolos se ha conseguido en apenas un par de líneas, similar a las descripciones \ref{pc:diffie-hellman} y \ref{pc:ecdsa}. Esto se debe a la implementación de los operadores aritméticos para cada clase y el hecho de haber encapsulado toda la complejidad en las clases de los módulos anteriores, como \code{PuntoFqRacional} o \code{ElementoFq}. Gracias a esto, la implementación de un protocolo puede hacerse de forma directa e intuitiva.
+
+\subsubsection{Listado de curvas elípticas}
+\label{subs:Listado de curvas elípticas}
+
+% TODO: ref
+El ultimo módulo del programa consiste en una lista de parámetros de dominio obtenidos de los estándares \ref{}, \ref{} y \ref{}. El código fuente de este módulo está en el archivo \code{listado\_curvas\_elipticas.py}.
+
+Este módulo ofrece la función \code{procesar\_parametros\_curva\_eliptica()}. Pasándole como parámetro el nombre de alguna curva de la del listado, esta función devuelve los parámetros de dominio con los tipos de datos propios de ccepy, de forma que se puede usar, por ejemplo, para instanciar un participante de un esquema criptográfico. Los nombres de cada una de las curvas del listado son:
+\begin{verbatim}
+    Anomalous
+    NIST P-224
+    BN(2,254)
+    brainpoolP256t1
+    ANSSI FRP256v1
+    NIST P-256
+    secp256k1
+    brainpoolP384t1
+    NIST P-384
+\end{verbatim}
 
 \subsection{Pruebas}
 \label{sub:Pruebas}

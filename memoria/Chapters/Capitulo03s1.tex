@@ -37,7 +37,7 @@ Puede encontrar más información sobre el ECDLP y sus ataques en~\cite[cap. 4]{
 
 Los parámetros de dominio de un esquema criptográfico con curvas elípticas describen una curva elíptica $E$ definida sobre un cuerpo finito $\Fq$, un punto base $P \in E(\Fq)$ y su orden $n$. Los paramétros deben ser elegidos para que el ECDLP sea resistente a los ataques conocidos.
 
-\begin{definicion}
+\begin{definicion}\label{def:parámetros de dominio}
     Los \emph{paramétros de dominio} $D = (q, a, b, P, n)$ están constituidos por:
     \begin{itemize}
         \item El \emph{orden $q$ del cuerpo finito}.
@@ -102,7 +102,7 @@ El atacante, Eva, conoce los parámetros de dominio y las llaves públicas $Q_A$
 
 Un \emph{esquema de firma digital} permite a Alicia usar su llave privada para firmar un documento (p. ej. un fichero del ordenador) de tal forma que Bob puede usar la llave pública de Alicia para verificar la validez de la firma. Un ejemplo de esto es el \emph{Algoritmo de Firma Digital para Curvas Elípticas} o ECDSA.
 
-\begin{protocolo}[ECDSA]
+\begin{protocolo}[ECDSA]\label{pc:ecdsa}
     El siguiente procedimiento permite a Alicia firmar un documento digital y a Bob verificar que la firma es válida.
     \begin{enumerate}
         \item Alicia y Bob concuerdan unos parámetros de dominio $D = (q, a, b, P, n)$, con $n$ primo.
