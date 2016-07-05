@@ -20,11 +20,11 @@ A diferencia de grandes soluciones como \code{Magma} o \code{Sage}, \code{ccepy}
 \subsection{Herramientras utilizadas}
 \label{sub:Herramientras utilizadas}
 
-Se ha utilizado \code{python 3} como lenguaje de programación para \code{ccepy}. La lógica del programa no usa ninguna biblioteca externa, solo se utiliza la biblioteca estándar de \code{python}. Por eso, con tener \code{python} instalado es suficiente para usar \code{ccepy}. En la documentación adjunta se detalla como usar este programa.
+Se ha utilizado \code{python3} como lenguaje de programación para \code{ccepy}. La lógica del programa no usa ninguna biblioteca externa, solo utiliza la biblioteca estándar de \code{python}. Por eso, con tener \code{python3} instalado es suficiente para usar \code{ccepy}. En la documentación adjunta se detalla como usar este programa.
 
-Para realizar la documentación se ha utilizado el software \code{sphinx} que permite generar páginas web a partir del código fuente. El proceso de documentación se ha detallado en~\ref{Generación de la documentación}.
+Sin embargo, para generar la documentación o ejecutar las pruebas, si es necesario instalar bibliotecas externas: \code{sphinx} y \code{hypothesis}. \code{sphinx} se ha utilizado para realizar la documentación mientras que \code{hypothesis} se ha utilizado para realizar pruebas basados en propiedades. Estos procesos están detallados en los apartados \ref{Generación de la documentación} y \ref{sub:Pruebas} respectivamente.
 
-Para realizar pruebas basados en propiedades (véase ~\ref{sub:Pruebas}) se ha utilizado la biblioteca \code{hypothesis} que permite generar múltiples casos de prueba a partir de una especificación de propiedades.
+Como control de versiones se ha utilizado \code{git}.
 
 Por último, aunque no es una herramienta, destacar que se ha utilizado la <<Guía de Estilo de Google para Python>> para mantener una convención es la escritura del código.
 
@@ -38,7 +38,7 @@ El software \code{ccepy} consta de cuatro módulos principales:
     Curvas elípticas
     Esquemas criptográficos
 \end{verbatim}
-además de un módulo adicional \code{Listado de curvas elípticas}.
+y un módulo secundario \code{Listado de curvas elípticas}.
 
 Cada módulo principal usa los módulos anteriores, en el sentido que el módulo de cuerpos finitos usa el de aritmética elemental, el módulo de curvas elípticas usa el módulo de cuerpos finitos (y en consecuencia el de aritmética elemental) y el módulo de esquemas criptográficos usa el módulo de curvas elípticas (y en consecuencia el de cuerpos finitos y aritmética elemental).
 
@@ -198,7 +198,7 @@ Nótese que la implementación de ambos protocolos se ha conseguido en apenas un
 \label{subs:Listado de curvas elípticas}
 
 % TODO: ref
-El ultimo módulo del programa consiste en una lista de parámetros de dominio obtenidos de los estándares \ref{}, \ref{} y \ref{}. El código fuente de este módulo está en el archivo \code{listado\_curvas\_elipticas.py}.
+Este módulo secundario consiste en una lista de parámetros de dominio obtenidos de los estándares \ref{}, \ref{} y \ref{}. El código fuente de este módulo está en el archivo \code{listado\_curvas\_elipticas.py}.
 
 Este módulo ofrece la función \code{procesar\_parametros\_curva\_eliptica()}. Pasándole como parámetro el nombre de alguna curva de la del listado, esta función devuelve los parámetros de dominio con los tipos de datos propios de \code{ccepy}, de forma que se puede usar, por ejemplo, para instanciar un participante de un esquema criptográfico. Los nombres de cada una de las curvas del listado son:
 \begin{verbatim}
