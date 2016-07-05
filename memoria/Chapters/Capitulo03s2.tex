@@ -219,7 +219,27 @@ Este módulo ofrece la función \code{procesar\_parametros\_curva\_eliptica()}. 
 \subsection{Pruebas}
 \label{sub:Pruebas}
 
-% TODO: pruebas unitarias, hypothesis
+Se han utilizado dos tipos de pruebas para garantizar la correción del programa: pruebas unitarias y pruebas basadas en propiedades.
+
+% TODO: ref
+Las pruebas unitarias se han añadido en los \emph{docstring} de cada función o clase no trivial. Combinando los módulos \code{doctest} y \code{unittest} de la biblioteca estándar de python, estas pruebas unitarias se ejecutan automáticamente utilizando los distintos scripts ubicados en \code{ccepy/tests}. La ventaja de implementar las pruebas unitarias en los docstring es que dichos casos de prueba aparecerán en la documentación automáticamente como ejemplo de uso. Explicaremos esto con más detalle en el apartado~\ref{} de generación de la documentación.
+
+Sin embargo, como se han detectado más errores han sido con las pruebas basadas en propiedades. A diferencia de las pruebas unitarias, en la que se especifica para un caso de prueba la salida que tiene que producir, en las pruebas basadas en propiedades se especifican <<propiedades>> que debe verificar el código y estas propiedades se verifican para múltiples entradas generadas automáticamente.
+
+\begin{ejemplo}
+    Supongamos que tenemos la función \code{suma(x, y)}. Una prueba unitaria en python sería:
+    \begin{verbatim}    assert suma(2, 2) == 4\end{verbatim}
+    Con esto sabemos que la función \code{suma()} funciona para la entrada \code{(2, 2)}, pero, ¿y el resto de posibles entradas?. El enfoque alternativo es pensar en propiedades que debe verificar la salida de la función, por ejemplo, la conmutatividad. Así, una prueba basada en propiedades sería:
+    \begin{verbatim}    assert suma(x, y) == suma(y, x)\end{verbatim}
+    y la biblioteca utilizada para hacer pruebas basadas en propiedades se encargaría de generar un gran número de posibles entradas y ver que se verifica dicha propiedad.
+\end{ejemplo}
+
+Como ccepy utiliza estructuras algebraicas, es muy fácil pensar en las propiedades que deben verificar las distintas funcionas o clases. Por ejemplo, para las clases de python que representan cuerpos, anillos o grupos se han tomado como propiedades los axiomas de la definición de cuerpo, anillo o grupo respectivamente.
+
+% TODO: ref
+Para los protocolos criptográficos, también podemos encontrar propiedades. Así, para el protocolo ECDH (véase \ref{}) se comprueba que el punto que calculan Alicia y Bob es el mismo y si Eva intenta calcular el punto (con llave privada distinta) falla. Para el protocolo ECDSA (véase \ref{}) se comprueba que Bob siempre verifica la firma de Alicia de un mensaje, que dicha firma no sirve para otro mensaje y que si Eva intenta impersonar a Alicia o falsificar firmas, Bob siempre se percata.
+
+Para implementar estas pruebas hemos usado \code{hypothesis}, la biblioteca de referencia de pruebas basadas en propiedades para el lenguaje python. Es fácil de utilizar y presente algunas ventajas, como la búsqueda eficaz de casos extremos o la simplificación de casos que producen fallos. La hemos utilizado junto con el módulo \code{unittest} para organizar las pruebas en clases y permitir su ejecucción forma automática.
 
 \subsection{Generación de la documentación}
 \label{sub:Generación de la documentación}
