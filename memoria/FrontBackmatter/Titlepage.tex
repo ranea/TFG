@@ -5,32 +5,47 @@
     % if you want the titlepage to be centered, uncomment and fine-tune the line below (KOMA classes environment)
     \begin{addmargin}[-1cm]{-3cm}
     \begin{center}
-        \large  
+        \large
 
         \hfill
 
         \vfill
 
-        \begingroup
-            \color{Maroon}\spacedallcaps{\myTitle} \\ \bigskip
-        \endgroup
-
-        \spacedlowsmallcaps{\myName}
+        %\includegraphics[width=0.9\textwidth]{gfx/logo_ugr2.png}\\[1.4cm]
+        \includegraphics[width=4cm]{gfx/logo_ugr2} %\\ \medskip
 
         \vfill
 
-        \includegraphics[width=6cm]{gfx/TFZsuperellipse_bw} \\ \medskip
+        \spacedallcaps{\mySubtitle} \\ \bigskip
 
-        \mySubtitle \\ \medskip   
-        %\myDegree \\
-        %\myDepartment \\                            
-        %\myFaculty \\
+        \spacedlowsmallcaps{\myDegree} \\ \bigskip \bigskip
+
+        % \vfill
+
+        \begingroup
+            \color{Maroon}\spacedallcaps{\LARGE\myTitle} \\ \bigskip
+        \endgroup
+
+        \vfill
+
+        \textbf{Autor} \\
+        \myName \\ \medskip
+
+        \textbf{Director} \\
+        \myProf \\ \medskip
+
+        \vfill
+
+        %\myDepartment \\
+        \spacedlowsmallcaps{\myUni} \\ \medskip
+        %\spacedlowsmallcaps{\myFaculty} \\
+        %\spacedlowsmallcaps{\myOtherFaculty} \\ \bigskip
         %\myUni \\ \bigskip
 
-        \myTime\ -- \myVersion
+        \myLocation, \myTime %\ -- \myVersion
 
-        \vfill                      
+        \vfill
 
-    \end{center}  
-  \end{addmargin}       
-\end{titlepage}   
+    \end{center}
+  \end{addmargin}
+\end{titlepage}

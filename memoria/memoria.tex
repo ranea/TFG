@@ -45,6 +45,7 @@
 \usepackage{amssymb} % para usar el simbolo de no divide
 \usepackage{xeboiboites} % TODO: añadir ref
 
+% TODO: eliminar debug
 % # Definición de estilos de "teoremas":
 % # \newtheorem{identificador}{texto}[contador]
 % \theoremstyle{plain} % titulo negrita, cuerpo cursiva
@@ -150,14 +151,16 @@
 % Frontmatter
 %*******************************************************
 % TODO: descomentar todo menos Publications
-%\include{FrontBackmatter/DirtyTitlepage}
-%\include{FrontBackmatter/Titlepage}
-%\include{FrontBackmatter/Titleback}
+\include{FrontBackmatter/Titlepage}
+\cleardoublepage
+\include{FrontBackmatter/Titleback}
+% TODO: incluir dedicatoria?
 %\cleardoublepage\include{FrontBackmatter/Dedication}
-%\cleardoublepage\include{FrontBackmatter/Foreword}
-%\cleardoublepage\include{FrontBackmatter/Abstract}
-%\cleardoublepage\include{FrontBackmatter/Publications}
-%\cleardoublepage\include{FrontBackmatter/Acknowledgments}
+\cleardoublepage\include{FrontBackmatter/Foreword}
+\cleardoublepage\include{FrontBackmatter/Abstract}
+% TODO: necesario declaración?
+%\cleardoublepage\include{FrontBackmatter/Declaration}
+\cleardoublepage\include{FrontBackmatter/Acknowledgments}
 \pagestyle{scrheadings}
 \cleardoublepage\include{FrontBackmatter/Contents}
 %********************************************************************
@@ -167,31 +170,28 @@
 %\setcounter{page}{90}
 % use \cleardoublepage here to avoid problems with pdfbookmark
 \cleardoublepage
-%\part{Prefacio}
-%\include{Chapters/CapituloXX}
-\cleardoublepage
 %\ctparttext{Desarollo del trabajo matemático-informático.}
 %\part{Desarollo del trabajo}
+% TODO: incluir capitulo00 -> introducción
+% TODO: incluir capitulo01 -> objetivos
 \include{Chapters/Capitulo02}
-\include{Chapters/Capitulo03}
-%\include{Chapters/Chapter02}
 %\addtocontents{toc}{\protect\clearpage} % <--- just debug stuff, ignore
-%\include{Chapters/Chapter03}
+\include{Chapters/Capitulo03}
+% TODO: introducir capitulo 04 -> conclusiones
 %\include{multiToC} % <--- just debug stuff, ignore for your documents
 % ********************************************************************
 % Backmatter
 %*******************************************************
 \appendix
 %\renewcommand{\thechapter}{\alph{chapter}}
-%\cleardoublepage
+\cleardoublepage
 %\part{Apéndice}
+% TODO: incluir capitulo0A -> apendice
 %\include{Chapters/Chapter0A}
 %********************************************************************
 % Other Stuff in the Back
 %*******************************************************
-%cleardoublepage\include{FrontBackmatter/Bibliography}
-%\cleardoublepage\include{FrontBackmatter/Declaration}
-%\cleardoublepage\include{FrontBackmatter/Colophon}
+\cleardoublepage\include{FrontBackmatter/Bibliography}
 % ********************************************************************
 % Game Over: Restore, Restart, or Quit?
 %*******************************************************
