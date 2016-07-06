@@ -35,30 +35,43 @@ En el estudio práctico, se introduce la criptografía de llave pública con cur
 % TODO: revisar frase (sobre todo el así..)
 Por ultimo, se ha desarrollado un programa informático que implementa diversos protocolos criptográficos con curvas elípticas y así aplicar el estudio teórico-práctico realizado. Este programa también permite hacer cálculos con curvas elípticas y cuerpos finitos y ha sido ampliamente testado y bien documentado.
 
-% \subsection{Tecnicas matemáticas e informáticas}
-% \label{sub:Tecnicas matemáticas e informáticas}
-%
-% %  Exponer con claridad las técnicas y áreas matemáticas, así como los conceptos y herramientas de la ingeniería informática que se han empleado.
-%
-% Matemáticas
-% \begin{itemize}
-%     \item EC
-%     \item Cuerpos finitos
-%     \item Geometría algebraica
-%     \item Algebra conmutativa
-%     \item Teoría de números
-%     \item Matemática discreta
-% \end{itemize}
-%
-% Informática
-% \begin{itemize}
-%     \item Criptografía
-%     \item Sistemas de llave pública
-%     \item Programación dirigida a objetos
-%     \item Cifrado de páginas web
-%     \item Complejidad computacional
-%     \item Ingeniera del software (doc y testing)
-% \end{itemize}
+\subsection{Técnicas matemáticas e informáticas}
+\label{sub:Técnicas matemáticas e informáticas}
+
+%  Exponer con claridad las técnicas y áreas matemáticas, así como los conceptos y herramientas de la ingeniería informática que se han empleado.
+
+Las principales áreas matemáticas junto con los conceptos y resultados utilizados se han recogido en la tabla~\ref{tab:Herramientas matemáticas utilizadas}. Esta tabla no pretende ser exhaustiva, pero si mostrar una idea de los conocimientos que han servido de base para estudiar las curvas elípticas. A partir de estos conocimientos, se han definido conceptos, resultados y técnicas propias de la teoría de curvas elípticas no presentes en esta tabla.
+
+\begin{table}[!h]
+  \myfloatalign
+  \begin{tabularx}{\textwidth}{lX} \toprule
+    \tableheadline{Áreas matemáticas} & \tableheadline{Conceptos, resultados o técnicas}  \\
+    \midrule
+    Teoría de números & Los anillos de enteros módulo un entero positivo, el algoritmo extendido de Euclides y el teorema chino del resto. \\
+    Teoría de cuerpos & Conceptos como la característica o la clausura algebraica de un cuerpo y los cuerpos finitos y el automorfismo de Frobenius. \\
+    Teoría de grupos & Conceptos como el orden, la suma directa, el logaritmo discreto, los homomorfismos entre grupos o el núcleo de un homomorfismo y teoremas como el primer teorema de isomorfía, el teorema de lagrange para el orden de un grupo o el teorema de estructura para grupos abelianos finitos y los grupo de las raíces de $n$-ésimas de la unidad unidad y los grupos cíclicos finitos.\\
+    Geometría algebraica & El concepto de curva, el espacio afín y el espacio proyectivo. \\
+    \bottomrule
+  \end{tabularx}
+  \caption{Principales herramientas matemáticas utilizadas}  \label{tab:Herramientas matemáticas utilizadas.}
+\end{table}
+
+Por otro lado, los conceptos y las herramientas de la informáticas empleadas se han recogido en la tabla~\ref{Herramientas informáticas utilizadas}.
+
+\begin{table}[!h]
+  \myfloatalign
+  \begin{tabularx}{\textwidth}{lX} \toprule
+    \tableheadline{Áreas informáticas} & \tableheadline{Conceptos, resultados o técnicas}  \\
+    \midrule
+    Criptografía & Conceptos como criptosistema y su clasificación (de llave privada, pública o híbrido), firma digital o función hash. \\
+    Teoría de la computación & Complejidad temporal y su clasificación en clases, notación $O$ para el análisis de algoritmos y nociones como la intractabilidad o el caso promedio. \\
+    Programación & Diseño orientado a objetos (conceptos como clase, herencia o clases abstractas), desarrollo de pruebas o documentación. \\
+    \bottomrule
+  \end{tabularx}
+  \caption{Principales herramientas informáticas utilizadas}  \label{tab:Herramientas informáticas utilizadas.}
+\end{table}
+
+% TODO: poner que estos conceptos aparecen en las materias del grado
 
 % \subsection{Contenido de la memoria}
 % \label{sub:Contenido de la memoria}
@@ -71,7 +84,7 @@ Por ultimo, se ha desarrollado un programa informático que implementa diversos 
 %     \item Implementacion EC y ECC
 %     \item Aplicacion sobre las páginas de la ugr
 % \end{itemize}
-%
+
 % \subsection{Principales fuentes}
 % \label{sub:Principales fuentes}
 %
