@@ -1,0 +1,83 @@
+%**************************
+\chapter{Introducción}
+\label{ch:Introducción}
+%**************************
+
+\subsection{Contextualización}
+\label{sub:Contextualización}
+
+% Contextualizar el trabajo explicando antecedentes importantes para el desarrollo realizado y efectuando, en su caso, un estudio de los progresos recientes.
+
+Las curvas elípticas han sido estudiadas por los matemáticos desde la antigüedad y se han utilizado para resolver un abanico variado de problemas. Un ejemplo es el problema de los números congruentes que pregunta por la clasificación de los enteros positivos que aparecen como el aréa de un triangulo rectángulo cuyos lados sean números racionales. Otro ejemplo ha sido el Último Teorema de Fermat que afirma que la ecuación $x^n + y^n = z^n$ no tiene soluciones no triviales para $x, y$ y $z$ cuando $n$ es más grande que 2.
+
+% TODO: a finales de la decada?
+La aplicación de las curvas elípticas en la criptografía vino mucho después. En 1985, Neal Koblitz y Victor Miller propusieron independientemente utilizar las curvas elípticas para diseñar sistemas criptográficos de llave pública. Desde entonces, se han publicando una gran cantidad de estudios sobre la seguridad y la eficiencia de las implementaciones de la criptografía con curvas elípticas. A finales de la década de los 90, los sistemas con curvas elípticas empezaron a recibir aceptación comercial cuando organizaciones de estándares acreditadas especificaron protocolos con curvas elípticas y compañías privadas incluyeron dichos protocolos en sus productos de seguridad.
+
+% TODO: debería citaar
+Recientemente, se ha comenzado a investigar el uso de curvas hiperelípticas, una generalización de las curvas elíptipcas, para aplicarlas a sistemas criptográficos de llave pública. Sin embargo, estos sistemas son menos seguros o son menos eficientes que los sistemas que usan curvas elípticas.
+
+Uno de los principales problemas al que se enfrenta la criptografía con curvas elípticas, y los principales criptosistemas de llave pública, son los ordenadores cuánticos. En 1994, Shor presentó un algoritmo para un ordenador cuántico capaz de calcular logaritmos discretos y factorizar enteros, principales problemas matemáticos en los que se basa la criptografía de llave pública, de forma eficiente. Sin embargo, hasta la fecha no se ha podido construir un ordenador cuántico con la capacidad suficiente para resolver instancias de estos problemas no triviales.
+
+\subsection{Problema a abordar}
+\label{sub:Problema a abordar}
+
+% Describir el problema abordado, de forma que el lector tenga desde este momento una idea clara de la cuestión a resolver o del producto a desarrollar y una visión general de la solución alcanzada.
+
+El problema abordado ha sido la realización de un estudio teórico-práctico sobre las curvas elípticas en criptografía y la implementación de diversos protocolos criptográficos con curvas elípticas.
+
+En el estudio teórico, se abarca la teoría de curvas elípticas desde un punto de vista formal y riguroso. En primer lugar, se tratan las curvas elípticas sobre un cuerpo arbitrario y posteriormente se particulariza a curvas elípticas sobre cuerpos finitos.
+
+%  ya que la literatura sobre este campo es muy extensa.
+Nótese que un estudio exhaustivo sobre la teoría de curvas elípticas hubiera sido inviable debido a la enorme extensión que cubre este campo. Serge Lang, autor de esta materia, escribió en la introducción de uno de sus libros: <<It is possible to write endlessly on elliptic curves>>. Por ello, hemos elegido la parte más representativa de esta materia en relación con su aplicación en la criptografía.
+
+En el estudio práctico, se introduce la criptografía de llave pública con curvas elípticas y se hace énfasis en cuestiones de seguridad y de implementación además de explicar algunos ejemplos de esquemas criptográficos con curvas elípticas. Análogamente al estudio teórico, la criptografía con curvas elípticas es un campo muy amplio y de la multitud de aspectos técnicos presentes hemos abarcado los más cruciales.
+
+% TODO: revisar frase (sobre todo el así..)
+Por ultimo, se ha desarrollado un programa informático que implementa diversos protocolos criptográficos con curvas elípticas y así aplicar el estudio teórico-práctico realizado. Este programa también permite hacer cálculos con curvas elípticas y cuerpos finitos y ha sido ampliamente testado y bien documentado.
+
+% \subsection{Tecnicas matemáticas e informáticas}
+% \label{sub:Tecnicas matemáticas e informáticas}
+%
+% %  Exponer con claridad las técnicas y áreas matemáticas, así como los conceptos y herramientas de la ingeniería informática que se han empleado.
+%
+% Matemáticas
+% \begin{itemize}
+%     \item EC
+%     \item Cuerpos finitos
+%     \item Geometría algebraica
+%     \item Algebra conmutativa
+%     \item Teoría de números
+%     \item Matemática discreta
+% \end{itemize}
+%
+% Informática
+% \begin{itemize}
+%     \item Criptografía
+%     \item Sistemas de llave pública
+%     \item Programación dirigida a objetos
+%     \item Cifrado de páginas web
+%     \item Complejidad computacional
+%     \item Ingeniera del software (doc y testing)
+% \end{itemize}
+
+% \subsection{Contenido de la memoria}
+% \label{sub:Contenido de la memoria}
+%
+% % Sintetizar el contenido de la memoria.
+%
+% \begin{itemize}
+%     \item Estudio EC
+%     \item Estudio ECC
+%     \item Implementacion EC y ECC
+%     \item Aplicacion sobre las páginas de la ugr
+% \end{itemize}
+%
+% \subsection{Principales fuentes}
+% \label{sub:Principales fuentes}
+%
+% % Citar las principales fuentes consultadas.
+%
+% Lawrence.
+% Waterloo.
+% Menezes.
+% Las referencias web.
