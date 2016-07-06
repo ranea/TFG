@@ -3,7 +3,7 @@
 \label{ch:Introducción}
 %**************************
 
-\subsection{Contextualización}
+\section{Contextualización}
 \label{sub:Contextualización}
 
 % Contextualizar el trabajo explicando antecedentes importantes para el desarrollo realizado y efectuando, en su caso, un estudio de los progresos recientes.
@@ -18,7 +18,7 @@ Recientemente, se ha comenzado a investigar el uso de curvas hiperelípticas, un
 
 Uno de los principales problemas al que se enfrenta la criptografía con curvas elípticas, y los principales criptosistemas de llave pública, son los ordenadores cuánticos. En 1994, Shor presentó un algoritmo para un ordenador cuántico capaz de calcular logaritmos discretos y factorizar enteros, principales problemas matemáticos en los que se basa la criptografía de llave pública, de forma eficiente. Sin embargo, hasta la fecha no se ha podido construir un ordenador cuántico con la capacidad suficiente para resolver instancias de estos problemas no triviales.
 
-\subsection{Problema a abordar}
+\section{Problema a abordar}
 \label{sub:Problema a abordar}
 
 % Describir el problema abordado, de forma que el lector tenga desde este momento una idea clara de la cuestión a resolver o del producto a desarrollar y una visión general de la solución alcanzada.
@@ -35,17 +35,17 @@ En el estudio práctico, se introduce la criptografía de llave pública con cur
 % TODO: revisar frase (sobre todo el así..)
 Por ultimo, se ha desarrollado un programa informático que implementa diversos protocolos criptográficos con curvas elípticas y así aplicar el estudio teórico-práctico realizado. Este programa también permite hacer cálculos con curvas elípticas y cuerpos finitos y ha sido ampliamente testado y bien documentado.
 
-\subsection{Técnicas matemáticas e informáticas}
+\section{Técnicas matemáticas e informáticas}
 \label{sub:Técnicas matemáticas e informáticas}
 
 %  Exponer con claridad las técnicas y áreas matemáticas, así como los conceptos y herramientas de la ingeniería informática que se han empleado.
 
-Las principales áreas matemáticas junto con los conceptos y resultados utilizados se han recogido en la tabla~\ref{tab:Herramientas matemáticas utilizadas}. Esta tabla no pretende ser exhaustiva, pero si mostrar una idea de los conocimientos que han servido de base para estudiar las curvas elípticas. A partir de estos conocimientos, se han definido conceptos, resultados y técnicas propias de la teoría de curvas elípticas no presentes en esta tabla.
+Las principales áreas matemáticas junto con los conceptos y resultados utilizados se han recogido en la tabla~\ref{tab:Herramientas matemáticas utilizadas}.
 
-\begin{table}[!h]
+\begin{table}[p]
   \myfloatalign
   \begin{tabularx}{\textwidth}{lX} \toprule
-    \tableheadline{Áreas matemáticas} & \tableheadline{Conceptos, resultados o técnicas}  \\
+    \tableheadline{Áreas matemáticas} & \tableheadline{Conceptos o resultados}  \\
     \midrule
     Teoría de números & Los anillos de enteros módulo un entero positivo, el algoritmo extendido de Euclides y el teorema chino del resto. \\
     Teoría de cuerpos & Conceptos como la característica o la clausura algebraica de un cuerpo y los cuerpos finitos y el automorfismo de Frobenius. \\
@@ -53,44 +53,48 @@ Las principales áreas matemáticas junto con los conceptos y resultados utiliza
     Geometría algebraica & El concepto de curva, el espacio afín y el espacio proyectivo. \\
     \bottomrule
   \end{tabularx}
-  \caption{Principales herramientas matemáticas utilizadas}  \label{tab:Herramientas matemáticas utilizadas.}
+  \caption{Principales herramientas matemáticas utilizadas.}  \label{tab:Herramientas matemáticas utilizadas}
 \end{table}
 
-Por otro lado, los conceptos y las herramientas de la informáticas empleadas se han recogido en la tabla~\ref{Herramientas informáticas utilizadas}.
+Por otro lado, las herramientas de la ingeniería informática empleadas se han recogido en la tabla~\ref{tab:Herramientas informáticas utilizadas}.
 
-\begin{table}[!h]
+\begin{table}[p]
   \myfloatalign
   \begin{tabularx}{\textwidth}{lX} \toprule
-    \tableheadline{Áreas informáticas} & \tableheadline{Conceptos, resultados o técnicas}  \\
+    \tableheadline{Áreas informáticas} & \tableheadline{Conceptos o técnicas}  \\
     \midrule
-    Criptografía & Conceptos como criptosistema y su clasificación (de llave privada, pública o híbrido), firma digital o función hash. \\
+    Criptografía & Criptografía simétrica, asimétrica e híbrida y sus conceptos como criptosistema, llave, cifrado, firma digital, protocolo criptográfico o función hash. \\
     Teoría de la computación & Complejidad temporal y su clasificación en clases, notación $O$ para el análisis de algoritmos y nociones como la intractabilidad o el caso promedio. \\
-    Programación & Diseño orientado a objetos (conceptos como clase, herencia o clases abstractas), desarrollo de pruebas o documentación. \\
+    Programación & Diseño orientado a objetos (conceptos como clase, herencia o clase abstracta), desarrollo de pruebas o documentación. \\
     \bottomrule
   \end{tabularx}
-  \caption{Principales herramientas informáticas utilizadas}  \label{tab:Herramientas informáticas utilizadas.}
+  \caption{Principales herramientas informáticas utilizadas.}  \label{tab:Herramientas informáticas utilizadas}
 \end{table}
+
+Estas tablas no pretenden ser exhaustivas, sino mostrar una idea de los conocimientos que han servido de base para hacer un estudio sobre la criptografía con curvas elípticas. Los conceptos, resultados y técnicas obtenidas en el trabajo no están presentes en estas tablas.
+
+Como todas las herramientas listadas en las tablas \ref{tab:Herramientas matemáticas utilizadas} y \ref{tab:Herramientas informáticas utilizadas} se explican en las enseñanzas del doble grado, no volveremos a explicar dichas herramientas y nos limitaremos a utilizarlas, haciendo énfasis en los nuevos conceptos, técnicas y resultados.
 
 % TODO: poner que estos conceptos aparecen en las materias del grado
 
-% \subsection{Contenido de la memoria}
-% \label{sub:Contenido de la memoria}
-%
-% % Sintetizar el contenido de la memoria.
-%
-% \begin{itemize}
-%     \item Estudio EC
-%     \item Estudio ECC
-%     \item Implementacion EC y ECC
-%     \item Aplicacion sobre las páginas de la ugr
-% \end{itemize}
+\section{Contenido de la memoria}
+\label{sub:Contenido de la memoria}
 
-% \subsection{Principales fuentes}
-% \label{sub:Principales fuentes}
-%
-% % Citar las principales fuentes consultadas.
-%
-% Lawrence.
-% Waterloo.
-% Menezes.
-% Las referencias web.
+% TODO: incluir cap 1 con objetivos.
+
+En el capítulo~\ref{ch:Desarrollo matemático} se realiza el estudio matemático-teórico sobre curvas elípticas. Incluye el desarrollo de la teoría básica en el apartado~\ref{sec:Teoría básica de curvas elípticas}, los puntos de torsión se abarcan en el apartado~\ref{sec:Puntos de torsión} y por último se particulariza la teoría de curvas elípticas sobre cuerpos finitos en el apartado~\ref{sec:Curvas elípticas sobre cuerpos finitos}.
+
+En el capítulo~\ref{ch:Desarrollo informático} se realiza el el desarrollo informático sobre criptografía con curvas elípticas. Incluye una introducción sobre criptografía asimétrica con curvas elípticas en el apartado~\ref{sec:Criptografía con curvas elípticas}, se explican diversos protocolos criptografícos con curvas elípticas en el apartado~\ref{sec:Protocolos criptográficos} y por último en el apartado~\ref{sec:Criptografía con curvas elípticas con Python} se abarca el programa desarrollado para trabajar con curvas elípticas y protocolos criptográficos.
+
+% TODO: ref, cambiar ref de bibliografía por page ref.
+Finalmente, el capítulo~\ref{} contiene las conclusiones y el capítulo abarca la bibliografía utiliada. Además se incluye en el anexo un breve análisis del cifrado
+de diversas páginas web de la Universidad de Granada en el capítulo~\ref{}.
+
+
+\section{Principales fuentes}
+\label{sub:Principales fuentes}
+
+% Citar las principales fuentes consultadas.
+% TODO: ref,  cambiar ref de bibliografía por page ref.
+% TODO: expandir?
+Las principales fuentes consultadas han sido \cite{Washington:2008}, \cite{Hankerson:2003}, \cite{Silverman:2009} y \cite{Menezes:1996}. El capítulo~\ref{} incluye toda la bibliografía utilizada.
