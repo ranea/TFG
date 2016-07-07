@@ -1,6 +1,10 @@
 %********************************************************************
 % Bibliography
 %*******************************************************
+
+% Se incluirán tanto las fuentes primarias como todas aquellas cuyo peso haya sido menor en la realización del trabajo. Se recomienda un breve comentario de las referencias, ya sea individualizado, por grupos de referencias o global. En caso de incluir URLs de páginas web deberán ir acompañadas de título, autor y fecha de último acceso, entre otros datos relevantes. Se recomienda no abusar de este tipo de fuentes.
+
+
 % work-around to have small caps also here in the headline
 \manualmark
 \markboth{\spacedlowsmallcaps{\bibname}}{\spacedlowsmallcaps{\bibname}} % work-around to have small caps also
@@ -9,4 +13,7 @@
 \addtocontents{toc}{\protect\vspace{\beforebibskip}} % to have the bib a bit from the rest in the toc
 \addcontentsline{toc}{chapter}{\tocEntry{\bibname}}
 \label{app:bibliography}
+
 \printbibliography
+
+\section*{Referencias web}
