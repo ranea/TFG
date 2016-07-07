@@ -53,7 +53,7 @@ A la hora de elegir los parámetros de dominio, existen dos opciones. Por un lad
 Por otro lado, los parámetros de dominio se pueden elegir de algún \emph{estándar}. Organizaciones como el Instituto Nacional de Normas y Tecnología (NIST) o el Grupo de Estándares para la Criptografía Eficiente (SECG), entre muchos otros, publican
 parámetros de dominio verificados. En~\cite[apéndice B]{Hankerson:2003} puede encontrar algunas de estas organizaciones y los estándares que han publicado.
 
-\subsection{Pareja de llaves}
+\subsection{Generación de llaves}
 \label{sub:Pareja de llaves}
 
 En los protocolos que vamos a ver, cada participante dispondrá de una pareja de llaves: una llave privada (conocida solo por dicho participante) y una llave pública (publicada al resto de participantes). Esta pareja de llaves estará asociada a unos parámetros de dominio particulares. Para generar la pareja de llaves, se elige un punto aleatorio $Q$ en el grupo $\langle P \rangle$. La correspondiente llave privada es $d = \log_p Q$.

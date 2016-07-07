@@ -1,0 +1,123 @@
+%**************************
+\chapter{Objetivos del trabajo}
+\label{ch:Objetivos del trabajo}
+%**************************
+
+% En este apartado deberán aparecer con claridad los objetivos inicialmente previstos en la propuesta de TFG y los finalmente alcanzados con indicación de dificultades, cambios y mejoras respecto a la propuesta inicial. Si procede, es conveniente apuntar de manera precisa las interdependencias entre los distintos objetivos y conectarlos con los diferentes apartados de la memoria.
+
+% Se pueden destacar aquí los aspectos formativos previos más utilizados.
+
+Los objetivos inicialmente previstos eran:
+\begin{itemize}
+    \item Realizar un estudio en profundidad de las curvas elípticas sobre cuerpos finitos y la aritmética de sus puntos.
+    \item Implementar algoritmos para trabajar con la aritmética del grupo de una curva elíptica.
+    \item Implementar protocolos criptográficos basados en curvas elípticas.
+\end{itemize}
+
+Para alcanzar el primer objetivo, estudiamos primero el caso general, esto es, curvas elípticas sobre un cuerpo arbitrario, y depués particularizamos a cuerpos finitos. Como la teoría de curvas elípticas es muy extensa, no hemos podido abarcar todo lo que nos hubiera gustado y hemos tenido que elegir la parte más representativa de esta materia en relación con su aplicación en la criptografía.
+
+Para alcanzar los dos objetivos relacionados con la implementación, previamente realizamos un estudio sobre la criptografía asimétrica con curvas elípticas, haciendo énfasis en los algoritmos y procedimientos que contiene y sus protocolos criptográficos. Análogamente al caso anterior, tuvimos que seleccionar los aspectos más importantes de la criptografía asimétrica con curvas elípticas debido a la multitud de detalles técnicos presentes en este campo.
+
+Con este conocimiento, desarrollamos un programa informático capaz de operar con el grupo de puntos de una curva elíptica y trabajar con protocolos criptográficos.
+Para ello también tuvimos que implementar la aritmética modular entre enteros y polinomios y la aritmética de cuerpos finitos. Los protocolos criptográficos implementados y utilizados en aplicaciones reales han tenido en cuenta una multitud de detalles técnicos relacionados con la eficiencia y la seguridad, de los cuales solo los más cruciales han sido tenido en cuenta en nuestra implementación particular.
+
+En la tabla~\ref{tab:Objetivos alcanzandos} mostramos los objetivos finalmente alcanzados y el apartado de la memoria donde se trata cada objetivo.
+
+\begin{table}[p]
+  \myfloatalign
+  \begin{tabularx}{\textwidth}{Xl} \toprule
+    \tableheadline{Objetivo alcanzado} & \tableheadline{Localización}  \\
+    \midrule
+    Realizar un estudio en profundidad de las curvas elípticas y la aritmética de sus puntos y particularizarlo a curvas elípticas sobre cuerpos finitos. & Capitulo~\ref{ch:Desarrollo matemático} \\
+    Realizar un estudio sobre la criptografía asimétrica con curvas elípticas, incluyendo algunos de sus algoritmos y protocolos más importantes. & Sección~\ref{sec:Criptografía con curvas elípticas} \\
+    Implementar algoritmos para trabajar con la aritmética modular de enteros y polinomios, de cuerpos finitos y del grupo de una curva elíptica. & Sección~\ref{sec:Criptografía con curvas elípticas con Python} \\
+    Implementar protocolos criptográficos basados en curvas elípticas. & Sección~\ref{sec:Criptografía con curvas elípticas con Python} \\
+    \bottomrule
+  \end{tabularx}
+  \caption{Objetivos alcanzandos.}\label{tab:Objetivos alcanzandos}
+\end{table}
+
+Por otro lado, la tabla~\ref{tab:Asignaturas más relevantes} muestra las materias del Doble Grado en Matemáticas e Ingeniería Informática más relacionadas con el trabajo.
+
+\begin{table}[p]
+  \myfloatalign
+  \begin{tabularx}{\textwidth}{X} \toprule
+    %\tableheadline{Asignaturas} \\
+    %\midrule
+    % Matemáticas
+    Álgebra I, II, III. \\
+    Geometría I, II. \\
+    Curvas y superficies. \\
+    Álgebra conmutativa computacional. \\
+    Teoría de números y criptografía. \\
+
+    % Informática
+    Fundamentos de programación. \\
+    Metodología de la programación. \\
+    Estructura de datos. \\
+    Algorítmica. \\
+    Fundamentos de ingeniería del software. \\
+    Modelos avanzados de computación. \\
+    Programación y diseño orientado a objetos. \\
+    Seguridad y protección de sistemas informáticos. \\
+    \bottomrule
+  \end{tabularx}
+  \caption{Materias del grado relacionadas con el trabajo.}\label{tab:Asignaturas más relevantes}
+\end{table}
+
+% TODO: quitar debug
+% \begin{table}[h]
+%   \myfloatalign
+%   \subfloat[XX]
+%   {
+%     \begin{tabularx}{\textwidth}{X} \toprule
+%       \tableheadline{Grado en Matemáticas}  \\
+%       \midrule
+%       Álgebra I, II, III.  //
+%       Geometría I, II.  //
+%       Curvas y superficies.  //
+%       Álgebra conmutativa computacional.  //
+%       Teoría de números y criptografía. //
+%       \bottomrule
+%     \end{tabularx}
+%   }
+%
+%   \quad
+%
+%   \subfloat[XX]
+%   {
+%     \begin{tabularx}{\textwidth}{X} \toprule
+%       \tableheadline{Grado en Informática}  \\
+%       \midrule
+%       Fundamentos de programación. \\
+%       Metodología de la programación. \\
+%       Estructura de datos. \\
+%       Algorítmica. \\
+%       Fundamentos de ingeniería del software. \\
+%       Modelos avanzados de computación. \\
+%       Programación y diseño orientado a objetos. \\
+%       Seguridad y protección de sistemas informáticos. \\
+%       \bottomrule
+%     \end{tabularx}
+%   }
+%   \caption{Objetivos alcanzandos.}\label{tab:Objetivos alcanzandos}
+% \end{table}
+%
+% \begin{itemize}
+%   % Matemáticas
+%   \item Álgebra I, II, III.
+%   \item Geometría I, II.
+%   \item Curvas y superficies.
+%   \item Álgebra conmutativa computacional.
+%   \item Teoría de números y criptografía.
+%
+%   % Informática
+%   \item Fundamentos de programación.
+%   \item Metodología de la programación.
+%   \item Estructura de datos.
+%   \item Algorítmica.
+%   \item Fundamentos de ingeniería del software.
+%   \item Modelos avanzados de computación.
+%   \item Programación y diseño orientado a objetos.
+%   \item Seguridad y protección de sistemas informáticos.
+% \end{itemize}
