@@ -1,0 +1,82 @@
+%*******************************************************
+% Abstract
+%*******************************************************
+%\renewcommand{\abstractname}{Abstract}
+\pdfbookmark[1]{Abstract}{Abstract}
+\begingroup
+\let\clearpage\relax
+\let\cleardoublepage\relax
+\let\cleardoublepage\relax
+
+\begin{otherlanguage}{american}
+
+\chapter*{Abstract}
+
+% Deberá estar escrito completamente en inglés y tener una longitud mínima de 1500 palabras. Igualmente aparecerán las palabras clave en inglés.
+
+% have develop, explained
+% also ???
+In this project, it is studied elliptic curve theory, its application in cryptography and elliptic curve cryptographic protocols. It is also explained the computer program we have developed in this field.
+
+\section*{Elliptic curve theory}
+
+% by, using?
+% graph, representation?
+Firstly, an elliptic curve is defined and some concepts related to such as rational points, discriminat, point at infinity or base field. Some examples of elliptic curve over $\mathbb{R}$ and their graphs are given.
+
+Then, the general Weierstrass equation shown in the elliptic curve definition is simplfied by changes of variable depends on the base field characteristic. If the characteristic is different from two or three, the general equation can be replaced with the short Weierstrass equation. The simplified equation for elliptic curves with base field of characteristic 2 is given as well.
+
+After that, the chord-and-tangent method is explained. This is a geometric method to, given two points on an elliptic curve, produce a third point on the curve. The basic idea of this method is drawing the line between the two points, taking the point on the elliptic curve which intersect this line and reflecting this last point over the x-axis. If the two points given are the same, the method change slightly.
+
+An addition law for the set of points of an elliptic curve with explicit algebraic formulas are given by inspiring in the chord-and-tangent method. Only the formulas for the elliptic curves defined over a field with characteristic different from two or three are given. Later, we will show the formulas for elliptic curve defined over the finite field with characteristic two.
+
+After the proof of the validity of the binary operation define with these formulas, we prove the first theorem: the set of points of an elliptic curve with this composition law forms an abelian group. The fact that the set of rational points with this law is a group is a first step in order to use elliptic curves in cryptography.
+
+The next step is the double-and-add method. This algorithm allows to compute the addition of a point to itself much more efficient than the naïve method in some base fields such as the finite fields.
+
+% analysed
+Then, projective space is introduce as a quotient space. It is considered the equivalence classes, called projective points, and it is defined some concepts such as line at infinity, points at infinity projective form of a Weierstrass equation and projective coordinates.
+
+%  mirar primera frase, (the)? endomorphism.
+After this, endomorphisms of elliptic curves are studied. The concept of endomorphism is defined and a simplified representation with rational functions is given for endomorphisms of an elliptic curve defined over a base field whose characteristic is different from two or three. Then, some key concepts such as the degree or the separability of an endomorphism are defined. After these definitions, some results about endomorphisms are proven: a characterization of separability, some relations between the degree and the kernel of an endomorphism,  the surjectivity of endomorphisms, the separability of the multiplication endomorphism and a technical result about the sum of endomorphisms.
+
+% treated, in order to
+Torsion points and torsion subgroups are the next step to study. The previous results are used in order to prove a crucial theorem about the structure of torsion subgroups. In this proof, the multiplication endomorphism and the structure theorem for finite abelian groups play important roles.
+
+It is possible to associate an endomorphism of an elliptic curve to a matrix with integers entries thanks to this theorem. The target is computing the degree of an endomorphism using the determinant of the associate matrix. This simplification allows to compute the degree of a lineal combination of endomorphisms which will be necessary to prove Hasse's theorem.
+
+In order to prove the previous simplification, it is necessary the Weil pairing. This pairing between the product of torsion subgroups and the group of nth roots of unity has many useful properties. Using these properties, it is computed the degree of a lineal combination of endomorphisms.
+
+%\subsubsection{Theory of elliptic curves over finite fields}
+%\section*{Elliptic curve over finite field theory}
+
+We move forward and we consider elliptic curves over finite fields. These curves are the ones which are used in public-key cryptography.
+
+% in this case ???
+We start with a special case of the previous general theorem about the structure of subgroups, but in this case applied to elliptic curves over finite fields.
+
+% arise???
+Algebraic formulas for the addition law are given for elliptic curves over finite fields with characteristic two. The concept of supersingularity arise in this kind of elliptic curves.
+
+% mirar is shown, the Frobenius..
+% are about??
+% variant??
+Then, a well-known example of endomorphism of elliptic curves over finite field is shown, the Frobenius endomorphism. Some propierties about the Frobenius endomorphism are proven. These results include are about its separability, its degree or the relation between the group of rational points and the kernel of a variant of the Frobenius endomorphism.
+
+% to relation??
+Using almost all the results proven since the beginning, Hasse's theorem is proven. The most crucial results used in the proof are the identification between the group of rational points and the kernel of a variant of the Frobenius endomorphism, the separability of this endomorphism and the proposition which relations the kernel and the degree of an endomorphism, and lastly but not least the Weil pairing, and its consequence about the computation of the degree of a lineal combination of an endomorphism.
+
+
+\section*{Elliptic curve cryptography}
+
+Secondly, ...
+
+\bigskip
+
+\textbf{Keywords}: elliptic curve theory, public-key cryptography, elliptic curve cryptography, finite fields, cryptographic protocols.
+
+\end{otherlanguage}
+
+\endgroup
+
+\vfill
