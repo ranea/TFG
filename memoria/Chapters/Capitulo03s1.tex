@@ -9,12 +9,43 @@
 
 % TODO: introducir ordenadores cuánticos?
 
-En esta sección trataremos el problema del logaritmo discreto y sus ataques y dos aspectos comunes de los protocolos criptográficos que vamos a ver: los parámetros de dominio y las parejas de llaves.
+En esta sección trataremos las ventajas de los sistemas basados en curvas elípticas, el problema del logaritmo discreto y sus ataques y dos aspectos comunes de los protocolos criptográficos que vamos a ver: los parámetros de dominio y las parejas de llaves.
+
+\subsection{Ventajas de los sistemas basados en curvas elípticas.}
+\label{sub:Ventajas de los sistemas basados en curvas elípticas.}
+
+En los esquemas criptográficos de llave pública, la pareja de llaves se selecciona de tal modo que el problema de calcular la llave privada a partir de la pública sea equivalente a resolver un problema computacional intratable. Los dos principales problemas intratables usados en los sistemas de llave pública son:
+\begin{itemize}
+    \item El problema de factorización enteros.
+    \item El problema del logaritmo discreto, tratado en el apartado~\ref{sub:Problema del logaritmo discreto}.
+\end{itemize}
+
+Un ejemplo de sistema basado en el problema de la factorización es el sistema RSA mientras que un ejemplo basado en el problema del logaritmo discreto son los sistemas basados en curvas elípticas.
+
+La tabla~\ref{tab:comparacion llaves}, extraída de~\cite{Hankerson:2003}, da estimaciones del tamaño en bits de los parámetros de estos sistemas (el orden $n$ del subgrupo generado por el punto base de los sistemas basados en curvas elípticas, y el módulo $n$ del sistema RSA) bajo un mismo nivel de seguridad. Un \emph{nivel de seguridad} de $k$ bits implica que el mejor algoritmo para romper el sistema toma aproximadamente $2^k$ pasos.
+
+\begin{table}[!h]
+  \myfloatalign
+
+  \begin{tabularx}{\textwidth}{Xlllll} \toprule
+    & \multicolumn{5}{l}{Nivel de seguridad (bits)} \\
+     & 80 & 112 & 128 & 192 & 256 \\
+    \midrule
+    Sistemas basados en curvas elípticas (parámetro $n$)  & 160 & 224 & 256 & 384 & 514 \\
+    RSA (módulo $n$) & 1024 & 2048 & 3072 & 8192 & 15360 \\
+    \bottomrule
+  \end{tabularx}
+  \caption{Comparación de tamaños de llaves para niveles de seguridad equivalentes.}\label{tab:comparacion llaves}
+\end{table}
+
+Las comparaciones de la tabla~\ref{tab:comparacion llaves} demuestran para un nivel de seguridad dado, se puede usar parámetros más pequeños en los sistemas basados en curvas elípticas que en el sistema RSA. La diferencia del tamaño de los parámetros es especialmente pronunciada para altos niveles de seguridad.
+
+Las ventajas en el uso de parámetros más pequeños incluyen velocidad (cálculos más rápidos),  y llaves y certificados más pequeños. En particular, las operaciones de llave privada (como la generación de la firma y el descifrado) en los sistemas de curvas elípticas son mucho más eficientes que en el sistema RSA. Por otro lado, las operaciones de llave pública (como la verificación de la firma y el cifrado) en los sistemas RSA son algo más eficientes. Las ventajas de los sistemas basados en curvas elípticas pueden ser importantes en entornos donde la potencia de cómputo, el almacenamiento o el ancho de banda sean limitados.
 
 \subsection{Problema del logaritmo discreto}
 \label{sub:Problema del logaritmo discreto}
 
-La dificultad del problema del logaritmo discreto es esencial para la seguridad de la criptografía asimétrica sobre curvas elípticas.
+Como ya introducimos en el apartado anterior, la dificultad del problema del logaritmo discreto es la base para la seguridad de la criptografía asimétrica sobre curvas elípticas.
 
 \begin{definicion}
     El \emph{problema del logaritmo discreto sobre curvas elípticas (ECDLP)} es: dado una curva elíptica $E$ definida sobre un cuerpo finito $\Fq$, un punto $P \in E(\Fq)$ de orden $n$ y un punto $Q \in \langle P \rangle$, encontrar el entero $k \in [0, n - 1]$ tal que $Q = k P$. El entero $k$ se llama el \emph{logaritmo discreto de $Q$ respecto a la base $P$} y se denota $k = \log_p Q$.
