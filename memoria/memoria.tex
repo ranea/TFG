@@ -43,23 +43,16 @@
 \usepackage{mathtools} % para usar rcases
 \usepackage{enumitem} % pasa usar tag distintos en las enumeraciones
 \usepackage{amssymb} % para usar el simbolo de no divide
-\usepackage{xeboiboites} % TODO: añadir ref
+\usepackage{xeboiboites} % para recuardrar resultados
+\usepackage{afterpage} % para añadir paginas en blanco
 
-% TODO: eliminar debug
-% # Definición de estilos de "teoremas":
-% # \newtheorem{identificador}{texto}[contador]
-% \theoremstyle{plain} % titulo negrita, cuerpo cursiva
-\theoremstyle{definition} % titulo negrita, cuerpo en recta
-% TODO: ver que hacer
-\newtheorem{contador}{contador}[chapter]
-% \newtheorem{proposicion}[teorema]{Proposicion}
-% \newtheorem{lema}[teorema]{Lema}
-% \newtheorem{ejemplo}[teorema]{Ejemplo}
-% \newtheorem{definicion}[teorema]{Definición}
-% \newtheorem{nota}[teorema]{Nota}
-% \newtheorem{ley de grupo}[teorema]{Ley de grupo}
-% \newtheorem{algoritmo}[teorema]{Algoritmo}
-% \newtheorem{corolario}[teorema]{Corolario}
+% # Comandos definidos
+\newcommand{\code}{\texttt}
+\newcommand\blankpage{%
+    \null
+    \thispagestyle{empty}%
+    \addtocounter{page}{-1}%
+    \newpage}
 \newcommand{\nuevoteorema}[3] {
     \newbreakabletheorem[small box style={draw=orange!30!black!20,%
     fill=orange!10!black!2,decoration=penciline, decorate, thick},
@@ -70,42 +63,7 @@
     other edges={decorate,thick}]%
     {#1}{#2}{#3}
 }
-\nuevoteorema{teorema}{Teorema}{contador}
-\nuevoteorema{proposicion}{Proposición}{contador}
-\nuevoteorema{lema}{Lema}{contador}
-\nuevoteorema{corolario}{Corolario}{contador}
-\nuevoteorema{ley de grupo}{Ley de grupo}{contador}
-\nuevoteorema{definicion}{Definición}{contador}
-%\nuevoteorema{algoritmo}{Algoritmo}{contador}
-\newtheorem{algoritmo}[contador]{Algoritmo}
-\nuevoteorema{formulasadiccion}{Fórmulas de adicción}{contador}
-%\nuevoteorema{ejemplo}{Ejemplo}{contador}
-%\nuevoteorema{nota}{Nota}{contador}
-\newtheorem{nota}[contador]{Nota}
-\newtheorem{ejemplo}[contador]{Ejemplo}
-%\newtheorem{nota}[contador]{Nota}
-%\nuevoteorema{protocolo}{Protocolo criptográfico}{contador}
-\newtheorem{protocolo}[contador]{Protocolo criptográfico}
-
-\nuevoteorema{teorema2}{Teorema}{}
-%\nuevoteorema{metodocuerda}{Método de la cuerda y la tangente}{}
-\newtheorem{metodocuerda}[contador]{Método de la cuerda y la tangente}
-
-
-\newtheoremstyle{break}% name
-  {}%         Space above, empty = `usual value'
-  {}%         Space below
-  {}% Body font
-  {}%         Indent amount (empty = no indent, \parindent = para indent)
-  {\bfseries}% Thm head font
-  {.}%        Punctuation after thm head
-  {\newline}% Space after thm head: \newline = linebreak
-  {}%         Thm head spec
-\theoremstyle{break}
-\newtheorem{algoritmo2}[contador]{Algoritmo}
-
-% # Comandos definidos
-\newcommand{\code}{\texttt}
+% ## Comandos para agilizar escritura matemática
 \newcommand{\F}{\mathbb{F}}
 \newcommand{\Fq}{\mathbb{F}_q}
 \newcommand{\Fqca}{\overline{\Fq}}
@@ -118,18 +76,48 @@
 \newcommand{\EK}{E(K)}
 \newcommand{\EKca}{E(\Kca)}
 \newcommand{\EFqca}{E(\Fqca)}
-%\newcommand{\deg}{\textrm{deg}}
 \newcommand{\dega}{\deg(\alpha)}
-%\let\char\relax
 \DeclareMathOperator{\car}{char}
 \newcommand{\phiq}{\phi_q}
+
+
+% # Estilos de teoremas recuadrados
+\theoremstyle{definition} % titulo negrita, cuerpo en recta
+\newtheorem{contador}{contador}[chapter]
+\nuevoteorema{teorema}{Teorema}{contador}
+\nuevoteorema{proposicion}{Proposición}{contador}
+\nuevoteorema{lema}{Lema}{contador}
+\nuevoteorema{corolario}{Corolario}{contador}
+\nuevoteorema{ley de grupo}{Ley de grupo}{contador}
+\nuevoteorema{definicion}{Definición}{contador}
+% ## Especiales
+\nuevoteorema{formulasadiccion}{Fórmulas de adicción}{contador}
+\nuevoteorema{teorema2}{Teorema}{}
+% # Estilos de teorema no recuadrados
+\newtheorem{algoritmo}[contador]{Algoritmo}
+\newtheorem{nota}[contador]{Nota}
+\newtheorem{ejemplo}[contador]{Ejemplo}
+\newtheorem{protocolo}[contador]{Protocolo criptográfico}
+% ## Especiales
+\newtheorem{metodocuerda}[contador]{Método de la cuerda y la tangente}
+\newtheoremstyle{break}% name
+  {}%         Space above, empty = `usual value'
+  {}%         Space below
+  {}% Body font
+  {}%         Indent amount (empty = no indent, \parindent = para indent)
+  {\bfseries}% Thm head font
+  {.}%        Punctuation after thm head
+  {\newline}% Space after thm head: \newline = linebreak
+  {}%         Thm head spec
+\theoremstyle{break}
+\newtheorem{algoritmo2}[contador]{Algoritmo}
 
 
 %********************************************************************
 % Bibliographies
 %*******************************************************
-\addbibresource{Bibliography.bib}
-%\addbibresource[label=ownpubs]{AMiede_Publications.bib}
+\addbibresource{Bibliografia.bib}
+%\addbibresource[label=ownpubs]{PublicationX.bib}
 
 %********************************************************************
 % Hyphenation
@@ -150,22 +138,17 @@
 %********************************************************************
 % Frontmatter
 %*******************************************************
-% TODO: descomentar todo menos Publications
-\include{FrontBackmatter/Titlepage}
+\include{PaginasInicialesFinales/Anteportada}
+\include{PaginasInicialesFinales/Portada}
 \cleardoublepage
-\include{FrontBackmatter/Titleback}
-% TODO: incluir dedicatoria?
-%\cleardoublepage\include{FrontBackmatter/Dedication}
-\cleardoublepage\include{FrontBackmatter/Foreword}
-\cleardoublepage\include{FrontBackmatter/Abstract}
-\cleardoublepage\include{FrontBackmatter/AbstractEnglish}
-% TODO: necesario declaración?
-%\cleardoublepage\include{FrontBackmatter/Declaration}
-\cleardoublepage\include{FrontBackmatter/AutorizacionBiblioteca}
-\cleardoublepage\include{FrontBackmatter/AutorizacionTutor}
-\cleardoublepage\include{FrontBackmatter/Acknowledgments}
+\cleardoublepage\include{PaginasInicialesFinales/Resumen}
+\cleardoublepage\include{PaginasInicialesFinales/ResumenIngles}
+\afterpage{\blankpage}
+\cleardoublepage\include{PaginasInicialesFinales/AutorizacionBiblioteca}
+\cleardoublepage\include{PaginasInicialesFinales/AutorizacionTutor}
+\cleardoublepage\include{PaginasInicialesFinales/Agradecimientos}
 \pagestyle{scrheadings}
-\cleardoublepage\include{FrontBackmatter/Contents}
+\cleardoublepage\include{PaginasInicialesFinales/Contenidos}
 %********************************************************************
 % Mainmatter
 %*******************************************************
@@ -175,12 +158,12 @@
 \cleardoublepage
 %\ctparttext{Desarrollo del trabajo matemático-informático.}
 %\part{Desarrollo del trabajo}
-\include{Chapters/Capitulo00}
-\include{Chapters/Capitulo01}
-\include{Chapters/Capitulo02}
 %\addtocontents{toc}{\protect\clearpage} % <--- just debug stuff, ignore
-\include{Chapters/Capitulo03}
-\include{Chapters/Capitulo04}
+\include{Capitulos/Capitulo00}
+\include{Capitulos/Capitulo01}
+\include{Capitulos/Capitulo02}
+\include{Capitulos/Capitulo03}
+\include{Capitulos/Capitulo04}
 %\include{multiToC} % <--- just debug stuff, ignore for your documents
 % ********************************************************************
 % Backmatter
@@ -188,13 +171,12 @@
 \appendix
 %\renewcommand{\thechapter}{\alph{chapter}}
 \cleardoublepage
-%\part{Apéndice}
 % TODO: incluir capitulo0A -> apendice
-%\include{Chapters/Chapter0A}
+%\include{Capitulos/Capitulo0A}
 %********************************************************************
 % Other Stuff in the Back
 %*******************************************************
-\cleardoublepage\include{FrontBackmatter/Bibliography}
+\cleardoublepage\include{PaginasInicialesFinales/Bibliografia}
 % ********************************************************************
 % Game Over: Restore, Restart, or Quit?
 %*******************************************************

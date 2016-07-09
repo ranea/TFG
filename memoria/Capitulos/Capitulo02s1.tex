@@ -55,14 +55,14 @@ La siguiente definición la simplificaremos posteriormente.
 		E_1: y^2 & = x^3 - x \\
 		E_2: y^2 & = x^3 + x
 	\end{align*}
-	definidas sobre el cuerpo $\mathbb{R}$ de los números reales. Los puntos $E_1(\mathbb{R})$ y $E_2(\mathbb{R})$ se han representado en la Figura~\ref{fig:curvas elípticas reales}.
+	definidas sobre el cuerpo $\mathbb{R}$ de los números reales. Los puntos $E_1(\mathbb{R})$ y $E_2(\mathbb{R})$ se han representado en la figura~\ref{fig:curvas elípticas reales}. Esta figura se ha tomado de~\cite{Hankerson:2003}.
 
 	\begin{figure}[h]
 		\myfloatalign
 		\subfloat[$E_1: y^2 = x^3 - x$]
-		{\includegraphics[width=.45\linewidth]{gfx/grafo_curva_eliptica_reales_1.pdf}} \quad
+		{\includegraphics[width=.45\linewidth]{Graficos/grafo_curva_eliptica_reales_1.pdf}} \quad
 		\subfloat[$E_2: y^2 = x^3 + x$]
-		{\includegraphics[width=.45\linewidth]{gfx/grafo_curva_eliptica_reales_2.pdf}}
+		{\includegraphics[width=.45\linewidth]{Graficos/grafo_curva_eliptica_reales_2.pdf}}
 		\caption{Curvas elípticas sobre $\mathbb{R}$}\label{fig:curvas elípticas reales}
 	\end{figure}
 \end{ejemplo}
@@ -115,11 +115,11 @@ Haciendo $y_1 = y + (a_1 x)/2 + a_3/2$, obtenemos
 $$
 y_1^2 = x^3 + a_2' x^2 + a_4' x + a_6'
 $$
-para algunas constafntes $a_2', a_4', a_6' \in K$. Finalmente, sustituyendo $x_1 = x + a_2'/3$ (podemos dividir por 3 ya que $\car(K) \neq 3$) resulta
+para algunas constantes $a_2', a_4', a_6' \in K$. Finalmente, sustituyendo $x_1 = x + a_2'/3$ (podemos dividir por 3 ya que $\car(K) \neq 3$) resulta
 $$
 y_1^2 = x_1^3 + a x_1 + b
 $$
-para algunas constante $a, b \in K$. Para obtener el discriminante $\Delta$ basta sustiuir el valor de las constantes $a_4 = a,\ a_6 = b$ y $a_1 = a_3 = a_2 = 0$ en~\eqref{eq:discriminante}.
+para algunas constante $a, b \in K$. Para obtener el discriminante $\Delta$ basta sustituir el valor de las constantes $a_4 = a,\ a_6 = b$ y $a_1 = a_3 = a_2 = 0$ en~\eqref{eq:discriminante}.
 \end{proof}
 \begin{nota}[comentarios del lema~\ref{lm: simplificación ecuación Weierstrass}] \leavevmode
 	\begin{itemize}
@@ -128,7 +128,7 @@ para algunas constante $a, b \in K$. Para obtener el discriminante $\Delta$ bast
 	\end{itemize}
 \end{nota}
 
-En la mayor parte del trabajo, desarollaremos la teoría de curvas elípticas utilizando la ecuación de Weierstrass simplificada~\eqref{eq:ecuación Weierstrass}. Sin embargo, como los cuerpos finitos de característica dos son de especial interés en computación, ocasionalmente señalaremos que modificaciones son necesarias para los cuerpos base de característica dos. Veamos la primera modificación.
+En la mayor parte del trabajo, desarrollaremos la teoría de curvas elípticas utilizando la ecuación de Weierstrass simplificada~\eqref{eq:ecuación Weierstrass}. Sin embargo, como los cuerpos finitos de característica dos son de especial interés en computación, ocasionalmente señalaremos que modificaciones son necesarias para los cuerpos base de característica dos. Veamos la primera modificación.
 
 \begin{lema}\label{lm:ecuaciones curva eliptica caracteristica dos}
 	Si la característica de K es 2, hay dos casos que considerar. Si $a_1 \neq 0$, entonces el cambio de variables admisible
@@ -174,14 +174,14 @@ Sea $E$ una curva elíptica definida sobre un cuerpo $K$. El siguiente método g
 		\item Esta línea intersecta la curva elíptica en un segundo punto.
 		\item Tomamos $R$ como la reflexión de este punto sobre el eje-$x$.
 	\end{enumerate}
-	Esto método se puede apreciar en la figura~\ref{fig:Método de la cuerda y la tangente}.
+	Esto método se puede apreciar en la figura~\ref{fig:Método de la cuerda y la tangente}. Esta figura se ha tomado de~\cite{Hankerson:2003}.
 \end{metodocuerda}
 
 \begin{figure}[h]
   \myfloatalign
-  {\includegraphics[width=.45\linewidth]{gfx/ejemplo_adiccion.pdf}}
+  {\includegraphics[width=.45\linewidth]{Graficos/ejemplo_adiccion.pdf}}
   \quad
-  {\includegraphics[width=.45\linewidth]{gfx/ejemplo_duplicacion.pdf}}
+  {\includegraphics[width=.45\linewidth]{Graficos/ejemplo_duplicacion.pdf}}
   \caption{Método de la cuerda y la tangente}\label{fig:Método de la cuerda y la tangente}
 \end{figure}
 
@@ -197,7 +197,7 @@ Sea $E$ una curva elíptica definida por la ecuación $y^2 = x^3 + a x + b$ sobr
 \begin{enumerate}
 	\item $P + \infty = \infty + P = P,$ para todo $P \in E(K)$.
 
-	\item Si $P = (x, y) \in E(K)$, entonces $(x, y) + (x, -y) = \infty$. El punto $(x, -y)$ se denotará por $-P$ y se llamará el \emph{opuesto} de P. Además, $- \infty = \infty$.
+	\item Si $P = (x, y) \in E(K)$, entonces $(x, y) + (x, -y) = \infty$. El punto $(x, -y)$ se denotará por $-P$ y se llamará el \emph{opuesto} de $P$. Además, $- \infty = \infty$.
 
 	\item Sea $P = (x_1, y_1) \in E(K)$ y $Q = (x_2, y_2) \in E(K)$, donde $P \neq \pm Q$. Entonces $P + Q = (x_3, y_3)$, donde
 	\begin{align*}
@@ -305,7 +305,7 @@ Sea $P$ es un punto de una curva elíptica y $k$ un entero positivo. Denotaremos
 \begin{nota}[comentarios del algoritmo~\ref{al:multiplicación por duplicación}]\leavevmode
 	\begin{itemize}
 		\item El único problema de este método es que el tamaño de las coordenadas incrementa muy rápidamente.
-		\item Si trabajos sobre un cuerpo finito, podemos evitar este incoveniente reduciendo módulo $p$ en cada operación.
+		\item Si trabajos sobre un cuerpo finito, podemos evitar este inconveniente reduciendo módulo $p$ en cada operación.
 	\end{itemize}
 \end{nota}
 
@@ -333,13 +333,9 @@ Si $z = 0$, el conjunto de puntos proyectivos de la forma $(x : y : 0)$ se llama
 
 La \emph{forma proyectiva} de una ecuación de Weierstrass de una curva elíptica $E$ definida sobre $K$ se obtiene remplazando $x$ por $x/z$, $y$ por $y/z$ y quitando denominadores. Si alguna terna $(x, y, z)$ no nula satisface la ecuación proyectiva entonces también las satisfacen las ternas $(x', y', z') \in (x : y : z)$. Podemos decir entonces que un punto proyectivo $(x : y : z)$ está en $E$. Tenemos así una correspondencia 1-1 entre los puntos del plano afín que están en $E$ y los puntos proyectivos de $P^2(K)^*$ que están en $E$.
 
-Si hacemos $z = 0$ en la forma proyectiva de la ecuación, obtenemos $0 = x^3$ y como alguna componente tiene que ser no nula, tenemos $y \neq 0$. Así, el único punto de la recta del infinito que está en $E$ es el punto $(0 : y : 0) = (0 : 1 : 0)$. Este pusto se corresponde con el punto $\infty$ de la definición~\ref{def:curva elíptica}.
+Si hacemos $z = 0$ en la forma proyectiva de la ecuación, obtenemos $0 = x^3$ y como alguna componente tiene que ser no nula, tenemos $y \neq 0$. Así, el único punto de la recta del infinito que está en $E$ es el punto $(0 : y : 0) = (0 : 1 : 0)$. Este punto se corresponde con el punto $\infty$ de la definición~\ref{def:curva elíptica}.
 
 Hay situaciones en la que usar coordenadas proyectivas puede ser ventajoso (véase~\cite[sec 2.6]{Washington:2008}). Sin embargo, nosotros utilizaremos las coordenadas del plano afín y trataremos el punto del infinito como caso especial cuando sea necesario.
-
-% TODO: decidir si poner algo
-% \subsection{El j-invariante}
-% \label{sub:El j-invariante}
 
 \subsection{Endomorfismos}
 \label{sub:Endomorfismos}
@@ -347,7 +343,7 @@ Hay situaciones en la que usar coordenadas proyectivas puede ser ventajoso (véa
 El principal objetivo de este apartado es probar la proposición~\ref{pp:cardinal del núcleo} que será utilizada en la demostración del teorema de Hasse~\ref{th:teorema de Hasse}. Para ello, es necesario utilizar algunos resultados técnicos, los cuales solo los enunciaremos (puede encontrar su demostración en ~\cite[sec. 2.9]{Washington:2008} ).
 
 \begin{definicion}
-	Sea $E$ una curva elíptica definida sobre un cuerpo $K$ y sea $\Kca$ su clasura algebraica. Un \emph{endomorfismo} de $E$ es un homomorfismo $\alpha: \EKca \to \EKca$ dado por funciones racionales (cocientes de polinomios). Dicho de otro modo, $\alpha$ preserva la suma y el elemento neutro de $\EKca$.
+	Sea $E$ una curva elíptica definida sobre un cuerpo $K$ y sea $\Kca$ su clausura algebraica. Un \emph{endomorfismo} de $E$ es un homomorfismo $\alpha: \EKca \to \EKca$ dado por funciones racionales (cocientes de polinomios). Dicho de otro modo, $\alpha$ preserva la suma y el elemento neutro de $\EKca$.
 
 	El endomorfismo trivial que lleva cada punto a $\infty$ lo denotaremos por 0.
 \end{definicion}
@@ -394,7 +390,7 @@ El siguiente resultado será crucial en la demostración del teorema de Hasse~\r
 	$$
 \end{proposicion}
 \begin{proof}
-	Por el lema~\ref{lm:endomorfismo con funciones racionales}, $\alpha(x, y) = (r_1(x), r_2(x) y)$ con $r_1(x) = p(x) / q(x)$. Supongamo que $\alpha$ es separable. Entonces $r_1' \neq 0$, por lo que $p' q - p q'$ no es el polinomio cero.
+	Por el lema~\ref{lm:endomorfismo con funciones racionales}, $\alpha(x, y) = (r_1(x), r_2(x) y)$ con $r_1(x) = p(x) / q(x)$. Supongamos que $\alpha$ es separable. Entonces $r_1' \neq 0$, por lo que $p' q - p q'$ no es el polinomio cero.
 
 	Sea $S$ el conjunto de $x \in \Kca$ tal que $(p q' - p' q)(x) q(x) = 0$. Sea $(u, v) \in \EKca$ tal que
 	\begin{enumerate}
@@ -442,7 +438,6 @@ Supongamos que $p - uq$ es un polinomio constante. Como $\EKca$ no es finito y e
 
 \end{proof}
 
-% TODO: ver si especificar el resultado para cuerpos base de car != 2
 \begin{proposicion}\label{pp:endomorfismo multiplicación}
 	Sea $E$ una curva elíptica definida sobre un cuerpo $K$ y sea $n$ un entero no cero. Consideramos el endomorfismo \emph{multiplicación} por $n$  dado por
 	$$
@@ -623,7 +618,6 @@ Para demostrar ambas proposiciones, necesitamos introducir el emparejamiento Wei
 \subsection{Emparejamiento Weil}
 \label{subs:Emparejamiento Weil}
 
-% TODO: ver si se utiliza más
 El emparejamiento de Weil sobre un subgrupo de torsión de una curva elíptica es una herramienta principal en el estudio de las curvas elípticas. En este trabajo se utilizará para probar la proposición~\ref{pp: relacion grado de un endomorfismo y el determinante} que será necesaria para probar el teorema de Hasse~\ref{th:teorema de Hasse}.
 
 Sea $E$ una curva elíptica sobre un cuerpo $K$ y sea $n$ un entero no divisible por la característica de $K$. Consideramos el grupo $\mu_n$ de las raíces $n$-ésimas de la unidad en $\Kca$, esto es,
@@ -638,9 +632,9 @@ Como la característica de $K$ no divide a $n$, la ecuación $x^n = 1$ no tiene 
 	$$
 		e_n : E[n] \times E[n] \to \mu_n
 	$$
-	llamado \emph{emparejamiento Weil} que satisface las siguientes propieades:
+	llamado \emph{emparejamiento Weil} que satisface las siguientes propiedades:
 	\begin{enumerate}
-		\item $e_n$ es bilineaer en cada variable, esto es,
+		\item $e_n$ es bilinear en cada variable, esto es,
 			\begin{align*}
 				e_n(S_1 + S_2, T) &= e_n(S_1, T) e_n(S_2, T) \\
 				e_n(S, T_1 + T_2) &= e_n(S, T_1) e_n(S, T_2)
@@ -659,9 +653,7 @@ Como la característica de $K$ no divide a $n$, la ecuación $x^n = 1$ no tiene 
 
 		\item $e_n(\sigma S, \sigma T) = \sigma(e_n(S, T))$ para todo automorfismo (endomorfismo biyectivo) $\sigma$ de $\Kca$ tal que $\sigma$ sea la identidad en los coeficientes de $E$.
 
-		% TODO: rellenar ref o ver que hacer
 		\item $e_n(\alpha S, \alpha T) = e_n(S, T)^{\dega}$ para todo endomorfismo $\alpha$ de $E$ .
-		%separable. Si los coeficientes de $E$ están en un cuerpo finito $\Fq$, entonces esta propiedad también es válida cuando $\alpha$ sea el endomorfismo de Frobenius $\phi_q$ (véase ~\ref{}).
 	\end{enumerate}
 \end{proposicion}
 

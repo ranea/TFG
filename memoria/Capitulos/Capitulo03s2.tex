@@ -3,9 +3,8 @@
 
 En esta sección se explica el programa desarollado \code{Criptografía con Curvas Elípticas con Python} o \code{ccepy}. Este programa permite trabajar con el grupo de puntos de una curva elíptica y desarrollar protocolos criptográficos que usen curvas elípticas.
 
-% TODO: + intro
-% TODO: ref
-Puede consultar el código fuente en~\ref{}. La documentación en formato de página web se adjutará a este documento.
+% TODO: referenciar github?
+Se adjunta a este documento los ficheros con el código fuente del programa y una página web con su documentación.
 
 \subsection{Motivación}
 \label{sub:Motivación}
@@ -57,7 +56,6 @@ La estructura en directorios es la siguiente:
 \end{verbatim}
 La carpeta \code{ccepy/ccepy} contiene el código fuente los módulos listados en~\ref{sub:Arquitectura}, \code{ccepy/docs} contiene la documentación y el código que la genera y por último \code{ccepy/tests} contiene las pruebas unitarias y basadas en propiedades.
 
-% TODO: ref
 El objetivo final es conseguir implementar los protocolos criptográficos explicados en el apartado~\ref{sec:Protocolos criptográficos}. Por ello, explicaremos primero lo más esencial, el módulo de aritmética elemental.
 
 \begin{nota}
@@ -67,8 +65,7 @@ El objetivo final es conseguir implementar los protocolos criptográficos explic
 \subsubsection{Módulo de aritmética elemental}
 \label{subs:Módulo de aritmética elemental}
 
-Este módulo permite operar con enteros módulo un primo $p$ y polinomios
-cuyos coeficientes sean enteros módulo un primo $p$. El código fuente de este módulo está en el archivo \code{aritmetica\_elemental.py}.
+Este módulo permite operar con enteros módulo un primo $p$ y polinomios cuyos coeficientes sean enteros módulo un primo $p$. El código fuente de este módulo está en el archivo \code{aritmetica\_elemental.py}.
 
 Los enteros módulo un primo se han representado con la clase \code{EnteroModuloP}. Para tener clases distintas para módulos distintos (para que cada clase tengo como atributo de clase el primo con el que se hace el módulo), se ha imitado la filosofía del patrón \emph{factoría}, esto es, hemos creado una función \code{Zp()} que acepta como parámetro un número primo y devuelve la clase que representa los enteros módulo dicho primo. Podemos ver la función \code{Zp} como el constructor de cuerpos $\mathbb{Z}_p$. Esto lo hemos podido hacer ya que \code{python} permite definir clases dentro de funciones y devolver definiciones de clases como valor de retorno de una función. Además, hemos utilizado el \emph{decorador} \code{@lru\_cache()} del módulo \code{functools} de la biblioteca estándar de \code{python} para que llamadas iguales sucesivas a \code{Zp()} devuelvan el mismo objeto y no se creen copias de una misma clase para un mismo primo.
 
@@ -113,7 +110,7 @@ De entre todos los métodos de \code{PolinomioZp}, destacamos \code{es\_irreduci
         \item Tomar $d \leftarrow g, \ s \leftarrow s_2, \ t \leftarrow t_2$ y devolver $(d, s, t)$.
     \end{enumerate}
 \end{algoritmo2}
-Este algoritmo está encapsulado en la función \code{alg\_euclides\_polinomios()}. Así pues, el método \code{es\_irreducible()} se encagar de ver si un polinomio es irreducible de manera eficiente en $\mathbb{Z}_p[X]$ y para ello utiliza el siguiente procedimiento.
+Este algoritmo está encapsulado en la función \code{alg\_euclides\_polinomios()}. Así pues, el método \code{es\_irreducible()} se encarga de ver si un polinomio es irreducible de manera eficiente en $\mathbb{Z}_p[X]$ y para ello utiliza el siguiente procedimiento.
 \begin{algoritmo2}
     ENTRADA: un primo $p$ y un polinomio mónico $f(x)$ de grado $m$ en $\mathbb{Z}_p[X]$. \\
     SALIDA: verdadero o falso según $f(x)$ sea irreducible o no.
@@ -171,7 +168,7 @@ Este módulo permite operar con el grupo de puntos de una curva elíptica. El c�
 
 Los puntos de una curva elíptca se han representando con distintas clases según el modelo de curva elítipca. Así, hay una clase para el grupo de puntos $E(\Fq)$, con $\Fq$ de característica distinta de 2 y 3, otra clase para $E(\Fm)$ y una última clase para $E(\mathbb{Q})$. Sin embargo, todas heredan de la misma clase y empezaremos por esta clase madre.
 
-La clase \code{PuntoRacional} es una clase \emph{abstracta}. Esta clase define el comportamiento de algunos métodos y deja sin implementar otros (similiar a los métodos \emph{virtuales} de C++). En \code{python}, este tipo de clases se crean utilizando la \emph{metaclase} \code{ABCMeta} y el decorador \code{@abstractmethod}, ambos del módulo \emph{abc} de la biblioteca estándar. Así, esta clase define el elemento neutro, que se representa como la tupla \code{(None, None)}, y especifica que los puntos deben representarse con un atributo para la componente $x$ y otro para la componente $y$ y además restringe el acceso para que sea de solo lectura, a través de las propiedades de \code{python}. Por último, indica que se deben implementar los métodos \code{contiene} (que evalúa la ecuación de la curva elíptica dado un par de componentes) y los operadores aritméticos básicos.
+La clase \code{PuntoRacional} es una clase \emph{abstracta}. Esta clase define el comportamiento de algunos métodos y deja sin implementar otros (similar a los métodos \emph{virtuales} de C++). En \code{python}, este tipo de clases se crean utilizando la \emph{metaclase} \code{ABCMeta} y el decorador \code{@abstractmethod}, ambos del módulo \emph{abc} de la biblioteca estándar. Así, esta clase define el elemento neutro, que se representa como la tupla \code{(None, None)}, y especifica que los puntos deben representarse con un atributo para la componente $x$ y otro para la componente $y$ y además restringe el acceso para que sea de solo lectura, a través de las propiedades de \code{python}. Por último, indica que se deben implementar los métodos \code{contiene} (que evalúa la ecuación de la curva elíptica dado un par de componentes) y los operadores aritméticos básicos.
 
 La clase que representa $E(\Fq)$ es la clase \code{PuntoFqRacional}. Análogamente a \code{EnteroModuloP}, le hemos asociado una función factoría a \code{PuntoFqRacional}, llamada \code{curva\_eliptica\_sobre\_Fq()}, que pasandole como argumentos los coeficientes de la ecuación de Weierstrass~\ref{eq:ecuación Weierstrass} y el cuerpo base, devuelve \code{PuntoFqRacional} con sus atributos de clase (los coeficientes de la ecuación, el cuerpo base y el discriminate) inicializados. De esta forma, dos curvas sobre $\Fq$ pero con distinta ecuación (distintos coeficientes) son dos clases distintas.
 
@@ -197,8 +194,7 @@ Nótese que la implementación de ambos protocolos se ha conseguido en apenas un
 \subsubsection{Listado de curvas elípticas}
 \label{subs:Listado de curvas elípticas}
 
-% TODO: ref
-Este módulo secundario consiste en una lista de parámetros de dominio obtenidos de los estándares \ref{}, \ref{} y \ref{}. El código fuente de este módulo está en el archivo \code{listado\_curvas\_elipticas.py}.
+Este módulo secundario consiste en una lista de parámetros de dominio obtenidos de los estándares. El código fuente de este módulo está en el archivo \code{listado\_curvas\_elipticas.py}.
 
 Este módulo ofrece la función \code{procesar\_parametros\_curva\_eliptica()}. Pasándole como parámetro el nombre de alguna curva de la del listado, esta función devuelve los parámetros de dominio con los tipos de datos propios de \code{ccepy}, de forma que se puede usar, por ejemplo, para instanciar un participante de un esquema criptográfico. Los nombres de cada una de las curvas del listado son:
 \begin{verbatim}
@@ -218,8 +214,7 @@ Este módulo ofrece la función \code{procesar\_parametros\_curva\_eliptica()}. 
 
 Se han utilizado dos tipos de pruebas para garantizar la correción del programa: pruebas unitarias y pruebas basadas en propiedades.
 
-% TODO: ref
-Las pruebas unitarias se han añadido en los \emph{docstring} de cada función o clase no trivial. Combinando los módulos \code{doctest} y \code{unittest} de la biblioteca estándar de \code{python}, estas pruebas unitarias se ejecutan automáticamente utilizando los distintos scripts ubicados en \code{ccepy/tests}. La ventaja de implementar las pruebas unitarias en los docstring es que dichos casos de prueba aparecerán en la documentación automáticamente como ejemplo de uso. Explicaremos esto con más detalle en el apartado~\ref{} de generación de la documentación.
+Las pruebas unitarias se han añadido en los \emph{docstring} de cada función o clase no trivial. Combinando los módulos \code{doctest} y \code{unittest} de la biblioteca estándar de \code{python}, estas pruebas unitarias se ejecutan automáticamente utilizando los distintos scripts ubicados en \code{ccepy/tests}. La ventaja de implementar las pruebas unitarias en los docstring es que dichos casos de prueba aparecerán en la documentación automáticamente como ejemplo de uso. Explicaremos esto con más detalle en el apartado~\ref{sub:Generación de la documentación} de generación de la documentación.
 
 Sin embargo, como se han detectado más errores han sido con las pruebas basadas en propiedades. A diferencia de las pruebas unitarias, en la que se especifica para un caso de prueba la salida que tiene que producir, en las pruebas basadas en propiedades se especifican <<propiedades>> que debe verificar el código y estas propiedades se verifican para múltiples entradas generadas automáticamente.
 
@@ -233,8 +228,7 @@ Sin embargo, como se han detectado más errores han sido con las pruebas basadas
 
 Como \code{ccepy} utiliza estructuras algebraicas, es muy fácil pensar en las propiedades que deben verificar las distintas funcionas o clases. Por ejemplo, para las clases de \code{python} que representan cuerpos, anillos o grupos se han tomado como propiedades los axiomas de la definición de cuerpo, anillo o grupo respectivamente.
 
-% TODO: ref
-Para los protocolos criptográficos, también podemos encontrar propiedades. Así, para el protocolo ECDH (véase \ref{}) se comprueba que el punto que calculan Alicia y Bob es el mismo y si Eva intenta calcular el punto (con llave privada distinta) falla. Para el protocolo ECDSA (véase \ref{}) se comprueba que Bob siempre verifica la firma de Alicia de un mensaje, que dicha firma no sirve para otro mensaje y que si Eva intenta impersonar a Alicia o falsificar firmas, Bob siempre se percata.
+Para los protocolos criptográficos, también podemos encontrar propiedades. Así, para el protocolo ECDH (véase apartado~\ref{sub:Protocolo Diffie-Hellman}) se comprueba que el punto que calculan Alicia y Bob es el mismo y si Eva intenta calcular el punto (con llave privada distinta) falla. Para el protocolo ECDSA (véase apartado~\ref{sub:Protocolo ECDSA}) se comprueba que Bob siempre verifica la firma de Alicia de un mensaje, que dicha firma no sirve para otro mensaje y que si Eva intenta impersonar a Alicia o falsificar firmas, Bob siempre se percata.
 
 Para implementar estas pruebas hemos usado \code{hypothesis}, la biblioteca de referencia de pruebas basadas en propiedades para el lenguaje \code{python}. Es fácil de utilizar y presente algunas ventajas, como la búsqueda eficaz de casos extremos o la simplificación de casos que producen fallos. La hemos utilizado junto con el módulo \code{unittest} para organizar las pruebas en clases y permitir su ejecucción forma automática. Nótese que pare ejecutar los scripts con las pruebas debe tener instalado \code{hypothesis}.
 

@@ -10,10 +10,8 @@
 
 Las curvas elípticas han sido estudiadas por los matemáticos desde la antigüedad y se han utilizado para resolver un abanico variado de problemas. Un ejemplo es el problema de los números congruentes que pregunta por la clasificación de los enteros positivos que aparecen como el aréa de un triangulo rectángulo cuyos lados sean números racionales. Otro ejemplo ha sido el Último Teorema de Fermat que afirma que la ecuación $x^n + y^n = z^n$ no tiene soluciones no triviales para $x, y$ y $z$ cuando $n$ es más grande que 2.
 
-% TODO: a finales de la decada?
 La aplicación de las curvas elípticas en la criptografía vino mucho después. En 1985, Neal Koblitz y Victor Miller propusieron independientemente utilizar las curvas elípticas para diseñar sistemas criptográficos de llave pública. Desde entonces, se han publicando una gran cantidad de estudios sobre la seguridad y la eficiencia de las implementaciones de la criptografía con curvas elípticas. A finales de la década de los 90, los sistemas con curvas elípticas empezaron a recibir aceptación comercial cuando organizaciones de estándares acreditadas especificaron protocolos con curvas elípticas y compañías privadas incluyeron dichos protocolos en sus productos de seguridad.
 
-% TODO: debería citaar
 Recientemente, se ha comenzado a investigar el uso de curvas hiperelípticas, una generalización de las curvas elíptipcas, para aplicarlas a sistemas criptográficos de llave pública. Sin embargo, estos sistemas son menos seguros o son menos eficientes que los sistemas que usan curvas elípticas.
 
 Uno de los principales problemas al que se enfrenta la criptografía con curvas elípticas, y los principales criptosistemas de llave pública, son los ordenadores cuánticos. En 1994, Shor presentó un algoritmo para un ordenador cuántico capaz de calcular logaritmos discretos y factorizar enteros, principales problemas matemáticos en los que se basa la criptografía de llave pública, de forma eficiente. Sin embargo, hasta la fecha no se ha podido construir un ordenador cuántico con la capacidad suficiente para resolver instancias de estos problemas no triviales.
@@ -27,13 +25,10 @@ El problema abordado ha sido la realización de un estudio teórico-práctico so
 
 En el estudio teórico, se abarca la teoría de curvas elípticas desde un punto de vista formal y riguroso. En primer lugar, se tratan las curvas elípticas sobre un cuerpo arbitrario y posteriormente se particulariza a curvas elípticas sobre cuerpos finitos.
 
-% TODO: dejar en ingles?
-%  ya que la literatura sobre este campo es muy extensa.
 Nótese que un estudio exhaustivo sobre la teoría de curvas elípticas hubiera sido inviable debido a la enorme extensión que cubre este campo. Serge Lang, autor de esta materia, escribió en la introducción de uno de sus libros: <<It is possible to write endlessly on elliptic curves>>. Por ello, hemos elegido la parte más representativa de esta materia en relación con su aplicación en la criptografía.
 
 En el estudio práctico, se introduce la criptografía de llave pública con curvas elípticas y se hace énfasis en cuestiones de seguridad y de implementación además de explicar algunos ejemplos de esquemas criptográficos con curvas elípticas. Análogamente al estudio teórico, la criptografía con curvas elípticas es un campo muy amplio y de la multitud de aspectos técnicos presentes hemos abarcado los más cruciales.
 
-% TODO: revisar frase (sobre todo el así..)
 Por ultimo, se ha desarrollado un programa informático que implementa diversos protocolos criptográficos con curvas elípticas y así aplicar el estudio teórico-práctico realizado. Este programa también permite hacer cálculos con curvas elípticas y cuerpos finitos y ha sido ampliamente testado y bien documentado.
 
 \section{Técnicas matemáticas e informáticas}
@@ -76,26 +71,20 @@ Estas tablas no pretenden ser exhaustivas, sino mostrar una idea de los conocimi
 
 Como todas las herramientas listadas en las tablas \ref{tab:Herramientas matemáticas utilizadas} y \ref{tab:Herramientas informáticas utilizadas} se explican en las enseñanzas del doble grado, no volveremos a explicar dichas herramientas y nos limitaremos a utilizarlas, haciendo énfasis en los nuevos conceptos, técnicas y resultados.
 
-% TODO: poner que estos conceptos aparecen en las materias del grado
 
 \section{Contenido de la memoria}
 \label{sub:Contenido de la memoria}
-
-% TODO: incluir cap 1 con objetivos.
 
 En el capítulo~\ref{ch:Desarrollo matemático} se realiza el estudio matemático-teórico sobre curvas elípticas. Incluye el desarrollo de la teoría básica en el apartado~\ref{sec:Teoría básica de curvas elípticas}, los puntos de torsión se abarcan en el apartado~\ref{sec:Puntos de torsión} y por último se particulariza la teoría de curvas elípticas sobre cuerpos finitos en el apartado~\ref{sec:Curvas elípticas sobre cuerpos finitos}.
 
 En el capítulo~\ref{ch:Desarrollo informático} se realiza el el desarrollo informático sobre criptografía con curvas elípticas. Incluye una introducción sobre criptografía asimétrica con curvas elípticas en el apartado~\ref{sec:Criptografía con curvas elípticas}, se explican diversos protocolos criptografícos con curvas elípticas en el apartado~\ref{sec:Protocolos criptográficos} y por último en el apartado~\ref{sec:Criptografía con curvas elípticas con Python} se abarca el programa desarrollado para trabajar con curvas elípticas y protocolos criptográficos.
 
-% TODO: ref, cambiar ref de bibliografía por page ref.
-Finalmente, el capítulo~\ref{} contiene las conclusiones y el capítulo abarca la bibliografía utiliada. Además se incluye en el anexo un breve análisis del cifrado
-de diversas páginas web de la Universidad de Granada en el capítulo~\ref{}.
+% TODO: ref, ver si bibliografía abarca una página o dos
+Finalmente, el capítulo~\ref{ch:Conclusiones y vías futuras} contiene las conclusiones y las vías futuras. La bibliografía utilizada se abarca en la página~\pageref{app:bibliography}. Además se incluye en el anexo un breve análisis del cifrado de diversas páginas web de la Universidad de Granada en el capítulo~\ref{}.
 
 
 \section{Principales fuentes}
 \label{sub:Principales fuentes}
 
-% Citar las principales fuentes consultadas.
-% TODO: ref,  cambiar ref de bibliografía por page ref.
-% TODO: expandir?
-Las principales fuentes consultadas han sido \cite{Washington:2008}, \cite{Hankerson:2003}, \cite{Silverman:2009} y \cite{Menezes:1996}. El capítulo~\ref{} incluye toda la bibliografía utilizada.
+% TODO: ref, ver si bibliografía abarca una página o dos
+Las principales fuentes consultadas han sido \cite{Washington:2008}, \cite{Hankerson:2003}, \cite{Silverman:2009} y \cite{Menezes:1996}. Sin embargo, un listado más completo de todas las fuentes consultadas pueden encontrar en la página~\pageref{app:bibliography}.
