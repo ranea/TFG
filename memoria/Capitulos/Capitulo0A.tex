@@ -1,0 +1,65 @@
+%********************************************************************
+% Apéndice
+%*******************************************************
+\chapter{Cifrado de las páginas web de la UGR}
+
+% If problems with the headers: get headings in appendix etc. right
+%\markboth{\spacedlowsmallcaps{Appendix}}{\spacedlowsmallcaps{Appendix}}
+
+Como aplicación del estudio teórico-práctico realizado en los capítulos \ref{ch:Desarrollo matemático} y \ref{ch:Desarrollo informático}, hemos considerado de interés hacer un estudio preliminar sobre el cifrado de algunas páginas web de la Universidad de Granada.
+
+En un primer momento pensábamos que, en atención a las políticas de seguridad y no difusión de datos personales, aquellas páginas que tienen acceso a información reservada estaban protegidas. Sin embargo, hemos comprobado que algunas de ellas presentan vulnerabilidades.
+
+Un listado de las páginas visitadas a fecha 30/03/2016 junto con los fallos de seguridad encontrados se presenta a continuación.
+
+\section*{Páginas web vulnerables}
+
+\subsection*{Primer fallo de seguridad encontrado}
+
+El primer y principal fallo de seguridad que hemos encontrado ha sido la inexistencia de cifrado en el envío de credenciales de las siguientes páginas web:
+
+\begin{itemize}
+  %\setlength\itemsep{0.1em}
+  \item \url{http://fciencias.ugr.es}
+  \item \url{http://etsiit.ugr.es}
+  \item \url{http://grados.ugr.es/informaticaymatematicas}
+  \item \url{http://grados.ugr.es/informatica}
+  \item \url{http://grados.ugr.es/matematicas}
+  \item \url{http://sucre.ugr.es} (incluyendo \url{http://fciencias.ugr.es/aulas/} y la página de reserva de aulas accesible via \url{http://etsiit.ugr.es})
+  \item \url{http://calidad.ugr.es}
+  \item \url{http://secretariageneral.ugr.es}
+  \item \url{http://archivo.ugr.es}
+  \item \url{http://catedras.ugr.es}
+  \item \url{http://cicode.ugr.es}
+  \item \url{http://editorial.ugr.es}
+  \item \url{http://unidadigualdad.ugr.es}
+  \item \url{http://biotic.ugr.es/pages/intranet}
+  \item \url{http://internacional.ugr.es}
+  \item \url{http://ssprl.ugr.es}
+\end{itemize}
+
+Las páginas anteriores disponen de un apartado de \emph{login} y como solo está disponible el protocolo \code{HTTP}  en vez del protocolo \code{HTTPS} , las credenciales podrían ser interceptadas por un usuario malicioso.
+
+Como caso real, supongamos un usuario conectado a la \emph{cvi-ugr} o a otra red wifi pública. Si este ingresara sus credenciales en alguna de las páginas anteriores y en ese momento hubiera un usuario malicioso analizando los paquetes de la red, el usuario malicioso obtendría fácilmente sus credenciales. De hecho, hoy en día existen programas como Wireshark que hacen del análisis de paquetes una tarea muy sencilla.
+
+La solución a este fallo de seguridad es deshabilitar \code{HTTP}  y utilizar para estas páginas \code{HTTPS}  exclusivamente.
+
+Además, suponemos que la lista es mucho más extensa, ya que:
+\begin{itemize}
+  \item Al igual que \href{http://fciencias.ugr.es}{fciencias.ugr.es} y \href{http://etsiit.ugr.es}{etsiit.ugr.es}, las páginas web de muchos otros centros presentan el mismo fallo.
+  \item Al igual que \href{http://grados.ugr.es/informatica}{grados.ugr.es/informatica}, \href{http://grados.ugr.es/matematicas}{grados.ugr.es/matematicas} y \href{http://grados.ugr.es/informaticaymatematicas}{grados.ugr.es/informaticaymatematicas}, las páginas web de muchos otros grados presentan el mismo fallo.
+\end{itemize}
+
+\subsection*{Segundo fallo de seguridad encontrado}
+
+El segundo fallo de seguridad que hemos encontrado ha sido la coexistencia de envío de credenciales cifradas y no cifradas de las siguientes páginas web:
+
+\begin{itemize}
+  \item \url{http://oficinavirtual.ugr.es/ai}
+  \item \url{http://sede.ugr.es/sede/mis-procedimientos/index.html} (eligiendo sin certificado digital)
+\end{itemize}
+Las páginas anteriores se pueden usar tanto con el protocolo \code{HTTP}  como con el protocolo \code{HTTPS} . De este modo, si se utilizan con el protocolo \code{HTTP}  presentan el mismo fallo que el anterior conjunto de páginas web.
+
+La solución es más sencilla ya que al estar implementado el acceso por \code{HTTPS}  para estas web, solo hay que deshabilitar \code{HTTP}, dejando  \code{HTTPS}  como la única opción.
+
+Nótese que aunque este listado es más breve contiene una de las páginas más críticas de la UGR, \href{http://oficinavirtual.ugr.es/ai}{oficinavirtual.ugr.es/ai}.
