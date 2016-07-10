@@ -8,18 +8,52 @@
 %\markboth{\spacedlowsmallcaps{Appendix}}{\spacedlowsmallcaps{Appendix}}
 
 \begin{center}
-  \spacedlowsmallcaps{Estudio del cifrado de algunas páginas web de la Universidad de Granada}
+  \spacedlowsmallcaps{Estudio del envío de credenciales en las páginas web de la Universidad de Granada}
 \end{center}
 
-Como aplicación del estudio teórico-práctico realizado en los capítulos \ref{ch:Desarrollo matemático} y \ref{ch:Desarrollo informático}, hemos considerado de interés hacer un estudio preliminar sobre el cifrado de algunas páginas web de la Universidad de Granada.
+Como aplicación del estudio teórico-práctico realizado en los capítulos \ref{ch:Desarrollo matemático} y \ref{ch:Desarrollo informático}, hemos considerado de interés realizar un estudio sobre el cifrado de las páginas web de la Universidad de Granada. Específicamente, veremos si la transmisión de datos sensibles está cifrada o no.
 
-En un primer momento pensábamos que, en atención a las políticas de seguridad y no difusión de datos personales, aquellas páginas que tienen acceso a información reservada estaban protegidas. Sin embargo, hemos comprobado que algunas de ellas presentan vulnerabilidades.
+Antes de presentar este estudio, es necesario introducir brevemente el protocolo \code{HTTPS}.
+
+\section{Introducción a HTTPS}
+
+\code{HTTP} (Hypertext Transfer Protocol) es el protocolo de navegación web más utilizado. Una característica de este protocolo es que envía la información en texto claro, esto es, cualquiera que intercepte el tráfico de red puede leer lo que se está enviando y recibiendo.
+
+Por esta razón, se desarrolló \code{HTTPS} (Hypertext Transfer Protocol Secure), un protocolo de red basado en \code{HTTP} para la transferencia segura de datos. \code{HTTPS} utiliza los protocolos criptográficos \code{SSL/TLS} de la capa de transporte para cifrar el tráfico \code{HTTP}. A nivel más técnico, \code{HTTPS} asegura no solo confidencialidad, sino también autenticación y previene de numerosos ataques como el ataque del hombre en el medio.
+
+\subsection{Ejemplo de ataque sobre HTTP}
+\label{sub:Ejemplo de ataque sobre HTTP}
+
+El ejemplo más característico es el siguiente. Supongamos que un usuario conectado a una red wifi abierta accede a una página web mediante \code{HTTP}. Si esta pagina le solicitara al usuario unas credenciales, el usuario las introduciera  y en ese momento un usuario malicioso estuviera analizando los paquetes de la red, el usuario malicioso obtendría fácilmente sus credenciales. De hecho, hoy en día existen programas como \code{Wireshark} \footnote{\url{https://www.incibe.es/CERT/guias_estudios/guias/guia_wireshark}} que hacen del análisis de paquetes una tarea muy sencilla.
+
+La enorme facilidad para llevar a cabo este tipo de ataques y el hecho de que los usuarios no son conscientes de los riesgos \footnote{\url{https://www.osi.es/es/wifi-publica.html}} que supone conectarse a una red wifi abierta, hacen de esta vulnerabilidad un problema serio.
+
+\subsection{Importancia de HTTPS}
+\label{sub:Importancia de HTTPS}
+
+Organizaciones internacionales de prestigio como OWASP  \footnote{\url{https://www.owasp.org/index.php/Transport_Layer_Protection_Cheat_Sheet}} o españolas como INCIBE \footnote{\url{https://www.incibe.es/CERT/guias_estudios/guias/guia_sesiones_web}} recomiendan el uso de \code{HTTPS} \emph{como mínimo} en las páginas donde se envíe información sensible.
+
+En un estudio \footnote{\url{https://www.owasp.org/index.php/Top_10_2010-A9-Insufficient_Transport_Layer_Protection}} realizado por OWASP en el año 2010, el noveno riesgo más importante de las aplicaciones web fue la \emph{Protección Insuficiente en la Capa de Transporte}, esto es, cuando el tráfico entre el servidor y el navegador no está protegido debido a la ausencia de cifrado o una mala configuración de los protocolos \code{SSL/TLS}.
+
+Es más, OWASP cataloga como vulnerabilidad \footnote{\url{https://www.owasp.org/index.php/Insecure_Transport}} la ausencia de cifrado en una página web.
+
+Por ello, todos los administradores de sitios web que requieran a los usuarios información sensible, deberían configurar el acceso a dichas páginas mediante \code{HTTPS} sobre \code{SSL/TLS}.
+
+\subsection{Como comprobar si una página utiliza HTTPS}
+\label{sub:Como comprobar si una página utiliza HTTPS}
+
+Por desgracia, no todos los sitios web siguen esta medida de seguridad. Por ello, se recomienda que los usuarios sean capaces de reconocer si una página cifra las comunicaciones y en caso negativo, no enviar ningún tipo de dato sensible. La Oficina de Seguridad del Internauta \footnote{\url{https://www.osi.es/es/actualidad/blog/2014/02/28/que-pasa-si-una-pagina-web-no-utiliza-https.html}} ofrece más información al respecto.
+
+En el estudio sobre las páginas web de la Universidad de Granada que hemos realizado, se ha seguido el método descrito por OWASP  \footnote{\url{https://www.owasp.org/images/5/52/OWASP_Testing_Guide_v4.pdf}} para testear el transporte de credenciales. Básicamente, mediante un enfoque de \emph{caja negra} y
+el uso del proxy web \code{WebScarab}, se ha simulado la introducción de credenciales y se ha observado las cabeceras de los paquetes para ver si se transmitían mediante \code{HTTP} o \code{HTTPS}.
+
+\section{Estudio de las páginas web de la UGR}
+
+En un primer momento pensábamos que, en atención a las políticas de seguridad y no difusión de datos personales, las páginas de la Universidad de Granada que requerían información sensible estarían protegidas. Sin embargo, hemos comprobado que algunas de ellas no lo están.
 
 Un listado de las páginas visitadas a fecha 30/03/2016 junto con los fallos de seguridad encontrados se presenta a continuación.
 
-\section*{Páginas web vulnerables}
-
-\subsection*{Primer fallo de seguridad encontrado}
+\subsection{Primer fallo de seguridad encontrado}
 
 El primer y principal fallo de seguridad que hemos encontrado ha sido la inexistencia de cifrado en el envío de credenciales de las siguientes páginas web:
 
@@ -42,20 +76,18 @@ El primer y principal fallo de seguridad que hemos encontrado ha sido la inexist
   \item \url{http://internacional.ugr.es}
   \item \url{http://ssprl.ugr.es}
 \end{itemize}
-
-Las páginas anteriores disponen de un apartado de \emph{login} y como solo está disponible el protocolo \code{HTTP}  en vez del protocolo \code{HTTPS} , las credenciales podrían ser interceptadas por un usuario malicioso.
-
-Como caso real, supongamos un usuario conectado a la \emph{cvi-ugr} o a otra red wifi pública. Si este ingresara sus credenciales en alguna de las páginas anteriores y en ese momento hubiera un usuario malicioso analizando los paquetes de la red, el usuario malicioso obtendría fácilmente sus credenciales. De hecho, hoy en día existen programas como Wireshark que hacen del análisis de paquetes una tarea muy sencilla.
-
-La solución a este fallo de seguridad es deshabilitar \code{HTTP}  y utilizar para estas páginas \code{HTTPS}  exclusivamente.
-
-Además, suponemos que la lista es mucho más extensa, ya que:
+Suponemos que la lista es mucho más extensa, ya que:
 \begin{itemize}
   \item Al igual que \href{http://fciencias.ugr.es}{fciencias.ugr.es} y \href{http://etsiit.ugr.es}{etsiit.ugr.es}, las páginas web de muchos otros centros presentan el mismo fallo.
   \item Al igual que \href{http://grados.ugr.es/informatica}{grados.ugr.es/informatica}, \href{http://grados.ugr.es/matematicas}{grados.ugr.es/matematicas} y \href{http://grados.ugr.es/informaticaymatematicas}{grados.ugr.es/informaticaymatematicas}, las páginas web de muchos otros grados presentan el mismo fallo.
 \end{itemize}
 
-\subsection*{Segundo fallo de seguridad encontrado}
+Las páginas anteriores disponen de un apartado de \emph{login} y como solo está disponible el protocolo \code{HTTP}  en vez del protocolo \code{HTTPS} , las credenciales podrían ser interceptadas por un usuario malicioso.
+
+Como ya hemos comentado, la solución es deshabilitar \code{HTTP} y utilizar para estas páginas \code{HTTPS}  como método exclusivo de acceso.
+
+
+\subsection{Segundo fallo de seguridad encontrado}
 
 El segundo fallo de seguridad que hemos encontrado ha sido la coexistencia de envío de credenciales cifradas y no cifradas de las siguientes páginas web:
 
@@ -64,8 +96,8 @@ El segundo fallo de seguridad que hemos encontrado ha sido la coexistencia de en
   \item \url{http://oficinavirtual.ugr.es/ai}
   \item \url{http://sede.ugr.es/sede/mis-procedimientos/index.html} (eligiendo sin certificado digital)
 \end{itemize}
-Las páginas anteriores se pueden usar tanto con el protocolo \code{HTTP}  como con el protocolo \code{HTTPS} . De este modo, si se utilizan con el protocolo \code{HTTP}  presentan el mismo fallo que el anterior conjunto de páginas web.
+Las páginas anteriores se pueden acceder tanto con el protocolo \code{HTTP}  como con el protocolo \code{HTTPS}. De este modo, si se acceden mediante \code{HTTP} , presentan la misma vulnerabilidad que el conjunto anterior de páginas web.
 
-La solución es más sencilla ya que al estar implementado el acceso por \code{HTTPS}  para estas web, solo hay que deshabilitar \code{HTTP}, dejando  \code{HTTPS}  como la única opción.
+La solución es más sencilla. Basta deshabilitar \code{HTTP} y dejar \code{HTTPS}  como el único método de acceso.
 
 Nótese que aunque este listado es más breve contiene una de las páginas más críticas de la UGR, \href{http://oficinavirtual.ugr.es/ai}{oficinavirtual.ugr.es/ai}.
