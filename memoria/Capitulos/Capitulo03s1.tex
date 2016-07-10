@@ -8,7 +8,7 @@ En esta sección trataremos las ventajas de los sistemas basados en curvas elíp
 
 En los esquemas criptográficos de llave pública, la pareja de llaves se selecciona de tal modo que el problema de calcular la llave privada a partir de la pública sea equivalente a resolver un problema computacional intratable. Los dos principales problemas intratables usados en los sistemas de llave pública son:
 \begin{itemize}
-    \item El problema de factorización enteros.
+    \item El problema de factorización de enteros.
     \item El problema del logaritmo discreto, tratado en el apartado~\ref{sub:Problema del logaritmo discreto}.
 \end{itemize}
 
@@ -40,7 +40,7 @@ Las ventajas en el uso de parámetros más pequeños incluyen velocidad (cálcul
 Como ya introducimos en el apartado anterior, la dificultad del problema del logaritmo discreto es la base para la seguridad de la criptografía asimétrica sobre curvas elípticas.
 
 \begin{definicion}
-    El \emph{problema del logaritmo discreto sobre curvas elípticas (ECDLP)} es: dado una curva elíptica $E$ definida sobre un cuerpo finito $\Fq$, un punto $P \in E(\Fq)$ de orden $n$ y un punto $Q \in \langle P \rangle$, encontrar el entero $k \in [0, n - 1]$ tal que $Q = k P$. El entero $k$ se llama el \emph{logaritmo discreto de $Q$ respecto a la base $P$} y se denota $k = \log_p Q$.
+    El \emph{problema del logaritmo discreto sobre curvas elípticas (ECDLP)} es: dada una curva elíptica $E$ definida sobre un cuerpo finito $\Fq$, un punto $P \in E(\Fq)$ de orden $n$ y un punto $Q \in \langle P \rangle$, encontrar el entero $k \in [0, n - 1]$ tal que $Q = k P$. El entero $k$ se llama el \emph{logaritmo discreto de $Q$ respecto a la base $P$} y se denota $k = \log_p Q$.
 \end{definicion}
 
 El ataque más simple para resolver el ECDLP es el ataque por \emph{fuerza bruta}, esto es, probar todos los valores posibles de $k$ hasta dar con el válido. El tiempo de ejecucción es aproximadamente $n$ pasos en el peor caso y $n / 2$ pasos en el caso medio. Así, el ataque por fuerza bruta puede ser evitado tomando puntos base cuyo orden $n$ sea suficientemente largo (p. ej. $n > 2^{80}$).
@@ -73,10 +73,10 @@ Por otro lado, los parámetros de dominio se pueden elegir de algún \emph{está
 \subsection{Generación de llaves}
 \label{sub:Pareja de llaves}
 
-En los protocolos que vamos a ver, cada participante dispondrá de una pareja de llaves: una llave privada (conocida solo por dicho participante) y una llave pública (publicada al resto de participantes). Esta pareja de llaves estará asociada a unos parámetros de dominio particulares. Para generar la pareja de llaves, se elige un punto aleatorio $Q$ en el grupo $\langle P \rangle$. La correspondiente llave privada es $d = \log_p Q$.
+En los protocolos que vamos a ver, cada participante dispondrá de una pareja de llaves: una llave privada (conocida solo por dicho participante) y una llave pública (publicada al resto de participantes). Esta pareja de llaves estará asociada a unos parámetros de dominio particulares. Para generar la pareja de llaves, se elige un punto aleatorio $Q = d P$ en el grupo $\langle P \rangle$. La correspondiente llave privada es $d = \log_p Q$.
 
 \begin{algoritmo}\label{alg:pareja de llaves}
-    Sea $D = (q, a, b, P, n)$ los parámetros de dominios. Los pasos para generar una pareja de llaves son:
+    Sea $D = (q, a, b, P, n)$ los parámetros de dominio. Los pasos para generar una pareja de llaves son:
     \begin{enumerate}
         \item Seleccionar $d \in [1, n -1]$ aleatoriamente.
         \item Calcular $Q = d P$.
@@ -84,7 +84,7 @@ En los protocolos que vamos a ver, cada participante dispondrá de una pareja de
     \end{enumerate}
 \end{algoritmo}
 
-Nótese que el problema de calcular la llave privada a partir de la llave pública es precisamente el ECDLP. Por eso es crucial que los parámetros de dominio sean seleccionados de tal forma que el ECDLP sea intratable. Además, es necesario que los participantes validen las llave públicas en todo procedimiento ya que existen ataques efectivos si no se hace algunas comprobaciones~\cite[cap. 4]{Hankerson:2003}.
+Nótese que el problema de calcular la llave privada a partir de la llave pública es precisamente el ECDLP. Por eso es crucial que los parámetros de dominio sean seleccionados de tal forma que el ECDLP sea intratable. Además, es necesario que los participantes validen las llave públicas en todo procedimiento ya que existen ataques efectivos si no se hacen algunas comprobaciones~\cite[cap. 4]{Hankerson:2003}.
 
 \section{Protocolos criptográficos}
 \label{sec:Protocolos criptográficos}

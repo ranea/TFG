@@ -3,7 +3,7 @@
 \section{Curvas elípticas sobre cuerpos finitos}
 \label{sec:Curvas elípticas sobre cuerpos finitos}
 
-Sea $\Fq$ un cuerpo finito de $q$ elementos, donde $q$ es la potencia $n$-ésima de un primo $p$ y sea $E$ una curva elíptica definida sobre $\Fq$. Como el número de pares $(x, y)$ con $x, y \in \Fq$ es finito, el grupo de puntos $E(\Fq)$ es finito. En este aparatado estudiaremos las propiedades de este grupo, como el orden, que serán importantes en muchos contextos.
+Sea $\Fq$ un cuerpo finito de $q$ elementos, donde $q$ es la potencia $n$-ésima de un primo $p$ y sea $E$ una curva elíptica definida sobre $\Fq$. Como el número de pares $(x, y)$ con $x, y \in \Fq$ es finito, el grupo de puntos $E(\Fq)$ es finito. En este apartado estudiaremos propiedades de este grupo, como el orden, que serán importantes en muchos contextos.
 
 Los dos resultados más importantes se dan en los siguientes dos teoremas.
 
@@ -19,7 +19,7 @@ Como $E(\Fq)$ es un grupo abeliano finito, será isomorfo a una suma directa de 
 $$
 	\mathbb{Z}_{n_1} \oplus \mathbb{Z}_{n_2} \oplus \dots \mathbb{Z}_{n_r}
 $$
-con $n_i \mid n_{i+1}$. Como, para cada $i$, el grupo $Z_{n_i}$ tiene $n_1$ elementos de orden un divisor de $n_1$, tenemos que $E(\Fq)$ tiene $n_1^r$ elementos de orden un divisor de $n_1$. Por el teorema~\ref{th:estructura subgrupos torsión}, hay hasta $n_1^2$ (incluso si permitimos coordenadas en la clausura algebraica de $\Fq$). Por tanto, $r \le 2$.
+con $n_i \mid n_{i+1}$. Como, para cada $i$, el grupo $Z_{n_i}$ tiene $n_1$ elementos de orden $n_1$, tenemos que $E(\Fq)$ tiene $n_1^r$ elementos de orden un divisor de $n_1$. Por el teorema~\ref{th:estructura subgrupos torsión}, hay hasta $n_1^2$ (incluso si permitimos coordenadas en la clausura algebraica de $\Fq$). Por tanto, $r \le 2$.
 \end{proof}
 
 \begin{teorema}[Teorema de Hasse]\label{th:teorema de Hasse}
@@ -67,7 +67,7 @@ Sea $E$ una curva elíptica definida por la ecuación $y^2 + x y = x^3 + a x^2 +
 \subsection{Endomorfismo de Frobenius}
 \label{sub:Endomorfismo de Frobenius}
 
-En este apartado veremos un ejemplo importante de endomorfismo. Jugará una papel crucial en la teoría de curvas elípticas sobre cuerpos finitos.
+En este apartado veremos un ejemplo importante de endomorfismo, que es la generalización el endomorfismo de Frobenius sobre cuerpos de caracterítica $p$, y que jugará un papel crucial en la teoría de curvas elípticas sobre cuerpos finitos.
 
 \begin{proposicion}
 	Sea $E$ una curva elíptica definida sobre un cuerpo finito $\Fq$. La aplicación definida por
@@ -77,7 +77,7 @@ En este apartado veremos un ejemplo importante de endomorfismo. Jugará una pape
 	es un endomorfismo y se llama \emph{endormofirsmo de Frobenius}.
 \end{proposicion}
 \begin{proof}
-Veamos primero que $\phiq(x, y) \in \EFqca$. Usaremos las siguientes propiedades de los cuerpos finitos:
+Veamos primero que $\phiq(x, y) \in \EFqca$. Usaremos las siguientes propiedades de los cuerpos finitos de característica $p$:
 \begin{align*}
 	(a + b)^q &= a^q + b^q, \ \forall a, b \in \Fqca \\
 	a^q &= a, \ \forall a \in \Fq.
@@ -120,7 +120,7 @@ Nótese que este endomorfismo no es más que aplicar el \emph{automorfismo de Fr
 	\Fqca &\to \Fqca \\
 	x &\mapsto x^q
 \end{align*}
-sobre las componentes de un punto. Veamos ahora una cuantas propiedades de este endomorfismo.
+sobre las componentes de un punto. Veamos ahora unas cuantas propiedades de este endomorfismo.
 
 \begin{lema}\label{lm:elementos fijos endomorfismo Frobenius}
 	Sea $E$ una curva elíptica definida sobre un cuerpo finito $\Fq$ y sea $(x, y) \in \EFqca$. Entonces
