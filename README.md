@@ -1,8 +1,20 @@
-# TFG
-Criptografía con Curvas Elípticas
+# Trabajo Fin de Grado
 
-Este README será completado una vez termine la redacción de la memoria.
+## Criptografía con Curvas Elípticas
 
-Mientras tanto, puedes ver la memoria [aquí](memoria/memoria.pdf).
+En este trabajo se estudia la criptografía asimétrica basada en 
+curvas elípticas, sus protocolos criptográficos y se explica el programa
+informático desarrollado para trabajar con curvas elípticas y esquemas 
+criptográficos.
 
-Gracias a [@agarciamontoro](https://github.com/agarciamontoro) por enseñarme la plantilla *classicthesis*.
+Se empieza estudiando las curvas elípticas sobre un cuerpo arbitrario 
+y se particulariza a cuerpos finitos. Posteriormente, se introduce
+la criptografía de llave pública con curvas elípticas y se tratan 
+cuestiones de seguridad y de implementación además de ejemplos de
+esquemas criptográficos. Finalmente, se explica el proceso de diseño,
+implementación, testeo y documentación del programa informático
+desarrollado.
+
+Enlaces:
+- [Memoria](memoria/memoria.pdf)
+- [Programa desarrollado](https://github.com/ranea/ccepy)
