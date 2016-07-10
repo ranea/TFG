@@ -1,6 +1,6 @@
 # Trabajo Fin de Grado
 
-## Criptografía con Curvas Elípticas
+## Curvas Elípticas en Criptografía
 
 En este trabajo se estudia la criptografía asimétrica basada en 
 curvas elípticas, sus protocolos criptográficos y se explica el programa
