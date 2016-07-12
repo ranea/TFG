@@ -1,0 +1,104 @@
+% Ejemplos de diapositivas
+
+\begin{frame}[fragile]{Titulo}
+    \begin{verbatim}Verbatim necesita [fragile]\end{verbatim}
+\end{frame}
+
+\begin{frame}{Tabla de contenidos}
+    \setbeamertemplate{section in toc}[sections numbered]
+    \tableofcontents[hideallsubsections]
+\end{frame}
+
+\begin{frame}{Tipografía}
+    \begin{itemize}
+        \item \emph{emphasize}
+        \item \alert{accent}
+        \item \textbf{bold}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Formatos de letra}
+    \begin{itemize}
+        \item Regular
+        \item \textit{Italic}
+        \item \textsc{SmallCaps}
+        \item \textbf{Bold}
+        \item \textbf{\textit{Bold Italic}}
+        \item \textbf{\textsc{Bold SmallCaps}}
+        \item \texttt{Monospace}
+        \item \texttt{\textit{Monospace Italic}}
+        \item \texttt{\textbf{Monospace Bold}}
+        \item \texttt{\textbf{\textit{Monospace Bold Italic}}}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Columnas}
+    \begin{columns}[T,onlytextwidth]
+        \column{0.5\textwidth}
+        Una columna
+
+        \column{0.5\textwidth}
+        Otra columna
+    \end{columns}
+\end{frame}
+
+\begin{frame}{Animaciones}
+    \begin{itemize}[<+- | alert@+>]
+        \item \alert<4>{This is\only<4>{ really} important}
+        \item Now this
+        \item And now this
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Tablas}
+    \begin{table}
+        \caption{Largest cities in the world (source: Wikipedia)}
+        \begin{tabular}{lr}
+            \toprule
+            City & Population\\
+            \midrule
+            Mexico City & 20,116,842\\
+            Shanghai & 19,210,000\\
+            \bottomrule
+        \end{tabular}
+    \end{table}
+\end{frame}
+
+\begin{frame}{Bloques}
+    \begin{block}{Default}
+        Block content.
+    \end{block}
+
+    \begin{alertblock}{Alert}
+        Block content.
+    \end{alertblock}
+
+    \metroset{block=fill}
+
+    \begin{exampleblock}{Example}
+        Block content.
+    \end{exampleblock}
+\end{frame}
+
+\begin{frame}{Quotes}
+    \begin{quote}
+        Veni, Vidi, Vici
+    \end{quote}
+\end{frame}
+
+{%
+\setbeamertemplate{frame footer}{Un ejemplo de footer}
+\begin{frame}{Ejemplo de footer}
+\end{frame}
+}
+
+\begin{frame}[standout]
+  ¿Preguntas?
+\end{frame}
+
+\begin{frame}[allowframebreaks]{Referencias}
+    \nocite{...}
+
+  \bibliography{demo}
+  \bibliographystyle{abbrv}
+\end{frame}
