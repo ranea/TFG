@@ -22,6 +22,7 @@
 % Otros
 % \usepackage{appendixnumberbeamer} TODO: usar si se añaden referencias
 \usepackage{booktabs} % tabular
+\usepackage{tabularx} % tabularx
 
 % Comandos
 \let\emph\relax
@@ -176,7 +177,7 @@
         \alpha(x, y) = (r_1(x), r_2(x) y).
     $$
 
-	El \emph{grado} de un endomorfismo $\alpha$ es el grado de $r_1$.
+	El \emph{grado} de $\alpha$ es el grado de $r_1$.
 
     $\alpha$ es \emph{separable} si la derivada $r_1(x)'$ no es idénticamente cero.
 
@@ -315,16 +316,117 @@ cuerpos de caracterítica p. Se prueban numeros resultados sobre el endomorfismo
 
 \section{Criptografía con curvas elípticas}
 
-\begin{frame}{RSA vs ECC}
-\end{frame}
+\begin{frame}{Seguridad del ECDLP}
 
-\begin{frame}{El problema del logaritmo discreto sobre curvas elípticas}
+\begin{block}{El problema del logaritmo discreto sobre curvas elípticas}
+Dada una curva elíptica $E$ sobre $\Fq$, un punto $P \in E(\Fq)$ de orden $n$ y un punto $Q \in \langle P \rangle$, encontrar el entero $k \in [0, n - 1]$ tal que $Q = k P$.
+\end{block}
+
+\vfill
+
+Con las siguientes restricciones sobre los parámetros:
+\begin{itemize}
+    \item $n > 2^{80}$.
+    \item $p > 2^{160}$.
+    \item $|E(\Fq)| \neq q, q-1$.
+\end{itemize}
+se cree que el ECDLP es intratable para los ataques conocidos.
+
+\note[item]{La seguridad de la criptografía asimétrica sobre curvas elípticas se basa en el
+problema del logaritmo discreto.}
+
+\note[item]{ECDLP son las siglas en inglés del problema del log discreto sobre ce.}
+
+\note[item]{
+\begin{itemize}
+    \item n para evitar fuerza bruta
+    \item p para evitar el mejor ataque general sobre curvas elípticas, la combinación
+del algoritmo de Pohlig-Hellman y del algoritmo rho de Pollard
+    \item q (y otras más) para evitar ataques específicos más rápidos que el algoritmo rho de Pollard.
+\end{itemize}
+}
+
+\note[item]{lista no exhaustiva de restricciones, esas son las más importantes}
+
 \end{frame}
 
 \begin{frame}{Parámetros de dominio y pareja de llaves}
+
+Los participantes de un protocolo suelen acordar unos \emph{parámetros de dominio}:
+\begin{itemize}
+    \item Una curva elíptica $E$ definida sobre un cuerpo finito $\Fq$
+    \item Un punto base $P \in E(\Fq)$ junto a su orden $n$.
+\end{itemize}
+
+Además, cada uno dispone de una \emph{pareja de llaves}:
+\begin{itemize}
+    \item Una llave privada $d$
+    \item Una llave pública $Q$.
+\end{itemize}
+Para generar la pareja de llaves, se elige un punto aleatorio $Q = d P$ en el grupo $\langle P \rangle$. La correspondiente llave privada es $d = \log_p Q$.
+
+\note[item]{Estos parámetros comunes deben elegirse para que el ECDLP sea resistente a los ataques conocidos.}
+
+\note[item]{ una llave privada (conocida solo por dicho participante) y una llave pública (publicada al resto de participantes). Esta pareja de llaves estará asociada a unos parámetros de dominio particulares.}
+
+\note[item]{Nótese que el problema de calcular la llave privada a partir de la llave pública es precisamente el ECDLP. Por eso es crucial que los parámetros de dominio sean seleccionados de tal forma que el ECDLP sea intratable.}
 \end{frame}
 
+\begin{frame}{Porqué usar curvas elípticas en criptografía}
+Los dos principales problemas intratables usados en los sistemas de llave pública son:
+\begin{itemize}
+    \item El problema de factorización de enteros $\rightarrow$ RSA.
+    \item El problema del logaritmo discreto $\rightarrow$ ECC.
+\end{itemize}
+
+\uncover<2>{
+\begin{table}
+  \begin{tabularx}{\textwidth}{Xlllll} \toprule
+    & \multicolumn{5}{l}{Nivel de seguridad (bits)} \\
+     & 80 & 112 & 128 & 192 & 256 \\
+    \midrule
+    ECC (orden $n$)  & 160 & 224 & 256 & 384 & 514 \\
+    RSA (módulo $n$) & 1024 & 2048 & 3072 & 8192 & 15360 \\
+    \bottomrule
+    \end{tabularx}
+    \caption{Comparación de tamaños de parámetros para niveles de seguridad equivalentes.}
+\end{table}
+}
+
+\note[item]{En los esquemas criptográficos de llave pública, la pareja de llaves se selecciona de tal modo que el problema de calcular la llave privada a partir de la pública sea equivalente a resolver un problema computacional intratable. }
+\note[item]{Un ejemplo de sistema basado en el problema de la factorización es el sistema RSA mientras que un ejemplo basado en el problema del logaritmo discreto es la criptografía con curvas elípticas o ECC.}
+
+\note[item]{La tabla da estimaciones del tamaño en bits de los parámetros de estos sistemas bajo un mismo nivel de seguridad. Un \emph{nivel de seguridad} de $k$ bits implica que el mejor algoritmo para romper el sistema toma aproximadamente $2^k$ pasos.}
+\note[item]{
+Las comparaciones de la tabla demuestran para un nivel de seguridad dado, se puede usar parámetros más pequeños en los sistemas basados en curvas elípticas que en el sistema RSA. La diferencia del tamaño de los parámetros es especialmente pronunciada para altos niveles de seguridad.
+
+Las ventajas en el uso de parámetros más pequeños incluyen velocidad (cálculos más rápidos),  y llaves y certificados más pequeños. Los sistemas basados en curvas elípticas pueden ser importantes en entornos donde la potencia de cómputo, el almacenamiento o el ancho de banda sean limitados.
+}
+
+\end{frame}
+
+
 \begin{frame}{ECDH}
+    \textbf{Protocolo de Intercambio de Llaves Diffie-Hellman para Curvas Elípticas (ECDH)}
+    \begin{enumerate}
+        \item Alicia y Bob concuerdan unos parámetros de dominio $D = (q, a, b, P, n)$.
+        \item Alicia calcula su pareja de llaves $(Q_A, d_A)$.
+        \item Bob calcula su pareja de llaves $(Q_B, d_B)$.
+        \item Alicia y Bob intercambian sus llaves pública $Q_A, Q_B$.
+        \item Alicia calcula $d_A Q_B$ y Bob calcula $d_B Q_A$. Ambos cálculos devuelven el punto $(d_A d_B) P$.
+    \end{enumerate}
+
+\note[item]{
+La utilidad de este protocolo es que permite que Alicia y Bob intercambien una llave por un canal inseguro que pueda ser utilizada posteriormente para transmitir datos sobre un esquema de cifrado simétrico
+}
+
+\note[item]{El atacante, Eva, conoce los parámetros de dominio y las llaves públicas $Q_A$ y $Q_B$, por lo que si Eva fuera capaz de resolver el ECDLP podría encontrar las llaves privadas $d_A$ y $d_B$ y recuperar el punto secreto $(d_A d_B) P$. }
+
+\note[item]{
+Otro ejemplo de protocolo, el algoritmo de firma digital con curvas elípticas, ECDSA, se encuentra detallado igual que este en la memoria.
+}
+
+\note[item]{Aquí concluye el estuio de la criptografía con curvas elípticas. Pasamos a la implementación.}
 \end{frame}
 
 
@@ -333,9 +435,12 @@ cuerpos de caracterítica p. Se prueban numeros resultados sobre el endomorfismo
 \begin{frame}{Criptografía con Curvas Elípticas con Python}
     \begin{center}
         \includegraphics[scale=0.5]{Graficos/python.png}
+
+        \vspace{5mm}
+
+        \emph{ccepy} es una biblioteca escrita en python 3 para implementar técnicas de la criptografía con curvas elípticas.
     \end{center}
 
-    ccepy es una biblioteca escrita en python 3 para operar con el grupo de puntos de una curva elíptica y trabajar con protocolos criptográficos basados en curvas elípticas.
 
     \note[item]{El principal motivo para implementar un programa y no utilizar
 uno ya existente ha sido para aplicar los conceptos aprendidos en el
@@ -344,6 +449,7 @@ los apartados 4.1 y 4.2 del desarrollo informático. Sin embargo, y no
 menos importante, otro motivo era crear un programa libre y gratuito,
 fácil de entender y extender y con una documentación extensa en
 español.
+
 
 A diferencia de grandes soluciones como Magma o Sage, ccepy es
 framework minimalista, es decir, provee un conjunto de funcionalidades
@@ -443,12 +549,79 @@ dominio obtenidos de los estándares}
     \note[item]{Por ejemplo, dada la curva elíptica definida por la ecuación y2=x3+2x+3y sobre el cuerpo finito de 97 elementos F97F97, el siguiente trozo de código calcula la suma (0,10)+(3,6)}
 \end{frame}
 
-\section{Cifrado de las páginas de la UGR}
+\section{Estudio del cifrado de las páginas de la UGR}
 
-\begin{frame}{Introducción a HTTPS}
+\begin{frame}{HTTPS}
+    HTTP envía la información en \emph{texto claro}.
+
+    \textbf{Problema}: cualquiera que intercepte el tráfico de red puede leer lo que se está enviando y recibiendo.
+
+    \textbf{Solución}: HTTPS. Utiliza los protocolos criptográficos SSL/TLS de la capa de transporte para cifrar el tráfico HTTP.
+
+    \vfill
+
+    \uncover<2>{
+    \begin{center}
+        \textit{Todas las páginas web que requieran información sensible deberían utilizar HTTPS sobre SSL/TLS y no HTTP}.
+    \end{center}
+    }
+
+    \note[item]{
+    Supongamos que usuario conectado a una red wifi abierta accede a una página web
+    mediante HTTP. Si esta pagina le solicitara al usuario unas credenciales, el usuario las introduciera y en ese momento un usuario malicioso estuviera analizando los paquetes de la red, el usuario malicioso
+    obtendría fácilmente sus credenciales. De hecho, hoy en día existen
+    programas como Wireshark  que hacen del análisis de paquetes una
+    tarea muy sencilla.
+
+    La enorme facilidad para llevar a cabo este tipo de ataques y el hecho de que los usuarios no son conscientes de los riesgos 2 que supone conectarse a una red wifi abierta, hacen de esta vulnerabilidad un problema serio.
+    }
+    \note[item]{
+    Organizaciones internacionales de prestigio como OWASP  o españolas como INCIBE recomiendan el uso de HTTPS como mínimo en las páginas donde se envíe información sensible.
+
+    En un estudio realizado por OWASP en el año 2010, el noveno riesgo más importante de las aplicaciones web fue la Protección Insuficiente en la Capa de Transporte
+
+    Es más, OWASP cataloga como vulnerabilidad 6 la ausencia de cifrado en una página web.}
+
 \end{frame}
 
 \begin{frame}{Páginas web de la UGR vulnerables}
+    Numerosas páginas web de la Universidad de Granada solicitan credenciales y no cifran el tráfico (no implementan HTTPS).
+
+    \begin{itemize}
+      \setlength\itemsep{0.1em}
+      \item \url{http://sucre.ugr.es}
+      \item \url{http://calidad.ugr.es}
+      \item \url{http://secretariageneral.ugr.es}
+      \item \url{http://internacional.ugr.es}
+    \end{itemize}
+
+    \uncover<2>{
+    Otras páginas permiten tanto el envío de las credenciales cifradas o no cifradas (permiten tanto HTTP como HTTPS).
+
+    \begin{itemize}
+      \setlength\itemsep{0.1em}
+      \item \url{http://oficinavirtual.ugr.es/ai}
+      \item \url{http://sede.ugr.es/sede/mis-procedimientos/index.html}
+    \end{itemize}
+    }
+
+    \note[item]{Las páginas anteriores disponen de un apartado de login y como
+    solo está disponible el protocolo HTTP en vez del protocolo HTTPS , las
+    credenciales podrían ser interceptadas por un usuario malicioso.
+
+    Como ya hemos comentado, la solución es deshabilitar HTTP y uti-
+    lizar para estas páginas HTTPS como método exclusivo de acceso.}
+
+    \note[item]{
+    Las páginas anteriores se pueden acceder tanto con el protocolo HTTP
+    como con el protocolo HTTPS. De este modo, si se acceden mediante
+    HTTP , presentan la misma vulnerabilidad que el conjunto anterior de
+    páginas web.
+
+    La solución es más sencilla. Basta deshabilitar HTTP y dejar HTTPS
+    como el único método de acceso.
+    Nótese que aunque este listado es más breve contiene una de las
+    páginas más críticas de la UGR, oficinavirtual.ugr.es/ai.}
 \end{frame}
 
 \end{document}
